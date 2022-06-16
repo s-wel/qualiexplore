@@ -13,7 +13,7 @@
  * limitations under the License.
 */
 
- .fa-flag {
+.fa-flag {
     color: red;
     margin-right: 10px;
 }
@@ -43,4 +43,9 @@
 
 .form-check-label {
     cursor: pointer;
+}
+.scrollAble{
+    width: 600px;
+    height: 300px;
+    overflow-y: scroll;
 }

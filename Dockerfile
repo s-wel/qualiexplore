@@ -2,13 +2,15 @@
 
 FROM node:12.8-alpine AS builder
 
-LABEL maintainer="Shantanoo Desai <shantanoo.desai@gmail.com, des@biba.uni-bremen.de>"
+LABEL maintainer="Shantanoo Desai <des@biba.uni-bremen.de>, Robin Kuri <kur@biba.uni-bremen.de>"
 
 WORKDIR /usr/src/app
 COPY . .
 RUN npm install && npm run build
 
+
 # Step 2: Use the build output from 'builder' image
+
 FROM nginx:stable-alpine
 LABEL version="1.0"
 
