@@ -17,21 +17,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Apollo, gql } from 'apollo-angular';
 
-@Injectable()
+@Injectable( {providedIn : 'root'})
 
 export class FactorsService {
-    response: any;
 
-    constructor(private http: HttpClient, private apollo: Apollo) { }
+    constructor(private http: HttpClient,  private apollo: Apollo) { }
 
+    // async getFactors() {
+    //     try {
+    //         const response = await this.http.get('./assets/json/factors.json').toPromise();
+    //         return response;
+    //     } catch (err) {
+    //         return console.log(err);
+    //     }
+    // }
     getFactors() {
-        // try {
-        //     const response = await this.http.get('./assets/json/factors.json').toPromise();
-        //     return response;
-        // } catch (err) {
-        //     return console.log(err);
-        // }
-
         const factorsQuery = gql`
         query {factors{
             checked
@@ -68,5 +68,7 @@ export class FactorsService {
             .watchQuery({
                 query: factorsQuery
             }).valueChanges;
+            
     }
+
 }

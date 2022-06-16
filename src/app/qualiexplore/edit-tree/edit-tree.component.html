@@ -1,0 +1,43 @@
+<div class="container mt-lg-5 mb-lg-5">
+
+            <div class="jumbotron">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="text-center">
+                            QualiExplore Editable Tree
+                        </h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="float-right">
+                            <button class="btn btn-primary" (click)="onBack()">Back</button>
+                            <button class="btn btn-primary ml-3" (click)="onBack()">Save</button>
+                        </div>
+                    </div>
+                </div>  
+           </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="shadow p-3 scroll">
+                    <lib-ngx-tree-component 
+                    [config]="dndconfig"
+                    [treeData]="factorsData"
+                    (ondragstart)="onDragStart($event)"
+                    (ondragenter)="onDragEnter($event)"
+                    (ondragleave)="onDragLeave($event)"
+                    (ondrop)="onDrop($event)"
+                    (onallowdrop)="onAllowDrop($event)"
+                    (onadditem)="onAddItem($event)"
+                    (onStartDeleteItem)="onStartDeleteItem($event)"
+                    (onFinishDeleteItem)="onFinishDeleteItem($event)"
+                    (onCancelDeleteItem)="onCancelDeleteItem($event)"
+                    (onStartRenameItem)="onStartRenameItem($event)"
+                    (onFinishRenameItem)="onFinishRenameItem($event)">
+
+                    </lib-ngx-tree-component>
+                </div>
+            </div>
+        </div>
+   
+</div>

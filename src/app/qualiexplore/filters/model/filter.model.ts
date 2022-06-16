@@ -23,3 +23,11 @@ export interface Filter {
     name: string;
     labels: Label[];
 }
+
+export class fomrObj{
+    id : number;
+    category : string;
+    tasks: [];
+}
+
+

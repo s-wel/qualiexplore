@@ -15,6 +15,7 @@
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { QualiexploreModule } from './qualiexplore/qualiexplore.module';
 import { AuthComponent } from './qualiexplore/auth/auth.component';
 
 

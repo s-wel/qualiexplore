@@ -1,4 +1,5 @@
 /**
+
  * Copyright 2020
  * University of Bremen, Faculty of Production Engineering, Badgasteiner Straße 1, 28359 Bremen, Germany.
  * In collaboration with BIBA - Bremer Institut für Produktion und Logistik GmbH, Bremen, Germany.
@@ -11,31 +12,33 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ * MIT License for npm packages
+ * ngx-tree-dnd : Copyright (c) 2018 Yaroslav Kikot
+ 
+ **/
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthComponent } from './qualiexplore/auth/auth.component';
+import { NgxTreeDndModule } from 'ngx-tree-dnd';
 import { GraphQLModule } from './graphql.module';
-import { HttpClientModule } from '@angular/common/http';
-import { AuthGuard } from './qualiexplore/auth/auth.guard';
-import { AuthService } from './qualiexplore/auth/auth.service';
+
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent 
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    NgxTreeDndModule,
     GraphQLModule,
-    HttpClientModule
+    AppRoutingModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-
 export class AppModule { }

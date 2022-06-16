@@ -10,12 +10,14 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. -->
+ * limitations under the License.
+ * MIT License for npm packages
+ * ngx-tree-dnd : Copyright (c) 2018 Yaroslav Kikot -->
+ 
+   <app-header></app-header>
 
-<app-header></app-header>
-
-<div class="container mt-5">
-    <!-- <h2><span>QualiExplore</span></h2> -->
+   <div class="container mt-5">
+    <h2><span>QualiExplore</span></h2>
     <div class="mt-lg-auto jumbotron">
         <h3 class="display-5"><span>Step - 1</span></h3>
         <p class="lead">
@@ -27,17 +29,100 @@
         <!-- <p>It highlights the most relevant factors with a  <i class="fas fa-flag fa-1x"></i> symbol.</p> -->
     </div>
 
-    <!-- <pre>{{filters | json}}</pre> -->
+    <button class="btn btn-md btn-info float-right" (click)="open(content)">Add More</button>
+  
+
+    <!-- Modal Form To Add New Filters -->
+
+    <ng-template #content let-modal>
+          
+          <div class="modal-header">
+            <h4 class="modal-title" id="popUp">Add Categories</h4>
+            <span class="close" aria-label="Close" (click)="modal.dismiss()">
+              <span aria-hidden="true">&times;</span>
+            </span>
+          </div>
+          <div class="modal-body">
+              <form [formGroup] = "filtersForm" (ngSubmit)="saveData()">
+                  <div class="mb-3">
+                        <input type="text" name="category" class="form-control mb-3" placeholder="Enter the title here" formControlName="category">
+                        <!-- <span *ngIf="!filtersForm.get('category').valid && filtersForm.get('category').touched" class="help-block" >Please enter a valid title!</span> -->
+                  </div>
+                  <div formArrayName="tasks" >
+                          <button class="btn btn-info mb-3" type="button" (click)="onAddtask()">Add your tasks here <i class="fas fa-plus" aria-hidden="true"></i></button>
+                          <div class="form-group"  *ngFor="let task of formArr.controls; let i = index">
+                            <div class="form-row">
+                                <div class="col-md-10">
+                                  <input required type="text" class="form-control required" [formControlName] = "i">
+                                </div>
+                                <div class="col-md-2" *ngIf="i >= 1">
+                                    <i class="fa fa-trash icon-red" aria-hidden="true" (click)="deleteFields(i)"></i>
+                                </div>
+                              </div>
+                          </div>
+                         
+                  </div>
+                  <!-- <button class="btn btn-primary" type="submit">submit</button> -->
+                  <div class="modal-footer">
+                    <!-- <button type="submit" class="btn btn-primary" [disabled]="!filtersForm.valid">Submit</button> -->
+                    <button type="button" class="btn btn-primary" [disabled]="!filtersForm.valid" (click)="postFormData(filtersForm.value)">Add</button>
+                    <button type="button" id="cancel" class="btn btn-primary" (click)="modal.close()">Close</button> 
+                  </div>
+                  
+              </form>
+          </div>
+      </ng-template>
+
+<!-- Modal Form To Edit Filters -->
+    <ng-template #editcontent let-modal>
+          
+        <div class="modal-header">
+          <h4 class="modal-title" id="popUp">Edit your data</h4>
+          <span class="close" aria-label="Close" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+          </span>
+        </div>
+        <div class="modal-body">
+            <form [formGroup] = "editForm">
+                <div class="mb-3">
+                      <input type="text" name="category" class="form-control mb-3" formControlName="category">
+                </div>
+                <button disabled class="btn btn-info mb-3" type="button">Your tasks are here</button>
+                <div formArrayName="tasks">
+                        <div class="form-group">
+                          <div class="row form-row" *ngFor="let task of editArr.controls; let i = index" [formGroupName]="i">
+                              <div class="col-md-11 col-sm-11 mb-3" id="divSelections" >
+                                <input required type="text" class="form-control required" formControlName="taskgroup">
+                              </div>
+                              <div class="col-md-1 col-sm-1" *ngIf="i >= 1">
+                                  <i class="fa fa-trash icon-red mt-2 ml-2" aria-hidden="true" (click)="deleteEditFields(i)"></i>
+                              </div>
+                            </div>
+                        </div>
+                </div>
+               
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" [disabled]="!editForm.valid" (click)="updateData(editForm.value)">Update</button>
+                  <button type="button" id="cancel" class="btn btn-primary" (click)="modal.close()">Close</button> 
+                </div>
+                
+            </form>
+        </div>
+    </ng-template>
+
+  
+    <br>
     <div class="row mt-5">
         <div class="col-lg-4" *ngFor="let filter of filters">
 
             <h4>
-                <i class="fas fa-check" *ngIf="filter.name === 'Quality'"></i>
+                <i class="fas fa-check" *ngIf="filter['name'] === 'Quality'"></i>
                 <i class="fas fa-bullseye" *ngIf="filter['name']==='Goals'"></i>
                 <i class="fas fa-info" *ngIf="filter['name'] === 'Sources'"></i>
                 <!-- <i class="fas fa-exchange-alt" *ngIf="filter['name'] === 'Information channel'"></i> -->
-                {{filter['name']}}
+                {{filter['name']}} 
             </h4>
+           
             <hr>
             <div *ngFor="let label of filter['labels']">
                 <div class="form-check">
@@ -47,14 +132,45 @@
                     </label>
                 </div>
             </div>
+            
+        </div>
+        
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-lg-4 mb-5" *ngFor="let data of allData">
+                <div class="row">
+                    <div class="col-md-9">
+                        <h4>
+                            <i class="fas fa-bullseye"></i>
+                                {{data.category}}
+                        </h4>
+                    </div>
+                    <div class="col-md-3">
+                       <div class="float-right">
+                            <i class="ticon fa fa-edit" (click)="editFormData(data)"></i>
+                            <i class="ticon fa fa-trash ml-3" (click)="deleteData(data)"></i> 
+                       </div>
+                    </div> 
+                </div>
+                <hr>
+                <div *ngFor="let task of data.tasks">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" >
+                            <label class="form-check-label">
+                                 {{task}}
+                            </label>
+                        </div>
+                </div>
+            
         </div>
     </div>
-    <hr>
-    <div class="text-right">
+    
+    <div class="text-right mb-3">
         <button class="btn btn-md btn-outline-secondary float-left" (click)="reset()" [disabled]="!selections.length">
             <span>Reset Filters</span>
         </button>
-        <button class="btn btn-lg btn-primary" (click)="proceed()" [disabled]="!selections.length">
+        <button class="btn btn-md btn-primary" (click)="proceed()" [disabled]="!selections.length">
             <span>Proceed</span>
         </button>
     </div>

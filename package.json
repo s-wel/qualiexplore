@@ -26,6 +26,7 @@
     "@ng-bootstrap/ng-bootstrap": "^5.2.2",
     "apollo-angular": "^2.6.0",
     "graphql": "^15.0.0",
+    "ngx-tree-dnd": "^2.6.0",
     "ngx-treeview": "^6.0.2",
     "rxjs": "~6.6.7",
     "tslib": "^1.10.0",

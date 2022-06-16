@@ -7,6 +7,8 @@
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
+    "strictNullChecks": false,
+    "emitDecoratorMetadata": true,
     "module": "esnext",
     "moduleResolution": "node",
     "importHelpers": true,
@@ -17,9 +19,10 @@
     "lib": [
       "es2018",
       "dom",
-      "esnext.asynciterable"
+      "dom.iterable"
     ],
-    "allowSyntheticDefaultImports": true
+    "noImplicitAny": false,
+    "strictPropertyInitialization": false
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

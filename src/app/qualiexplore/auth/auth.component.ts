@@ -15,7 +15,8 @@ export class AuthComponent implements OnInit {
 
   isValidUserFlag = false
   isLoading = false
-  errorMessage: string = null
+  invalid = false
+  errorMessage: string;
   result: any
   usernameServer: any[] = null
   passwordServer: string = null
@@ -50,19 +51,21 @@ export class AuthComponent implements OnInit {
         console.log(result)
         this.usernameServer = result.data.users[0].users
         this.usernameServer.forEach((user) => {
-          if (user.username == username) {
-            if (user.password == password) {
+          if (user.username == username && user.password == password ) {
               authObs.subscribe(
                 (resData) => {
                   this.router.navigate(['./qualiexplore/filters'])
                   this.isLoading = false
                 },
-                (error) => {},
+                (error) => {  
+                },
               )
-            } else {
-              this.errorMessage = 'Invalid Credentials'
-              this.isLoading = false
-            }
+          }
+          else{
+            this.invalid = true
+            this.isLoading = false
+            this.errorMessage="Invalid Username or Password!"
+            
           }
         })
       },
