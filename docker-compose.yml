@@ -6,7 +6,7 @@ services:
     ports:
       - 80:80
     
-    image: robinkuri/qualiexpolire-with-editing-environment:latest
+    image: robinkuri/i4q-editing-environment:latest
 
   json-server:
     ports:

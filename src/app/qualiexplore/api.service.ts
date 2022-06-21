@@ -12,26 +12,26 @@ export class ApiService {
 
   //JSON-SERVER API for Filters Data
     postData(data: any){
-      return this.http.post("http://localhost:3000/filters", data);
+      return this.http.post("http://i4q-dev.ikap.biba.uni-bremen.de:3000/filters", data);
     }
     getData(){
-        return this.http.get("http://localhost:3000/filters"); 
+        return this.http.get("http://i4q-dev.ikap.biba.uni-bremen.de:3000/filters"); 
     }
     deleteData(data){
-        return this.http.delete("http://localhost:3000/filters/"+data.id);
+        return this.http.delete("http://i4q-dev.ikap.biba.uni-bremen.de:3000/filters/"+data.id);
         
     }
     editData(data:any, id : number){
-      return this.http.put("http://localhost:3000/filters/"+id, data);
+      return this.http.put("http://i4q-dev.ikap.biba.uni-bremen.de:3000/filters/"+id, data);
       
     }
 
   //JSON-SERVER API for editable Factors Data using NgxTreeDnd
     getEditableFactorsData(){
-      return this.http.get("http://localhost:3000/editableFactors"); 
+      return this.http.get("http://i4q-dev.ikap.biba.uni-bremen.de:3000/editableFactors"); 
     }
     postEditableFactorsData(data: any){
-      return this.http.post("http://localhost:3000/factors", data);
+      return this.http.post("http://i4q-dev.ikap.biba.uni-bremen.de:3000/factors", data);
     }
 
 }
