@@ -26,8 +26,7 @@ jobs:
         with:
           # list of Docker images to use as base name for tags
           images: |
-            swel/qualiexplore-i4q
-            ghcr.io/swel/qualiexplore-i4q
+            ${{ secrets.DOCKERHUB_USERNAME }}/qualiexplore-i4q
           # generate Docker tags based on the following events/attributes
           tags: |
             type=schedule
@@ -50,14 +49,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Login to GHCR
-        if: github.event_name != 'pull_request'
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
       -
         name: Build and push
         uses: docker/build-push-action@v3
