@@ -33,6 +33,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NgxTreeDndModule } from 'ngx-tree-dnd';
 import { EditTreeComponent } from './edit-tree/edit-tree.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faEdit,faMinus,faPlus,faTimes } from '@fortawesome/free-solid-svg-icons';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
 
 @NgModule({
   declarations: [FiltersComponent, FactorsComponent, PageNotFoundComponent, EditTreeComponent, AuthComponent, HeaderComponent, LoadingSpinnerComponent],
@@ -45,7 +50,12 @@ import { EditTreeComponent } from './edit-tree/edit-tree.component';
     NgxTreeDndModule,
     TreeviewModule.forRoot(),
     NgbModule, 
+    FontAwesomeModule
   ],
   providers: [AuthService]
 })
-export class QualiexploreModule { }
+export class QualiexploreModule {
+   constructor(){
+      library.add( faEdit,faMinus,faPlus,faTimes, fas, far);
+   }
+ }

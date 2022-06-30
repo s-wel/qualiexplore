@@ -13,15 +13,18 @@
  * limitations under the License.
  */
 
-import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectorRef, NgZone, AfterContentChecked, AfterViewInit} from '@angular/core';
 import { FiltersService } from './filters.service';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
 import { Filter } from './model/filter.model';
+import { newFilter } from './model/filter.model';
 import { FormArray, FormBuilder, FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service'
+import { stringify } from 'querystring';
+
 
 // import { apiService } from '../api.service';
 // import { formDataModel } from './data.model';
@@ -35,52 +38,89 @@ import { AuthService } from '../auth/auth.service'
     providers: [FiltersService]
 })
 
-export class FiltersComponent implements OnInit {
+export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewInit {
     filters: Filter[] = [];
+    newFilters : newFilter[] = [];
     selections: number[] = [];
     //Modal variables
     closeResult: any = '';
     tasks:any = [];
     taskarr=[];
     valid = false;
+    pageLoaded : boolean;
 
     allData : Object;
    
     editableObj: {
       id : number,
       category: string,
-      tasks: []
+      tasks: [{
+        id:number,
+        name:string,
+        checked:false,
+      }]
+    }
+    postObj: {
+      category: string,
+      tasks: [{
+        id:number,
+        name:string,
+        checked:false,
+      }]
     }
    
+
+   
     private selectionsSet: Set<number> = new Set();
-      constructor(private service: FiltersService, private apiService:ApiService, private modalService: NgbModal, private fb: FormBuilder,private router: Router) {
+      constructor(private service: FiltersService, private apiService:ApiService, private modalService: NgbModal, private fb: FormBuilder,private router: Router, private ref: ChangeDetectorRef) {
         this.editableObj = {
           id: null,
           category: null,
-          tasks: null
+          tasks: [{
+            id: null,
+            name: null,
+            checked: null
+          }]
+        };
+        this.postObj = {
+          
+          category: null,
+          tasks: [{
+            id: null,
+            name: null,
+            checked: null
+          }]
         }
     }
-    @ViewChild('content', {static: false}) content: ElementRef;
-    @ViewChild('editcontent', {static: false}) editcontent: ElementRef;
+    @ViewChild('content', {static: true}) content: ElementRef;
+    @ViewChild('editcontent', {static: true}) editcontent: ElementRef;
     
     filtersForm:FormGroup;
     editForm:FormGroup;
     isEdit = false;
-   
+  
 
     ngOnInit() {
         // Get previously selected Filters and Selection Array
+        // this.showNewFilters();
+     
         const previousFilterSelections = sessionStorage.getItem('currentFilters');
+        const previousFilterSelection = sessionStorage.getItem('currentNewFilters');
         const previousSelectionsSet = sessionStorage.getItem('currentSelectionsSet');
-        if (previousFilterSelections !== null && previousSelectionsSet !== null) {
+        if (previousFilterSelection !== null && previousFilterSelections !== null && previousSelectionsSet !== null) {
             // if Previously interacted then use those values
             this.filters = JSON.parse(previousFilterSelections);
+            this.newFilters = JSON.parse(previousFilterSelection);
             this.selections = JSON.parse(previousSelectionsSet);
             this.selectionsSet = new Set<number>(this.selections);
         } else {
             // call the API
             this.showFilters();
+            this.showNewFilters();
         }
+       
+        
+        
         //modal form
         this.filtersForm = new FormGroup({
             'category': new FormControl(null, Validators.required),
@@ -88,8 +128,38 @@ export class FiltersComponent implements OnInit {
             'tasks': this.fb.array([this.fb.control('')])
           })
 
-          this.getAll();
+        this.getAll(); //get all filters data from json-server
         
+    }
+
+    ngAfterContentChecked() {
+
+      this.ref.detectChanges();
+    
+  
+    }
+    ngAfterViewInit(){
+      this.pageLoaded = true;
+     
+    }
+    ngAfterViewChecked(){ 
+        this.ref.detectChanges();
+        
+    }
+
+    isEditFormValid(): boolean {
+      if (this.pageLoaded) {
+        return this.editForm.valid;
+      } else {
+        return false;
+      }
+    }
+    isFiltersFormValid(): boolean {
+      if (this.pageLoaded) {
+        return this.filtersForm.valid;
+      } else {
+        return false;
+      }
     }
     
     /**
@@ -112,6 +182,14 @@ export class FiltersComponent implements OnInit {
       })
     }
 
+    showNewFilters(){
+      this.apiService.getData().subscribe((res: any) => {
+        this.newFilters = res;
+        console.log("newFilters",this.newFilters);
+        
+      })
+    }
+
     /**
      * Add the Selection to a Set if checked/ Remove the Selection from a Set if unchecked
      * @param id number
@@ -121,6 +199,10 @@ export class FiltersComponent implements OnInit {
         (event.target.checked) ? this.selectionsSet.add(id) : this.selectionsSet.delete(id);
         this.selections = Array.from(this.selectionsSet);
     }
+    // changeCheckNew(id: number, event: any) {
+    //     (event.target.checked) ? this.selectionsSet.add(id) : this.selectionsSet.delete(id);
+    //     this.selections = Array.from(this.selectionsSet);
+    // }
 
     /**
      * Proceed to Step-2 : Factors
@@ -129,6 +211,7 @@ export class FiltersComponent implements OnInit {
     proceed() {
         // store the current filters to localStorage
         sessionStorage.setItem('currentFilters', JSON.stringify(this.filters));
+        sessionStorage.setItem('currentNewFilters', JSON.stringify(this.newFilters));
         sessionStorage.setItem('currentSelectionsSet', JSON.stringify(this.selections));
         this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(this.selections) } });
 
@@ -141,6 +224,7 @@ export class FiltersComponent implements OnInit {
         sessionStorage.clear();
         this.selections = [];
         this.selectionsSet.clear();
+        this.showNewFilters();
         this.showFilters();
     }
 
@@ -153,7 +237,7 @@ export class FiltersComponent implements OnInit {
         const values = this.filtersForm.value;
         console.log(values);
         const cats = values.category;
-        const taskArr = values.tasks;
+        const taskArr = values.tasks.name;
         taskArr.forEach(element => {
           this.taskarr.push(element);
         });
@@ -165,9 +249,17 @@ export class FiltersComponent implements OnInit {
         const control = this.fb.control('');
         this.formArr.push(control);
       }
+      onEditAddtask(){
+       
+        this.editArr.push(this.fb.group({
+          taskgroup: new FormControl("")
+        }));
+        
+      }
       get formArr() {
         return this.filtersForm.get('tasks') as FormArray;
       }
+
       get editArr(){
         return this.editForm.get('tasks') as FormArray;
       }
@@ -185,7 +277,30 @@ export class FiltersComponent implements OnInit {
 
       postFormData(dataObj){
         this.valid = true;
-          this.apiService.postData(dataObj).subscribe((res:any)=>{
+        this.postObj.category = dataObj.category;
+        let tasks = dataObj.tasks;
+        // let d= new Date().getTime();
+        const array = [1, 20, 40];
+        // get random index value
+        const randomIndex = Math.floor(Math.random() * array.length);
+        // get random item
+        let item = array[randomIndex];
+
+      
+        let tempArr:any = []
+        for(let i = 0 ; i < dataObj.tasks.length; i++ ){
+          
+          tempArr.push({id:item + i, name:tasks[i], checked:false}); 
+          
+        }
+        
+        this.postObj.category = dataObj.category;
+        this.postObj.tasks = tempArr;
+        console.log(this.postObj);
+        
+        
+
+          this.apiService.postData(this.postObj).subscribe((res:any)=>{
             console.log(res.id); ///take a look here
             this.getAll(); 
             alert(`New Feature Added Successfully!`);
@@ -202,7 +317,7 @@ export class FiltersComponent implements OnInit {
       //get All data from API
       getAll(){
         this.apiService.getData().subscribe((res) => {
-       
+          
             this.allData = res;
         })
       }
@@ -257,12 +372,14 @@ export class FiltersComponent implements OnInit {
           let category = '';
           let tasks = new FormArray([]);
           category = data.category;
+          console.log("tasks:", data.tasks);
+
           
 
           for(let task of data.tasks){
                 tasks.push(
                   new FormGroup({
-                    'taskgroup' : new FormControl(task)
+                    'taskgroup' : new FormControl(task.name)
                   })
                 );
               }
@@ -284,14 +401,27 @@ export class FiltersComponent implements OnInit {
     }
 
     updateData(dataObj){
+
+      console.log(dataObj);
+      
       this.isEdit = !this.isEdit;
       let tasks = dataObj.tasks;
       let id = this.editableObj.id;
+      let taskarr = this.editableObj.tasks;
+      // let d= new Date().getTime();
+      const array = [1, 20, 40];
+      // get random index value
+      const randomIndex = Math.floor(Math.random() * array.length);
+      // get random item
+      let item = array[randomIndex];
+
+
+     
+      
       let tempArr:any = []
       for(let i = 0 ; i < dataObj.tasks.length; i++ ){
         let mydata = tasks[i].taskgroup;
-        // console.log(mydata, id=id+100);
-        tempArr.push(mydata);
+        tempArr.push({id:item + i, name:tasks[i].taskgroup, checked:false}); 
       }
       // console.log(tempArr);
       

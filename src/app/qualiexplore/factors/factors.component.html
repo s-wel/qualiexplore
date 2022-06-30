@@ -60,7 +60,7 @@
             <div class="scrollAble">
                 <div class="form-check" *ngFor="let task of allTasks">
                        <input class="form-check-input" type="checkbox">
-                       <label class="form-check-label">{{task}}</label>
+                       <label class="form-check-label">{{task.name}}</label>
                 </div>
             </div>
 
@@ -86,9 +86,11 @@
         <div id="collapseFilters" [ngbCollapse]="collapseSelectedFilters">
             <ul class="filter-details" *ngFor="let filter of selectedFilterDetails">
                 <li>
-                    <i class="fas fa-check" *ngIf="filter['parent'] === 'Quality'"></i>
+                    <!-- <i class="fas fa-check" *ngIf="filter['parent'] === 'Quality'"></i>
                     <i class="fas fa-bullseye" *ngIf="filter['parent']==='Goals'"></i>
                     <i class="fas fa-info" *ngIf="filter['parent'] === 'Sources'"></i>
+                    {{filter['name']}} -->
+                    <i class="fas fa-check"></i>
                     {{filter['name']}}
                 </li>
             </ul>

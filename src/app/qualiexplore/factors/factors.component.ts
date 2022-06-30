@@ -19,9 +19,10 @@
  import { ApiService } from '../api.service';
  import { TreeviewConfig, TreeviewItem, TreeItem } from 'ngx-treeview';
  import { Filter } from '../filters/model/filter.model';
+ import { newFilter } from '../filters/model/filter.model';
  import { FormArray, FormBuilder, FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
  import { AuthService } from '../auth/auth.service'
- import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
  import { Observable } from 'rxjs'
  
  @Component({
@@ -39,6 +40,7 @@
          decoupleChildFromParent: false,
          maxHeight: 750
      });
+     item : any;
      items: TreeviewItem[];
      value: any;
      valueName = '';
@@ -67,34 +69,55 @@
  
      ngOnInit() {
          this.authService.autoLogin();
+      
          this.route.queryParams.subscribe(params => {
+             console.log(params);
+          
              this.selected = JSON.parse(params.ids);
+             console.log(this.selected);
+             
  
              // Display Logic to show selected filters from Step - 1
              // as opposed to IDs
              this.selected.forEach((id) => {
-                const currentFiltersFromStep1: Filter[] = JSON.parse(
-                  sessionStorage.getItem('currentFilters'),
+                const currentFiltersFromStep1: newFilter[] = JSON.parse(
+                  sessionStorage.getItem('currentNewFilters'),
                 )
                 currentFiltersFromStep1.forEach((filter) => {
-                  filter.labels.forEach((label) => {
+                  filter.tasks.forEach((label) => {
                     if (label.id === id) {
                       this.selectedFilterDetails.push({
                         name: label.name,
-                        parent: filter.name,
+                        parent: filter.category,
                       })
                     }
                   })
                 })
               })
-              let factorsObs: Observable<any>
-              factorsObs = this.service.getFactors()
-              factorsObs.subscribe((data: any) => {
-                console.log("FactorsData:", data.data.factors[0])
-                const data1 = JSON.parse(JSON.stringify(data))
-                this.items = this.parseTree([new TreeviewItem(data1.data.factors[0])])
-                this.countHighlightedFactors(this.items)
-              })
+            //   let factorsObs: Observable<any>;
+            //   factorsObs = this.service.getFactors()
+            //   factorsObs.subscribe((data: any) => {
+            //     console.log("FactorsData:", data.data.factors[0])
+            //     const data1 = JSON.parse(JSON.stringify(data))
+            //     this.items = this.parseTree([new TreeviewItem(data1.data.factors[0])])
+            //     this.countHighlightedFactors(this.items)
+            //   })
+              //////////////////
+              this.apiService.getFactorsData().subscribe((res) => {                
+                    this.item = res[0];
+                    console.log(this.item);
+                    
+                    this.items = this.parseTree([new TreeviewItem(this.item)]);
+                    this.countHighlightedFactors(this.items);
+               });
+
+              //  this.service.getFactors()
+              //  .then((items: any) => {
+              //      console.log(items);
+                
+              //      this.items = this.parseTree([new TreeviewItem(items)]);
+              //      this.countHighlightedFactors(this.items);
+              //  });
          });
 
         //get all the filters from json-server
@@ -106,7 +129,7 @@
                 for(let item of elem.tasks){
                     // console.log(item);
                     
-                    this.allTasks.push(item);
+                    this.allTasks.push(item); //item.name
                 }  
             }
               
@@ -176,28 +199,45 @@
       * Recursion Function to highlight relevant factors based on IDs from Step-1
       * @param factors Response from API. Recursive JSON
       */
+      // parseTree(factors: TreeviewItem[]): TreeviewItem[] {
+      //   factors.forEach((factor: TreeviewItem) => {
+      //     if (factor.value !== null && factor.value.labelIds !== undefined) {
+      //       const labels: number[] = factor.value.labelIds
+      //       labels.forEach((label) => {
+      //         if (this.selected.findIndex((l) => l === label) > -1) {
+      //           factor.value.highlighted = true
+      //           factor.value.class = 'fas fa-flag'
+      //         }
+      //       })
+      //     }
+      //     if (factor.children !== undefined) {
+      //       this.parseTree(factor.children)
+      //     }
+      //   })
+      //   return factors
+      // }
       parseTree(factors: TreeviewItem[]): TreeviewItem[] {
         factors.forEach((factor: TreeviewItem) => {
-          if (factor.value !== null && factor.value.labelIds !== undefined) {
-            const labels: number[] = factor.value.labelIds
-            labels.forEach((label) => {
-              if (this.selected.findIndex((l) => l === label) > -1) {
-                factor.value.highlighted = true
-                factor.value.class = 'fas fa-flag'
-              }
-            })
-          }
-          if (factor.children !== undefined) {
-            this.parseTree(factor.children)
-          }
-        })
-        return factors
-      }
- 
+            if (factor.value !== null && factor.value.label_ids !== undefined) {
+                const labels: number[] = factor.value.label_ids;
+                labels.forEach(label => {
+                    if (this.selected.findIndex(l => l === label) > -1) {
+                        factor.value.highlighted = true;
+                        factor.value.class = 'fas fa-flag';
+                    }
+                });
+            }
+            if (factor.children !== undefined) {
+                this.parseTree(factor.children);
+            }
+        });
+        return factors;
+    }
      
     //Navigate back to Step-1 if new filters needed
     
      backToStep1() {
+        sessionStorage.clear(); // for clear
          this.router.navigate(['qualiexplore/filters']);
      }
 

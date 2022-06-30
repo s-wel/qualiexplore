@@ -1,42 +1,133 @@
 {
   "filters": [
     {
-      "id": 3,
-      "category": "Another Feature",
-      "tasks": [
-        "Lorem ipsum dolor sitssss ametttt",
-        "Lorem ipsum dolor sit ametttt"
-      ]
-    },
-    {
-      "id": 6,
+      "id": 103,
       "category": "Goals",
       "tasks": [
-        "Lorem ipsum dolor sit amet.",
-        "Lorem ipsum dolor sit amet.",
-        "Lorem ipsum dolor sit ame",
-        "Lorem ipsum dolor sit am"
+        {
+          "id": 40,
+          "name": "I want to track other’s products.",
+          "checked": false
+        },
+        {
+          "id": 41,
+          "name": "I want that customers can track my products.",
+          "checked": false
+        },
+        {
+          "id": 42,
+          "name": "I want to negotiate with partners.",
+          "checked": false
+        },
+        {
+          "id": 43,
+          "name": "I want to upload products.",
+          "checked": false
+        },
+        {
+          "id": 44,
+          "name": "I want customers to find my products.",
+          "checked": false
+        },
+        {
+          "id": 45,
+          "name": "I want customers to trust my company.",
+          "checked": false
+        },
+        {
+          "id": 46,
+          "name": "I want to understand cyber-attack risks.",
+          "checked": false
+        }
       ]
     },
     {
-      "id": 7,
-      "category": "lorem ",
+      "id": 105,
+      "category": "Quality",
       "tasks": [
-        "lorem ipsum dolor site amnet",
-        "lorem ipsum dolor site amnet",
-        "lorem ipsum dolor site amnet",
-        "lorem ipsum dolor site amnet",
-        "lorem ipsum dolor site amnet"
+        {
+          "id": 1,
+          "name": "I am concerned my information is erroneous.",
+          "checked": false
+        },
+        {
+          "id": 2,
+          "name": "I am concerned that my information is incomplete.",
+          "checked": false
+        },
+        {
+          "id": 3,
+          "name": "I do not want my information to be contradicting.",
+          "checked": false
+        },
+        {
+          "id": 4,
+          "name": "I am concerned that my information is outdated.",
+          "checked": false
+        },
+        {
+          "id": 5,
+          "name": "My information should be credible.",
+          "checked": false
+        }
       ]
     },
     {
-      "category": "Features",
+      "category": "Sources",
       "tasks": [
-        "I want to track other’s products. ",
-        "I want to track other’s products. ",
-        "I want to track other’s products. "
+        {
+          "id": 20,
+          "name": "I want to connect sensors to the platform.",
+          "checked": false
+        },
+        {
+          "id": 21,
+          "name": "I want to use platform forms.",
+          "checked": false
+        },
+        {
+          "id": 22,
+          "name": "I want to work with maintenance reports.",
+          "checked": false
+        },
+        {
+          "id": 23,
+          "name": "I want to upload files.",
+          "checked": false
+        },
+        {
+          "id": 24,
+          "name": "I want to connect/use a third party tool.",
+          "checked": false
+        }
       ],
-      "id": 12
+      "id": 106
+    },
+    {
+      "id": 107,
+      "category": "Information",
+      "tasks": [
+        {
+          "id": 20,
+          "name": "I want to get more information.",
+          "checked": false
+        },
+        {
+          "id": 21,
+          "name": "I want to use another forms.",
+          "checked": false
+        },
+        {
+          "id": 22,
+          "name": "I want to upload files on cloud.",
+          "checked": false
+        },
+        {
+          "id": 23,
+          "name": "I want to keep my information secret.",
+          "checked": false
+        }
+      ]
     }
   ],
   "editableFactors": [
@@ -757,6 +848,647 @@
                     "description": "Laws and standards can require a minimum retention period. Longer periods increase the traceability."
                   },
                   "childrens": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "factors": [
+    {
+      "text": "Platform information quality",
+      "checked": false,
+      "value": {
+        "description": null
+      },
+      "children": [
+        {
+          "text": "Collection quality",
+          "checked": false,
+          "value": {
+            "description": null
+          },
+          "children": [
+            {
+              "text": "Accuracy",
+              "checked": false,
+              "value": {
+                "description": "The information is without syntactic and semantic problems. The information describes the true value of something."
+              },
+              "children": [
+                {
+                  "text": "Semantic errors",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      3,
+                      4,
+                      5,
+                      21,
+                      42,
+                      43,
+                      1656272507699
+                    ],
+                    "source": [
+                      "https://www.sltinfo.com/the-semantic-problem/"
+                    ],
+                    "description": "The semantic problem is a problem of linguistic processing. It relates to the issue of how spoken utterances are understood and, in particular, how we derive meaning from combinations of speech sounds (words)."
+                  }
+                },
+                {
+                  "text": "Syntactic errors",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      3,
+                      4,
+                      5,
+                      6,
+                      21,
+                      42,
+                      43
+                    ],
+                    "source": [
+                      "https://www.sltinfo.com/the-syntactic-problem/"
+                    ],
+                    "description": "The syntactic problem is a problem of linguistic processing. It concerns the problem of how roles such as subject and object are allocated in sentences and how different meanings are bound together."
+                  }
+                },
+                {
+                  "text": "Typographical errors",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      3,
+                      4,
+                      5,
+                      6,
+                      21,
+                      42,
+                      43
+                    ],
+                    "source": [
+                      "https://www.merriam-webster.com/dictionary/typographical%20error"
+                    ],
+                    "description": "A mistake (such as a misspelled word) in typed or printed text. (Definitionby Merriam Webster dictionary)"
+                  }
+                },
+                {
+                  "text": "Bias",
+                  "checked": false,
+                  "value": {
+                    "description": null
+                  },
+                  "children": [
+                    {
+                      "text": "Sample bias",
+                      "checked": false,
+                      "value": {
+                        "label_ids": [
+                          21
+                        ],
+                        "source": [],
+                        "description": "The sampling process produced a dataset that underrepresents relevant product and/or user groups."
+                      }
+                    },
+                    {
+                      "text": "Selection bias",
+                      "checked": false,
+                      "value": {
+                        "label_ids": [
+                          21
+                        ],
+                        "source": [],
+                        "description": "Selections regarding the sample are biased."
+                      }
+                    }
+                  ]
+                },
+                {
+                  "text": "Measurement instrument information",
+                  "checked": false,
+                  "value": {
+                    "description": null
+                  },
+                  "children": [
+                    {
+                      "text": "Accuracy of sensors",
+                      "checked": false,
+                      "value": {
+                        "label_ids": [
+                          1,
+                          2,
+                          21,
+                          41
+                        ],
+                        "source": [
+                          "https://ieeexplore.ieee.org/document/8016712"
+                        ],
+                        "description": "Quantitative measure of the magnitude of error."
+                      }
+                    },
+                    {
+                      "text": "Placement of sensors",
+                      "checked": false,
+                      "value": {
+                        "label_ids": [
+                          1,
+                          2,
+                          21,
+                          41
+                        ],
+                        "source": [],
+                        "description": "The measurement device must be in place to capture the phenomenon it is intended to capture."
+                      }
+                    }
+                  ]
+                },
+                {
+                  "text": "Providing disinformation",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      3,
+                      6,
+                      7,
+                      21,
+                      43,
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Platform participants or third parties can willingly create false information."
+                  }
+                }
+              ]
+            },
+            {
+              "text": "Consistency",
+              "checked": false,
+              "value": {
+                "description": "To what extent information is free from contradiction and coherent with other information."
+              },
+              "children": [
+                {
+                  "text": "Standard application",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      4,
+                      5,
+                      23,
+                      42
+                    ],
+                    "source": [],
+                    "description": "Catalog standards, such as eClass, define how to describe a product. Users that apply it contribute to a coherent view on the products in the platform."
+                  }
+                }
+              ]
+            },
+            {
+              "text": "Completeness",
+              "checked": false,
+              "value": {
+                "description": "The information describes a population of events, products or persons."
+              },
+              "children": [
+                {
+                  "text": "Measurement frequency",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      22,
+                      41
+                    ],
+                    "source": [],
+                    "description": "Measurement frequency (periodic sensing) affects completeness of the dataset, but it is some times needed to cope with power consumption constraints."
+                  }
+                },
+                {
+                  "text": "Technical issue",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      22,
+                      41
+                    ],
+                    "source": [],
+                    "description": "Technical issue in data creation for inctance a server change can lead to missing data."
+                  }
+                },
+                {
+                  "text": "Software bug",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      22,
+                      41,
+                      45
+                    ],
+                    "source": [],
+                    "description": "A software bug, such as a faulty condition, can overlook specific situations that it should recognize automatically."
+                  }
+                },
+                {
+                  "text": "Standard application",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      4,
+                      5,
+                      22,
+                      41,
+                      42
+                    ],
+                    "source": [],
+                    "description": "Standards, such as eClass, UBL and EPCIS, define which information should be provided to represent events, products, and processes. They help users, for instance, to describe their products with acknowledged properties and contribute to the descriptions completeness."
+                  }
+                },
+                {
+                  "text": "Metadata",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      6,
+                      7,
+                      22,
+                      41,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Some data needs metadata to be considered complete. Critical business information might need more metadata in comparison with less critical information."
+                  }
+                }
+              ]
+            },
+            {
+              "text": "Currentness",
+              "checked": false,
+              "value": {
+                "description": "The information has the right age for a specific context of use."
+              },
+              "children": [
+                {
+                  "text": "Reporting lags",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      24,
+                      43
+                    ],
+                    "source": [],
+                    "description": "The lag between observing an event and reporting it."
+                  }
+                }
+              ]
+            },
+            {
+              "text": "Understandability",
+              "checked": false,
+              "value": {
+                "description": null
+              },
+              "children": [
+                {
+                  "text": "Language",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      3,
+                      5,
+                      42,
+                      43,
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Information in other languages than the target group's language might be unusable."
+                  }
+                },
+                {
+                  "text": "Presence of acronyms",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      3,
+                      5,
+                      42,
+                      43,
+                      44
+                    ],
+                    "source": [],
+                    "description": "Users may not know the meaning of acronyms and jargon."
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "Organization quality",
+          "checked": false,
+          "value": {
+            "description": null
+          },
+          "children": [
+            {
+              "text": "Efficiency",
+              "checked": false,
+              "value": {
+                "description": "The information does not contain meaningless data."
+              },
+              "children": [
+                {
+                  "text": "Data format",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      41,
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Formats need to respect business software, such as Office tools and specialized software (e.g. ERP and PIM)."
+                  }
+                },
+                {
+                  "text": "Data reduction",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      41
+                    ],
+                    "source": [],
+                    "description": "It is important to use an efficient data reduction method in preprocessing to reduce both data storage space and calculation time."
+                  }
+                }
+              ]
+            },
+            {
+              "text": "Portability",
+              "checked": false,
+              "value": {
+                "description": null
+              },
+              "children": [
+                {
+                  "text": "Standard application",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Standards, such as eClass and UBL, use acknowledged properties to describe entities. They make it easier for users to import/export products in/from third party software."
+                  }
+                }
+              ]
+            },
+            {
+              "text": "Compliance",
+              "checked": false,
+              "value": {
+                "description": null
+              },
+              "children": [
+                {
+                  "text": "Standard application",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      25,
+                      44
+                    ],
+                    "source": [],
+                    "description": "Visual indication which standards a product description meets can improve compliance."
+                  }
+                }
+              ]
+            },
+            {
+              "text": "Recoverability",
+              "checked": false,
+              "value": {
+                "description": "How well the data contributes to maintenance and preservation of platform operations and quality of service."
+              },
+              "children": [
+                {
+                  "text": "Backup procedures",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      25
+                    ],
+                    "source": [],
+                    "description": "Records are stored in a backup. This ensures that platform operators can recover lost or erroneous data."
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "Presentation quality",
+          "checked": false,
+          "value": {
+            "description": null
+          },
+          "children": [
+            {
+              "text": "Understandability",
+              "checked": false,
+              "value": {
+                "description": null
+              },
+              "children": [
+                {
+                  "text": "Presentation format",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      2,
+                      5,
+                      43,
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "It is recommended to use simple charts and colorful indicatiors in the presentations to represent complex situations."
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "Application quality",
+          "checked": false,
+          "value": {
+            "description": null
+          },
+          "children": [
+            {
+              "text": "Accessibility",
+              "checked": false,
+              "value": {
+                "description": "The information provides an opportunity to be used when needed."
+              },
+              "children": [
+                {
+                  "text": "Commercial factors",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1
+                    ],
+                    "source": [],
+                    "description": "Commercial factors can prevent companies from getting access to the data."
+                  }
+                },
+                {
+                  "text": "Cultural factors",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1
+                    ],
+                    "source": [],
+                    "description": "Cultural factors can prevent companies from getting access to to data."
+                  }
+                },
+                {
+                  "text": "Political factors",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1
+                    ],
+                    "source": [],
+                    "description": "Political factors can prevent companies from getting access to to data."
+                  }
+                },
+                {
+                  "text": "Access permission",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      43,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Information retrieval from business information systems requires the permission access the available information."
+                  }
+                },
+                {
+                  "text": "Willingness to share information",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1
+                    ],
+                    "source": [],
+                    "description": "Platform users must see value in sharing the information they own."
+                  }
+                },
+                {
+                  "text": "Right format for use",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      43,
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "The information needs to be provided in the right format for off-platform processes."
+                  }
+                }
+              ]
+            },
+            {
+              "text": "Credibility",
+              "checked": false,
+              "value": {
+                "description": "How true and believable the information is. Believability is a surrogate characteristic taking a bundle of quality characteristics into account.."
+              },
+              "children": [
+                {
+                  "text": "Original records",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      4,
+                      25,
+                      45
+                    ],
+                    "source": [],
+                    "description": "The accessibility of original records helps to understand changes."
+                  }
+                }
+              ]
+            },
+            {
+              "text": "Traceability",
+              "checked": false,
+              "value": {
+                "description": "How well users can understand data changes and access of data."
+              },
+              "children": [
+                {
+                  "text": "Access logs",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      7,
+                      25
+                    ],
+                    "source": [],
+                    "description": "Data logs track users and services that access data on the platform."
+                  }
+                },
+                {
+                  "text": "Change logs",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      7,
+                      25
+                    ],
+                    "source": [],
+                    "description": "Data logs track data changes caused by users and the platform instance's services."
+                  }
+                },
+                {
+                  "text": "Retention period",
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      7,
+                      25,
+                      43,
+                      44
+                    ],
+                    "source": [],
+                    "description": "Laws and standards can require a minimum retention period. Longer periods increase the traceability."
+                  }
                 }
               ]
             }

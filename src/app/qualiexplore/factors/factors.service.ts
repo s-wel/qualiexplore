@@ -23,52 +23,52 @@ export class FactorsService {
 
     constructor(private http: HttpClient,  private apollo: Apollo) { }
 
-    // async getFactors() {
-    //     try {
-    //         const response = await this.http.get('./assets/json/factors.json').toPromise();
-    //         return response;
-    //     } catch (err) {
-    //         return console.log(err);
-    //     }
-    // }
-    getFactors() {
-        const factorsQuery = gql`
-        query {factors{
-            checked
-            children {
-              checked
-              text
-              value {
-                description
-              }
-              children {
-                checked
-                text
-                value {
-                  description
-                }
-                children {
-                  checked
-                  text
-                  value {
-                    labelIds
-                    source
-                    description
-                  }
-                }
-              }
-            }
-            text
-            value {
-              description
-            }
-          }}`;
-
-        return this.apollo
-            .watchQuery({
-                query: factorsQuery
-            }).valueChanges;
-            
+    async getFactors() {
+        try {
+            const response = await this.http.get('./assets/json/factors.json').toPromise();
+            return response;
+        } catch (err) {
+            return console.log(err);
+        }
     }
+    // getFactors() {
+    //     const factorsQuery = gql`
+    //     query {factors{
+    //         checked
+    //         children {
+    //           checked
+    //           text
+    //           value {
+    //             description
+    //           }
+    //           children {
+    //             checked
+    //             text
+    //             value {
+    //               description
+    //             }
+    //             children {
+    //               checked
+    //               text
+    //               value {
+    //                 labelIds
+    //                 source
+    //                 description
+    //               }
+    //             }
+    //           }
+    //         }
+    //         text
+    //         value {
+    //           description
+    //         }
+    //       }}`;
+
+    //     return this.apollo
+    //         .watchQuery({
+    //             query: factorsQuery
+    //         }).valueChanges;
+            
+    // }
 
 }

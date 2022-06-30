@@ -24,6 +24,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgxTreeDndModule } from 'ngx-tree-dnd';
 import { GraphQLModule } from './graphql.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
@@ -37,6 +38,7 @@ import { GraphQLModule } from './graphql.module';
     GraphQLModule,
     AppRoutingModule,
     HttpClientModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
