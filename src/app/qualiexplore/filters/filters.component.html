@@ -29,7 +29,7 @@
       <!-- <p>It highlights the most relevant factors with a  <i class="fas fa-flag fa-1x"></i> symbol.</p> -->
   </div>
 
-  <button class="btn btn-md btn-info float-right" (click)="open(content)">Add More</button>
+  <button class="btn btn-md btn-info float-right"  *ngIf="updateButton" (click)="open(content)">Add More</button>
 
 
   <!-- Modal Form To Add New Filters -->
@@ -99,7 +99,7 @@
                                     <input required type="text" class="form-control required" formControlName = "taskgroup">
                                   </div>
 
-                                  <div class="col-md-1 col-sm-1" *ngIf="i >= 1">
+                                  <div class="col-md-1 col-sm-1">
                                         <i class="fa fa-trash icon-red mt-2 ml-2" aria-hidden="true" (click)="deleteEditFields(i)"></i>
                                   </div>
                             </div>
@@ -152,15 +152,15 @@
                   </div>
                   <div class="col-md-3">
                      <div class="float-right">
-                          <i class="ticon fa fa-edit" (click)="editFormData(data)"></i>
-                          <i class="ticon fa fa-trash ml-3" (click)="deleteData(data)"></i> 
+                          <i class="ticon fa fa-edit"  *ngIf="updateButton" (click)="editFormData(data)"></i>
+                          <i class="ticon fa fa-trash ml-3"  *ngIf="updateButton" (click)="deleteData(data)"></i> 
                      </div>
                   </div> 
               </div>
               <hr>
               <div *ngFor="let task of data.tasks">
                       <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="{{task.id}}" id="{{task.id}}" [(ngModel)]="task.checked" (change)="changeCheck(task.id, $event); task.checked = true;">
+                          <input #checkboxes class="form-check-input" type="checkbox" value="{{task.id}}" id="{{task.id}}" [(ngModel)]="task.checked" (change)="changeCheck(task.id, $event); task.checked = true;">
                           <label class="form-check-label" for="{{task.id}}">
                                {{task.name}}
                           </label>

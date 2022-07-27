@@ -33,6 +33,16 @@ export class ApiService {
     postEditableFactorsData(data: any){
       return this.http.post("http://localhost:3000/factors", data);
     }
+  // JSON-SERVER API to edit the tree
+    getEditData(){
+      return this.http.get("http://localhost:3000/edit"); 
+    }
+    deleteEditData(data){
+      return this.http.delete("http://localhost:3000/edit/"+data);
+    }
+    updateEditData(data: object,  id : number){
+      return this.http.put("http://localhost:3000/edit/"+id, data);
+    }
 
   //JSON-SERVER API for Factors Data using TreeView
   getFactorsData(){
@@ -41,5 +51,9 @@ export class ApiService {
   postFactorsData(data: any){
     return this.http.post("http://localhost:3000/factors", data);
   }
+  updateFactorsData(data: object,  id : number){
+    return this.http.put("http://localhost:3000/factors/"+id, data);
+  }
 
+  
 }

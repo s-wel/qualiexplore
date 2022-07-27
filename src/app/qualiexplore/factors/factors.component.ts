@@ -18,6 +18,7 @@
  import { FactorsService } from './factors.service';
  import { ApiService } from '../api.service';
  import { TreeviewConfig, TreeviewItem, TreeItem } from 'ngx-treeview';
+ import { Location } from '@angular/common';
  import { Filter } from '../filters/model/filter.model';
  import { newFilter } from '../filters/model/filter.model';
  import { FormArray, FormBuilder, FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
@@ -52,10 +53,18 @@
      selectedFilterDetails = [];
      collapseSelectedFilters = true;
 
+     ///
+   
+
      //form
      editForm:FormGroup;
      allData : any;
      allTasks = [];
+
+     ///
+     isAuthenticated = false
+     user: string = null
+     updateButton = false
  
      constructor(
        private service: FactorsService,
@@ -63,18 +72,35 @@
        private router: Router,
        private modalService : NgbModal,
        private apiService : ApiService,
-       private authService: AuthService
+       private authService: AuthService,
+       private location : Location
        ) {
      }
  
      ngOnInit() {
+         
          this.authService.autoLogin();
+         ////
+         this.authService.user.subscribe((user) => {
+            this.isAuthenticated = !!user
+         })
+      
+          const userData = JSON.parse(localStorage.getItem('userData'))
+          this.user = userData?.username
+          if (this.user == 'admin' && this.isAuthenticated) {
+            this.updateButton = true
+          } else {
+            this.updateButton = false
+          }
+
+        /////
+
       
          this.route.queryParams.subscribe(params => {
-             console.log(params);
+            //  console.log(params);
           
              this.selected = JSON.parse(params.ids);
-             console.log(this.selected);
+            //  console.log(this.selected);
              
  
              // Display Logic to show selected filters from Step - 1
@@ -105,8 +131,7 @@
               //////////////////
               this.apiService.getFactorsData().subscribe((res) => {                
                     this.item = res[0];
-                    console.log(this.item);
-                    
+                    // console.log(this.item);
                     this.items = this.parseTree([new TreeviewItem(this.item)]);
                     this.countHighlightedFactors(this.items);
                });
@@ -143,8 +168,12 @@
       */
      select(item: TreeItem) {
          // console.log(item);
-         this.selectedFactor = item;
-         this.proceedButtonDisabled = false;
+
+        this.selectedFactor = item;
+        //  console.log(item);
+        //  console.log(this.selectedFactor.text);
+        //  console.log(this.selectedFactor.checked);
+        this.proceedButtonDisabled = false;
      }
  
      /**
@@ -154,7 +183,8 @@
      markRead(selectedFactor: TreeItem) {
          selectedFactor.checked = true;
          if (selectedFactor.value.highlighted) {
-             if (this.totalResolvedFactors >= this.totalHighlightedFactors) { // If user clicks factors other than Highlighted Factors
+             if (this.totalResolvedFactors >= this.totalHighlightedFactors) { 
+                 // If user clicks factors other than Highlighted Factors
                  // show the progress to be 100%
                  this.totalResolvedFactors = this.totalHighlightedFactors;
              } else {
@@ -184,11 +214,17 @@
       */
      countHighlightedFactors(factors: TreeviewItem[]) {
          factors.forEach(factor => {
+            // if(factor.value === undefined){
+            //     Object.assign(factor, {checked : false}, {value : {label_ids : [1,2,3,4], source:["https://www.sltinfo.com/the-semantic-problem/"], description:"This problem is a problem of linguistic processing. It relates to the issue of how spoken utterances are understood and, in particular, how we derive meaning from combinations of speech sounds"}});
+            //     // console.log(factor)
+            //     // return factor;
+            //  }
              if (factor.value !== null) {
                  if (factor.value.highlighted) {
                      this.totalHighlightedFactors++;
                  }
              }
+            
              if (factor.children !== undefined) {
                  this.countHighlightedFactors(factor.children);
              }
@@ -218,6 +254,30 @@
       // }
       parseTree(factors: TreeviewItem[]): TreeviewItem[] {
         factors.forEach((factor: TreeviewItem) => {
+            // if(factor.value === undefined){
+                
+            //     return factor;
+                
+            // }
+            // //////
+            if(factor.value === undefined){
+
+                const array = [60,70,80,90,21,41];
+                // get random index value
+                const randomIndex = Math.floor(Math.random() * array.length);
+
+                let emp = []
+                let i = 1;
+                while(i<=6){
+                    emp.push(array[randomIndex] + i);
+                    i++;
+                }
+                // console.log("emp arr:", emp);
+                Object.assign(factor, {checked : false}, {value : {label_ids : emp , source:["https://www.sltinfo.com/the-semantic-problem/"], description:"This problem is a problem of linguistic processing. It relates to the issue of how spoken utterances are understood and, in particular, how we derive meaning from combinations of speech sounds"}});
+                console.log(factor)
+                // return factor;
+            }
+             ////
             if (factor.value !== null && factor.value.label_ids !== undefined) {
                 const labels: number[] = factor.value.label_ids;
                 labels.forEach(label => {
@@ -227,6 +287,7 @@
                     }
                 });
             }
+           
             if (factor.children !== undefined) {
                 this.parseTree(factor.children);
             }
@@ -237,7 +298,7 @@
     //Navigate back to Step-1 if new filters needed
     
      backToStep1() {
-        sessionStorage.clear(); // for clear
+         sessionStorage.clear(); // for clear
          this.router.navigate(['qualiexplore/filters']);
      }
 
@@ -261,6 +322,10 @@
                 source = elem;   
             }
         }
+        // if(this.selectedFactor === undefined){
+        //      description = '';
+        //      source = '';
+        // }
 
         this.editForm = new FormGroup({
             'description' : new FormControl(description),
@@ -271,7 +336,9 @@
      //update form Data
      updateData(data){
         console.log(data);
-      
+        ///update logic goes here
+        let ref = document.getElementById('cancel');
+        ref.click();
      }
      
  }

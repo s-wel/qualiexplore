@@ -22,10 +22,27 @@
         <div class="form-check">
             <!-- <input type="checkbox" class="form-check-input" [(ngModel)]="item.checked" (ngModelChange)="onCheckedChange(); select(item);" [disabled]="item.disabled"
                [indeterminate]="item.indeterminate"/> -->
+           
               
             <span class="form-check-label" *ngIf="item.value !== null && item.value['highlighted']">
-                <i class="{{item.value['class']}}" aria-hidden="true" title="Highlighted" [ngClass]="{'marked': item.checked}" (ngModelChange)="onCheckedChange()"></i>
+                <i class="{{item.value['class']}}" aria-hidden="true" title="Highlighted" [ngClass]="{'marked': item.checked && item.children == null}" (ngModelChange)="onCheckedChange()"></i>
             </span>
+
+
+            <!-- [ngClass]="{'marked': item.checked}"  -->
+
+            <!-- <span *ngIf="item.value === undefined " class="form-check-label">
+                <i class="{{item.text}}" aria-hidden="true" title="Highlighted" (ngModelChange)="onCheckedChange()"></i>
+                <span class="form-check-label" *ngIf="(item.value === undefined) || (item.value !== null && item.value['highlighted'])">
+                    <i class="{{item.value ? item.value['class'] : item.text}}" aria-hidden="true" title="Highlighted" [ngClass]="{'marked': item.checked}" (ngModelChange)="onCheckedChange()"></i>
+                </span>
+            </span> -->
+          
+            
+          
+                
+            <!-- /// -->
+            
             <!-- <label class="form-check-label" (click)="item.checked = !item.checked; onCheckedChange(); select(item);">
           {{item.text}}
         </label> -->
@@ -71,7 +88,7 @@
     </div>
 </ng-template>
 
-  
+
 
 <div class="container mt-lg-5 mb-lg-5">
     <h2>
@@ -101,7 +118,7 @@
     <div class="row mt-5">
         <div class="col-lg-6 col-md-6 col-sm-12">
                 <h3 class="d-inline">Discover all Quality Factors</h3>
-                <button class="btn btn-md btn-info ml-3" (click)="onEditTree()">Edit Tree</button>  
+                <button class="btn btn-md btn-info ml-3" *ngIf = "updateButton" (click)="onEditTree()">Edit Tree</button>  
         </div>
         
         <div class="col-lg-6 col-md-6 col-sm-12">
@@ -151,7 +168,7 @@
                             </ul>
                         </div>
                         <hr>
-                        <button class="btn btn-primary" (click)="open(content)">Edit</button>
+                        <button class="btn btn-primary" *ngIf = "updateButton" (click)="open(content)">Edit</button>
                         <button class="btn btn-md btn-primary float-right" (click)="markRead(selectedFactor); proceedButtonDisabled = !proceedButtonDisabled" [disabled]="proceedButtonDisabled || selectedFactor.checked"><span>Proceed</span></button>
                     </div>
                 </div>
