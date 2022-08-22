@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditTreeService } from './edit-tree.service';
 import { Location } from '@angular/common';
@@ -14,7 +14,7 @@ import { Key } from 'protractor';
   templateUrl: './edit-tree.component.html',
   styleUrls: ['./edit-tree.component.css']
 })
-export class EditTreeComponent implements OnInit {
+export class EditTreeComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
     private router: Router, private service : EditTreeService, private apiService : ApiService, private location: Location,  private authService: AuthService, ) { 
@@ -75,15 +75,58 @@ export class EditTreeComponent implements OnInit {
   };
   ngOnInit() {
       this.authService.autoLogin();
-      
+      // this.rasaBot();
 
-  //get editable Tree factors data from JSON-Server watch db.json file
+      //get editable Tree factors data from JSON-Server watch db.json file
 
       this.apiService.getEditData().subscribe(res => {
         this.factorsData = res;
       })
 
   }
+
+  ngOnDestroy() {
+    
+    // console.log('destroy', this.rasaBot);
+    
+    
+  }
+
+  // rasaBot(){
+    
+  //   let e = document.createElement("script"),
+  //   t = document.head || document.getElementsByTagName("head")[0];
+  //   (e.src =
+  //   "https://cdn.jsdelivr.net/npm/rasa-webchat@1.0.1/lib/index.js"),
+  //   // Replace 1.x.x with the version that you want
+  //   (e.async = !0),
+  //   (e.onload = () => {
+  //     window.WebChat.default(
+  //       {
+  //         initPayload : "/edit_tree",
+  //         customData: { language: "en" },
+  //         socketPath: "/socket.io/",
+  //         socketUrl: "http://localhost:5005",
+  //         title:"EditTree Bot",
+  //         onSocketEvent : {
+  //           'bot_uttered': () => console.log('the bot said something'),
+  //           'connect': () => console.log('connection established'),
+  //           'disconnect': () => console.log('Disconnect'),
+  //         },
+  //         // add other props here
+  //       },
+  //       null
+  //     );
+  //   }),
+    
+  //   t.insertBefore(e, t.firstChild);
+  //   // localStorage.clear();
+
+  //   // localStorage.clear();
+    
+  // }
+
+
 
 
    //////ngxTreeDnd functions
@@ -153,8 +196,16 @@ export class EditTreeComponent implements OnInit {
 
     ///Save and Back 
 
-    onBack(){
-      this.location.back();
+    onBack():void{
+      // this.location.back();
+      let selections = sessionStorage.getItem('currentSelectionsSet');
+      let arrayOfSelections = JSON.parse(selections);
+      // for rasa
+      // this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(arrayOfSelections) } }).then(() => {
+      //   window.location.reload();
+      // });
+      this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(arrayOfSelections) } });
+  
     }
     onSave(){
       
@@ -168,34 +219,6 @@ export class EditTreeComponent implements OnInit {
         console.log(res)   
       )
 
-      // const traverse = (jsonObj) => {
-      //   if (jsonObj !== null && typeof jsonObj == "object") {
-      //     Object.entries(jsonObj).forEach(([key, value]) => {
- 
-      //       if(key === 'name'){
-      //         key = "text";
-      //       }
-      //       if(key === 'childrens'){
-      //         key = "children";
-      //       }
-            
-      //       traverse(key);
-      //     });
-      //   } else {
-            
-      //     console.log(jsonObj);
-        
-      //   }
-      // }
-
-      // traverse(this.factorsData[0]);
-
-      // const obj = this.factorsData[0];
-      // obj['text'] = obj['name']
-      // delete obj['name'] 
-      // this.traverseObject(this.factorsData[0])
-      
-      // console.log(this.factorsData[0]);
 
       const str = JSON.stringify(this.factorsData[0]);
 
@@ -214,16 +237,5 @@ export class EditTreeComponent implements OnInit {
    
     }
 
-    // traverseObject(obj){
-    //   for(let prop in obj){
-    //       if(typeof(obj[prop] == "object")){
-    //           this.traverseObject(obj[prop])
-    //       }else{
-    //          if(prop === "name"){
-    //             prop = "text"
-    //           } 
-    //       } 
-    //   }
-    // }
 
 }

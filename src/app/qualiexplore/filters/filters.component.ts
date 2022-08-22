@@ -29,6 +29,11 @@ import { stringify } from 'querystring';
 // import { apiService } from '../api.service';
 // import { formDataModel } from './data.model';
 
+declare global {
+  interface Window {
+      WebChat:any;
+  }
+}
 
 
 @Component({
@@ -40,7 +45,7 @@ import { stringify } from 'querystring';
 
 export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewInit {
     filters: Filter[] = [];
-    newFilters : newFilter[] = [];
+    newFilters : newFilter[] | any = [];
     selections: number[] = [];
     //Modal variables
     closeResult: any = '';
@@ -109,6 +114,7 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
         // Get previously selected Filters and Selection Array
         // this.showNewFilters();
         this.authService.autoLogin();
+        // this.rasaBot();
 
         this.authService.user.subscribe((user) => {
           this.isAuthenticated = !!user
@@ -136,7 +142,6 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
             this.showFilters();
             this.showNewFilters();
         }
-       
         
         
         //modal form
@@ -152,18 +157,52 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
 
     ngAfterContentChecked() {
 
-      this.ref.detectChanges();
+      // this.ref.detectChanges();
     
   
     }
     ngAfterViewInit(){
-      this.pageLoaded = true;
+      // this.pageLoaded = true;
      
     }
     ngAfterViewChecked(){ 
-        this.ref.detectChanges();
+        // this.ref.detectChanges();
         
     }
+  
+
+    // rasaBot(){
+    //   let e = document.createElement("script"),
+    //   t = document.head || document.getElementsByTagName("head")[0];
+    //   (e.src =
+    //   "https://cdn.jsdelivr.net/npm/rasa-webchat@1.0.1/lib/index.js"),
+    //   // Replace 1.x.x with the version that you want
+    //   (e.async = !0),
+    //   (e.onload = () => {
+    //     window.WebChat.default(
+    //       {
+    //         initPayload : "/filter",
+    //         customData: { language: "en" },
+    //         socketPath: "/socket.io/",
+    //         socketUrl: "http://localhost:5005",
+    //         title:"Filters Bot",
+    //         subtitle:"Chat like a pro..",
+    //         params: {"storage": "session"},
+    //         mainColor: "#138496",
+    //         userBackgroundColor: "#138496",
+    //         userTextColor: "#cde9ce",
+    //         inputTextFieldHint: "Type your message here.."
+           
+    //         // add other props here
+    //       },
+    //       null
+    //     );
+    //   }),
+    //   t.insertBefore(e, t.firstChild);
+    //   // localStorage.clear();
+  
+    //   // localStorage.clear();
+    // }
 
     isEditFormValid(): boolean {
       if (this.pageLoaded) {
@@ -196,6 +235,8 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
       let filtersObs: Observable<any>
       filtersObs = this.service.getQuestions()
       filtersObs.subscribe((data: any) => {
+        console.log(data);
+        
         this.filters = data.data.filters[0].categories
       })
     }
@@ -204,7 +245,6 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
       this.apiService.getData().subscribe((res: any) => {
         this.newFilters = res;
         console.log("newFilters",this.newFilters);
-        
       })
     }
 
@@ -231,6 +271,10 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
         sessionStorage.setItem('currentFilters', JSON.stringify(this.filters));
         sessionStorage.setItem('currentNewFilters', JSON.stringify(this.newFilters));
         sessionStorage.setItem('currentSelectionsSet', JSON.stringify(this.selections));
+        //for rasa
+        // this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(this.selections) } }).then(() => {
+        //   window.location.reload();
+        // });
         this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(this.selections) } });
 
     }
@@ -301,8 +345,8 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
         this.valid = true;
         this.postObj.category = dataObj.category;
         let tasks = dataObj.tasks;
-        // let d= new Date().getTime();
-        const array = [70,80,90,60];
+        let d= new Date().getTime();
+        const array = [40, 70,80,90,60];
         // get random index value
     
         const randomIndex = Math.floor(Math.random() * array.length);
@@ -314,7 +358,7 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
         let tempArr:any = []
         for(let i = 0 ; i < dataObj.tasks.length; i++ ){
          
-             tempArr.push({id:item + i, name:tasks[i], checked:false});
+             tempArr.push({id : d + i, name:tasks[i], checked:false});
           // tempArr.push({id:array[]+ i, name:tasks[i], checked:false}); 
           
         }
@@ -341,6 +385,9 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
         this.apiService.getData().subscribe((res) => {
           
             this.allData = res;
+            // this.newFilters = this.allData;
+            // this.newFilters = res;
+            
         })
       }
       // post form data with unique id
@@ -429,21 +476,21 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
       this.isEdit = !this.isEdit;
       let tasks = dataObj.tasks;
       let id = this.editableObj.id;
+
+      console.log("editableObj :",this.editableObj);
+      
       let taskarr = this.editableObj.tasks;
-      // let d= new Date().getTime();
-      const array = [1, 20, 40];
+      let d= new Date().getTime();
+      const array = [40,70,80,90,60];
       // get random index value
       const randomIndex = Math.floor(Math.random() * array.length);
       // get random item
       let item = array[randomIndex];
-
-
-     
       
       let tempArr:any = []
       for(let i = 0 ; i < dataObj.tasks.length; i++ ){
         let mydata = tasks[i].taskgroup;
-        tempArr.push({id:item + i, name:tasks[i].taskgroup, checked:false}); 
+        tempArr.push({id : d + i, name:tasks[i].taskgroup, checked:false}); 
       }
       // console.log(tempArr);
       

@@ -2,40 +2,35 @@
   "filters": [
     {
       "id": 103,
-      "category": "Goals",
+      "category": "Goal",
       "tasks": [
         {
-          "id": 40,
-          "name": "I want to track other’s products.",
-          "checked": false
-        },
-        {
-          "id": 41,
+          "id": 21,
           "name": "I want that customers can track my products.",
           "checked": false
         },
         {
-          "id": 42,
+          "id": 22,
           "name": "I want to negotiate with partners.",
           "checked": false
         },
         {
-          "id": 43,
+          "id": 23,
           "name": "I want to upload products.",
           "checked": false
         },
         {
-          "id": 44,
+          "id": 24,
           "name": "I want customers to find my products.",
           "checked": false
         },
         {
-          "id": 45,
+          "id": 25,
           "name": "I want customers to trust my company.",
           "checked": false
         },
         {
-          "id": 46,
+          "id": 26,
           "name": "I want to understand cyber-attack risks.",
           "checked": false
         }
@@ -46,28 +41,28 @@
       "category": "Quality",
       "tasks": [
         {
-          "id": 1,
+          "id": 41,
           "name": "I am concerned my information is erroneous.",
           "checked": false
         },
         {
-          "id": 2,
+          "id": 42,
           "name": "I am concerned that my information is incomplete.",
           "checked": false
         },
         {
-          "id": 3,
+          "id": 43,
           "name": "I do not want my information to be contradicting.",
           "checked": false
         },
         {
-          "id": 4,
+          "id": 44,
           "name": "I am concerned that my information is outdated.",
           "checked": false
         },
         {
-          "id": 5,
-          "name": "My information should be credible.",
+          "id": 45,
+          "name": "My information should be credible.ss",
           "checked": false
         }
       ]
@@ -104,30 +99,30 @@
       "id": 106
     },
     {
-      "id": 107,
       "category": "Information",
       "tasks": [
         {
-          "id": 11,
-          "name": "I want to use another forms.",
+          "id": 1660292569197,
+          "name": "Lorem ipsum dollar site amnet",
           "checked": false
         },
         {
-          "id": 12,
-          "name": "I want to upload files on cloud.",
+          "id": 1660292569198,
+          "name": "Lorem ipsum dollar site amnet",
           "checked": false
         },
         {
-          "id": 13,
-          "name": "I want to keep my information secret.",
+          "id": 1660292569199,
+          "name": "Lorem ipsum dollar site amnet",
           "checked": false
         },
         {
-          "id": 14,
-          "name": "I want to keep my information locked.",
+          "id": 1660292569200,
+          "name": "Lorem ipsum dollar site amnet",
           "checked": false
         }
-      ]
+      ],
+      "id": 107
     }
   ],
   "editableFactors": [
@@ -1040,9 +1035,14 @@
                       "checked": false,
                       "value": {
                         "label_ids": [
-                          21
+                          1660297065712,
+                          1660297065713,
+                          1660292569197,
+                          1660292569198
                         ],
-                        "source": [],
+                        "source": [
+                          ""
+                        ],
                         "description": "Selections regarding the sample are biased."
                       },
                       "children": [],
@@ -1064,13 +1064,33 @@
                       }
                     },
                     {
-                      "id": 202221658841128580,
-                      "text": "another bias",
+                      "id": 202231660092510200,
+                      "text": "hello biased",
                       "options": {
                         "href": "#",
                         "hidden": false,
                         "hideChildrens": false,
                         "position": 3,
+                        "draggable": true,
+                        "edit": false,
+                        "showActionButtons": true,
+                        "currentlyDragging": false,
+                        "destenationTop": false,
+                        "destenationBottom": false,
+                        "disabled": false,
+                        "showExpandButton": true,
+                        "showDeleteButton": true
+                      },
+                      "children": []
+                    },
+                    {
+                      "id": 202241660838814340,
+                      "text": "another bias",
+                      "options": {
+                        "href": "#",
+                        "hidden": false,
+                        "hideChildrens": false,
+                        "position": 4,
                         "draggable": true,
                         "edit": false,
                         "showActionButtons": true,
@@ -1230,7 +1250,7 @@
                 },
                 {
                   "id": 202211658737715500,
-                  "text": "Another error",
+                  "text": "Another errors",
                   "options": {
                     "href": "#",
                     "hidden": false,
@@ -2679,13 +2699,33 @@
                       }
                     },
                     {
-                      "id": 202221658841128580,
-                      "name": "another bias",
+                      "id": 202231660092510200,
+                      "name": "hello biased",
                       "options": {
                         "href": "#",
                         "hidden": false,
                         "hideChildrens": false,
                         "position": 3,
+                        "draggable": true,
+                        "edit": false,
+                        "showActionButtons": true,
+                        "currentlyDragging": false,
+                        "destenationTop": false,
+                        "destenationBottom": false,
+                        "disabled": false,
+                        "showExpandButton": true,
+                        "showDeleteButton": true
+                      },
+                      "childrens": []
+                    },
+                    {
+                      "id": 202241660838814340,
+                      "name": "another bias",
+                      "options": {
+                        "href": "#",
+                        "hidden": false,
+                        "hideChildrens": false,
+                        "position": 4,
                         "draggable": true,
                         "edit": false,
                         "showActionButtons": true,
@@ -2845,7 +2885,7 @@
                 },
                 {
                   "id": 202211658737715500,
-                  "name": "Another error",
+                  "name": "Another errors",
                   "options": {
                     "href": "#",
                     "hidden": false,

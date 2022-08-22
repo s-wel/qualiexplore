@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { Apollo, gql } from 'apollo-angular'
-import { BehaviorSubject, Subject } from 'rxjs'
+import { BehaviorSubject, onErrorResumeNext, Subject, throwError } from 'rxjs'
 import { User } from './user.model'
-import { tap } from 'rxjs/operators'
+import { catchError, tap } from 'rxjs/operators'
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -51,7 +51,14 @@ export class AuthService {
           password: password,
         },
       })
-      .pipe(
+      .pipe(catchError(errorRes =>{
+        console.log("there:", errorRes);
+        let errorMessage = "Error Occured"
+        if(!errorRes.error || !errorRes.error.error){
+          return throwError(errorMessage);
+        }
+        return throwError(errorRes);
+      }),
         tap((result: any) => {
           const accessTokenExpiration = new Date(
             new Date().getTime() + 600 * 1000,
@@ -78,7 +85,7 @@ export class AuthService {
       userData.username,
       userData._accessToken,
       new Date(userData._accessTokenExpiration),
-    )
+    ) 
 
     return loadedUser
   }
@@ -105,6 +112,7 @@ export class AuthService {
     this.router.navigate(['./qualiexplore/auth'])
     localStorage.removeItem('userData')
     localStorage.removeItem('token')
+    sessionStorage.clear()  ///added for another session
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer)
     }
@@ -115,4 +123,5 @@ export class AuthService {
       this.logout()
     }, expirationDuration)
   }
+
 }

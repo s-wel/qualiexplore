@@ -43,6 +43,7 @@
      });
      item : any;
      items: TreeviewItem[];
+     factorsData = [];
      value: any;
      valueName = '';
      selectedFactor: TreeItem;
@@ -52,6 +53,8 @@
      proceedButtonDisabled = false;
      selectedFilterDetails = [];
      collapseSelectedFilters = true;
+     selections : number[] = [];
+     private selectionsSet: Set<number> = new Set();
 
      ///
    
@@ -65,7 +68,7 @@
      isAuthenticated = false
      user: string = null
      updateButton = false
- 
+     
      constructor(
        private service: FactorsService,
        private route: ActivatedRoute,
@@ -132,6 +135,7 @@
               this.apiService.getFactorsData().subscribe((res) => {                
                     this.item = res[0];
                     // console.log(this.item);
+                    
                     this.items = this.parseTree([new TreeviewItem(this.item)]);
                     this.countHighlightedFactors(this.items);
                });
@@ -161,6 +165,15 @@
             
          })
      }
+
+     ///
+
+     changeCheck(id: number, event: any) {
+        (event.target.checked) ? this.selectionsSet.add(id) : this.selectionsSet.delete(id);
+        this.selections = Array.from(this.selectionsSet);
+    }
+
+     ///
  
      /**
       * Selected Factor information
@@ -169,11 +182,15 @@
      select(item: TreeItem) {
          // console.log(item);
 
-        this.selectedFactor = item;
-        //  console.log(item);
-        //  console.log(this.selectedFactor.text);
-        //  console.log(this.selectedFactor.checked);
-        this.proceedButtonDisabled = false;
+         this.selectedFactor = item
+         if(this.selectedFactor.value.highlighted == undefined){
+            this.proceedButtonDisabled = true
+         }else{
+            this.proceedButtonDisabled = false
+         }
+         
+        
+         //console.log("select :",this.selectedFactor.value.highlighted);
      }
  
      /**
@@ -262,18 +279,16 @@
             // //////
             if(factor.value === undefined){
 
-                const array = [60,70,80,90,21,41];
-                // get random index value
-                const randomIndex = Math.floor(Math.random() * array.length);
-
+                
+                var d = new Date().getTime();
                 let emp = []
                 let i = 1;
                 while(i<=6){
-                    emp.push(array[randomIndex] + i);
+                    emp.push(d + i);
                     i++;
                 }
                 // console.log("emp arr:", emp);
-                Object.assign(factor, {checked : false}, {value : {label_ids : emp , source:["https://www.sltinfo.com/the-semantic-problem/"], description:"This problem is a problem of linguistic processing. It relates to the issue of how spoken utterances are understood and, in particular, how we derive meaning from combinations of speech sounds"}});
+                Object.assign(factor, {checked : false}, {value : {label_ids : emp , source:["Please update the source"], description:" Please update the description"}});
                 console.log(factor)
                 // return factor;
             }
@@ -294,11 +309,17 @@
         });
         return factors;
     }
+
+    
+
      
     //Navigate back to Step-1 if new filters needed
     
      backToStep1() {
-         sessionStorage.clear(); // for clear
+        if(this.updateButton){
+            sessionStorage.clear()
+        }
+         //sessionStorage.clear(); // for clear
          this.router.navigate(['qualiexplore/filters']);
      }
 
@@ -333,9 +354,46 @@
         });  
           
      }
+     ////
+
+     //update factors
+    parseFactors(factors) {
+        factors.forEach((factor) => {
+            
+            
+
+            if(factor.text == this.selectedFactor.text){
+
+        
+                Object.assign(factor, {checked : false}, {value : {label_ids : this.selections , source:[this.editForm.value.source], description:this.editForm.value.description}});
+                // console.log(factor)
+                // return factor;
+            }
+        
+           
+            if (factor.children !== undefined) {
+                this.parseFactors(factor.children);
+            }
+        });
+        return factors;
+    }
+
      //update form Data
      updateData(data){
-        console.log(data);
+        console.log("form data :", data);
+        // console.log(this.selectedFactor);
+        this.factorsData = this.parseFactors([this.item]);
+        // let updatedData = this.factorsData[0]
+        // // this.selectedFactor.value.label_ids = this.selections;
+        // // console.log(this.selectedFactor.text);
+
+        this.apiService.updateFactorsData(this.factorsData[0], this.factorsData[0].id).subscribe((res) => {
+            console.log(res);            
+        })
+        
+        // console.log(this.selectedFactor.value.label_ids);
+        // console.log(this.selections);
+        
         ///update logic goes here
         let ref = document.getElementById('cancel');
         ref.click();
