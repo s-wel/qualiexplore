@@ -169,8 +169,38 @@
      ///
 
      changeCheck(id: number, event: any) {
+        //array to int conversion of selectedFactor
+        // let num = +this.selectedFactor.value.label_ids.join("");
+        console.log(this.selectedFactor.value.label_ids);
+        // console.log(num);
+        if(this.selectedFactor.value.label_ids.length != 0){
+            for(let i in this.selectedFactor.value.label_ids){
+                let num = this.selectedFactor.value.label_ids[i]; 
+                this.selectionsSet.add(num);
+            } 
+        }
+       
+        // this.selectionsSet.add(num);
+        console.log('Event:',typeof(event.target.id));
+        
         (event.target.checked) ? this.selectionsSet.add(id) : this.selectionsSet.delete(id);
+
+        if(event.target.checked != true){
+            for(let i in this.selectedFactor.value.label_ids){
+                let numb = this.selectedFactor.value.label_ids[i]; 
+                if(numb === +event.target.id){
+                    this.selectedFactor.value.label_ids.splice(i,1);
+                    this.selectionsSet.delete(numb);
+                }
+            }
+            
+        }
+
+    
         this.selections = Array.from(this.selectionsSet);
+        console.log("Selections:",this.selections);
+        console.log("SelectedFactor:",this.selectedFactor.value.label_ids);
+        
     }
 
      ///
@@ -183,6 +213,8 @@
          // console.log(item);
 
          this.selectedFactor = item
+
+         console.log('Selected Factor:',this.selectedFactor);
          if(this.selectedFactor.value.highlighted == undefined){
             this.proceedButtonDisabled = true
          }else{
@@ -390,11 +422,12 @@
         this.apiService.updateFactorsData(this.factorsData[0], this.factorsData[0].id).subscribe((res) => {
             console.log(res);            
         })
-        
+        window.location.reload();
         // console.log(this.selectedFactor.value.label_ids);
         // console.log(this.selections);
         
         ///update logic goes here
+        alert('Data Updated Successfully');
         let ref = document.getElementById('cancel');
         ref.click();
      }

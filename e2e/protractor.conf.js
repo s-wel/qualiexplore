@@ -16,7 +16,7 @@ exports.config = {
     'browserName': 'chrome'
   },
   directConnect: true,
-  baseUrl: 'http://localhost:80/',
+  baseUrl: 'http://i4q-dev.ikap.biba.uni-bremen.de:80/',
   framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,

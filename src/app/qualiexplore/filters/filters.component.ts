@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { Component, ElementRef, OnInit, ViewChild, ChangeDetectorRef, NgZone, AfterContentChecked, AfterViewInit, ViewChildren, QueryList} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectorRef, NgZone, AfterContentChecked, AfterViewInit, ViewChildren, QueryList, OnDestroy} from '@angular/core';
 import { FiltersService } from './filters.service';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
@@ -43,7 +43,7 @@ declare global {
     providers: [FiltersService]
 })
 
-export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewInit {
+export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewInit, OnDestroy {
     filters: Filter[] = [];
     newFilters : newFilter[] | any = [];
     selections: number[] = [];
@@ -114,7 +114,7 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
         // Get previously selected Filters and Selection Array
         // this.showNewFilters();
         this.authService.autoLogin();
-        // this.rasaBot();
+        this.rasaBot();
 
         this.authService.user.subscribe((user) => {
           this.isAuthenticated = !!user
@@ -169,40 +169,42 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
         // this.ref.detectChanges();
         
     }
+    ngOnDestroy(){
+      // sessionStorage.clear();
+    }
   
 
-    // rasaBot(){
-    //   let e = document.createElement("script"),
-    //   t = document.head || document.getElementsByTagName("head")[0];
-    //   (e.src =
-    //   "https://cdn.jsdelivr.net/npm/rasa-webchat@1.0.1/lib/index.js"),
-    //   // Replace 1.x.x with the version that you want
-    //   (e.async = !0),
-    //   (e.onload = () => {
-    //     window.WebChat.default(
-    //       {
-    //         initPayload : "/filter",
-    //         customData: { language: "en" },
-    //         socketPath: "/socket.io/",
-    //         socketUrl: "http://localhost:5005",
-    //         title:"Filters Bot",
-    //         subtitle:"Chat like a pro..",
-    //         params: {"storage": "session"},
-    //         mainColor: "#138496",
-    //         userBackgroundColor: "#138496",
-    //         userTextColor: "#cde9ce",
-    //         inputTextFieldHint: "Type your message here.."
+    rasaBot(){
+      let e = document.createElement("script"),
+      t = document.head || document.getElementsByTagName("head")[0];
+      (e.src =
+      "https://cdn.jsdelivr.net/npm/rasa-webchat@1.0.1/lib/index.js"),
+      // Replace 1.x.x with the version that you want
+
+      (e.async = !0),
+      (e.onload = () => {
+        window.WebChat.default(
+          {
+            initPayload : "/filters",
+            customData: { language: "en" },
+            socketPath: "/socket.io/",
+            socketUrl: "http://i4q-dev.ikap.biba.uni-bremen.de:5005",
+            title:"Filters Bot",
+            subtitle:"Chat like a pro..",
+            params: {"storage": "session"},
+            mainColor: "#138496",
+            userBackgroundColor: "#138496",
+            userTextColor: "#cde9ce",
+            inputTextFieldHint: "Type your message here.."
            
-    //         // add other props here
-    //       },
-    //       null
-    //     );
-    //   }),
-    //   t.insertBefore(e, t.firstChild);
-    //   // localStorage.clear();
-  
-    //   // localStorage.clear();
-    // }
+            // add other props here
+          },
+          null
+        );
+      }),
+      t.insertBefore(e, t.firstChild);
+      localStorage.clear();
+    }
 
     isEditFormValid(): boolean {
       if (this.pageLoaded) {
@@ -272,10 +274,10 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
         sessionStorage.setItem('currentNewFilters', JSON.stringify(this.newFilters));
         sessionStorage.setItem('currentSelectionsSet', JSON.stringify(this.selections));
         //for rasa
-        // this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(this.selections) } }).then(() => {
-        //   window.location.reload();
-        // });
-        this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(this.selections) } });
+        this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(this.selections) } }).then(() => {
+          window.location.reload();
+        });
+        //this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(this.selections) } });
 
     }
 
