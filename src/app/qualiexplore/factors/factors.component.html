@@ -22,6 +22,13 @@
         <div class="form-check">
             <!-- <input type="checkbox" class="form-check-input" [(ngModel)]="item.checked" (ngModelChange)="onCheckedChange(); select(item);" [disabled]="item.disabled"
                [indeterminate]="item.indeterminate"/> -->
+
+
+            <!-- working
+            <span class="form-check-label" *ngIf="item.value !== null && item.value['highlighted']">
+                <i class="{{item.value['class']}}" aria-hidden="true" title="Highlighted" [ngClass]="{'marked': item.checked && item.children == null}" (ngModelChange)="onCheckedChange()"></i>
+            </span>
+            -->
            
               
             <span class="form-check-label" *ngIf="item.value !== null && item.value['highlighted']">
@@ -75,19 +82,25 @@
                 </div>
             </form>
             <div class="scrollAble">
+                <!-- <div *ngFor="let number of selectedFactor.value.label_ids"> -->
                 <div *ngFor="let data of allData">
                     <div class="form-check" *ngFor="let task of data.tasks">
                         <!-- <input class="form-check-input" type="checkbox"> -->
-                        <input #checkboxes class="form-check-input" type="checkbox" value="{{task.id}}" id="{{task.id}}" [(ngModel)]="task.checked" (change)="changeCheck(task.id, $event); task.checked = true;">
+                        <!-- <input #checkboxes class="form-check-input" type="checkbox" value="{{task.id}}" [checked]="task.id == number" id="{{task.id}}" [(ngModel)]="task.checked" (change)="changeCheck(task.id, $event); task.checked = true;">
+                        <label class="form-check-label">{{task.name}} - {{task.id}}</label> -->
+                        <input #checkboxes class="form-check-input" type="checkbox" value="{{task.id}}" [checked]="selectedFactor.value.label_ids.includes(task.id) == true" id="{{task.id}}" (change)="changeCheck(task.id, $event); task.checked = true;">
                         <label class="form-check-label">{{task.name}}</label>
+                        <!-- <input #checkboxes class="form-check-input" type="checkbox" value="{{task.id}}" [checked]="task.id == number" id="{{task.id}}">
+                        <label class="form-check-label">{{task.name}} - {{task.id}}</label> -->
                     </div>
                 </div>
+                <!-- </div> -->
                
             </div>
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary mr-2" (click)="updateData(editForm.value)">Update</button>
-                <button type="button" id="cancel" class="btn btn-primary" (click)="modal.close()">Close</button>     
+                <button type="button" id="cancel" class="btn btn-primary" (click)="modal.close()">Close</button>  
             </div>
     </div>
 </ng-template>
@@ -113,8 +126,16 @@
                     {{filter['name']}} -->
                     <i class="fas fa-check"></i>
                     {{filter['name']}}
+
                 </li>
             </ul>
+            <!-- <ul class="filter-details" *ngFor="let number of selected">
+                <li>
+                    <i class="fas fa-check"></i>
+                    {{number}}
+
+                </li>
+            </ul> -->
         </div>
         <br>
         <button class="btn btn-sm btn-outline-secondary mt-lg-2" (click)="backToStep1()"><span> Return to Step-1 </span></button>
