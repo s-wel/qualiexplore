@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditTreeService } from './edit-tree.service';
 import { Location } from '@angular/common';
@@ -6,13 +6,15 @@ import { ApiService } from '../api.service';
 import { editableTree } from './model/edit-tree.model';
 import { AuthService } from '../auth/auth.service'
 import { Observable } from 'rxjs'
+import { TYPED_NULL_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Key } from 'protractor';
 
 @Component({
   selector: 'app-edit-tree',
   templateUrl: './edit-tree.component.html',
   styleUrls: ['./edit-tree.component.css']
 })
-export class EditTreeComponent implements OnInit {
+export class EditTreeComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
     private router: Router, private service : EditTreeService, private apiService : ApiService, private location: Location,  private authService: AuthService, ) { 
@@ -23,19 +25,30 @@ export class EditTreeComponent implements OnInit {
         childrens: []
       }
   }
-  // myTree = [
-  //   {
-  //     name: 'Platform Information Quality',
-  //     id: 1,
-  //     childrens: [
-  //       {
-  //         name: 'Errors',
-  //         id: 2,
-  //         childrens: []
-  //       }
-  //     ]
-  //   }
-  // ];
+  myTree = [
+    {
+      name: 'Platform Information Quality',
+      id: 1,
+      childrens: [
+        {
+          name: 'Errors',
+          id: 2,
+          childrens: []
+        },
+        {
+          name: 'trios',
+          id: 3,
+          childrens: [
+            {
+              name: 'Brios',
+              id: 4,
+              childrens:[]
+            }
+         ]
+        },
+      ]
+    }
+  ];
   factorsData: any; //treeData
   selected: number[] = []
   editableTree : {
@@ -62,16 +75,58 @@ export class EditTreeComponent implements OnInit {
   };
   ngOnInit() {
       this.authService.autoLogin();
-      
+      // this.rasaBot();
 
-  //get editable Tree factors data from JSON-Server watch db.json file
+      //get editable Tree factors data from JSON-Server watch db.json file
 
-      this.apiService.getEditableFactorsData().subscribe(res => {
+      this.apiService.getEditData().subscribe(res => {
         this.factorsData = res;
-        
       })
 
   }
+
+  ngOnDestroy() {
+    
+    // console.log('destroy', this.rasaBot);
+    
+    
+  }
+
+  // rasaBot(){
+    
+  //   let e = document.createElement("script"),
+  //   t = document.head || document.getElementsByTagName("head")[0];
+  //   (e.src =
+  //   "https://cdn.jsdelivr.net/npm/rasa-webchat@1.0.1/lib/index.js"),
+  //   // Replace 1.x.x with the version that you want
+  //   (e.async = !0),
+  //   (e.onload = () => {
+  //     window.WebChat.default(
+  //       {
+  //         initPayload : "/edit_tree",
+  //         customData: { language: "en" },
+  //         socketPath: "/socket.io/",
+  //         socketUrl: "http://localhost:5005",
+  //         title:"EditTree Bot",
+  //         onSocketEvent : {
+  //           'bot_uttered': () => console.log('the bot said something'),
+  //           'connect': () => console.log('connection established'),
+  //           'disconnect': () => console.log('Disconnect'),
+  //         },
+  //         // add other props here
+  //       },
+  //       null
+  //     );
+  //   }),
+    
+  //   t.insertBefore(e, t.firstChild);
+  //   // localStorage.clear();
+
+  //   // localStorage.clear();
+    
+  // }
+
+
 
 
    //////ngxTreeDnd functions
@@ -117,47 +172,11 @@ export class EditTreeComponent implements OnInit {
       }
       onFinishRenameItem(event) {
         //////send updated data from here///////
-          console.log('on finish edit item');
-          console.log(event);
-          // for(let elem of this.myTree){
-
-          //    if(elem.name === event.parent.name){
-          //       elem.childrens.push({name:event.element.name, id: event.element.id, childrens:[]});
-          //    }
-          //    if(elem.childrens.length!==0){
-          //      for(let item of elem.childrens){
-          //         console.log(item);
-          //      }
-          //    }
-          
-          // }
-        
-        
-        
-        //  event.parent.childrens.push(event.element);
-          console.log(event.parent.childrens);
-
-        //  for(let item of event.parent.childrens){
-        //       console.log(item);
-          
-        // }
-        // this.editableTree.id = event.element.id;
-    
-          // console.log(event.element.name);
-          // this.editableTree.name = event.element.name;
-          // this.editableTree.id = event.element.id;
+          // console.log('on finish edit item');
+          console.log(this.myTree);
+          // console.log("Event",event);
+          // console.log("new Tree:",this.factorsData);
       
-          
-          // console.log(event);
-
-          // this.apiService.postFactorsData(this.editableTree).subscribe((res) =>{
-          //   console.log(res);
-          // })
-
-          
-          
-        
-          
       }
       onStartDeleteItem(event) {
           console.log('start delete');
@@ -177,20 +196,46 @@ export class EditTreeComponent implements OnInit {
 
     ///Save and Back 
 
-    onBack(){
-      this.location.back();
+    onBack():void{
+      // this.location.back();
+      let selections = sessionStorage.getItem('currentSelectionsSet');
+      let arrayOfSelections = JSON.parse(selections);
+      // for rasa
+      // this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(arrayOfSelections) } }).then(() => {
+      //   window.location.reload();
+      // });
+      this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(arrayOfSelections) } });
+  
     }
     onSave(){
-      //   for(let elem of this.myTree){
-      //       this.apiService.postdummyTree(elem).subscribe((res) =>{
-      //         console.log(res);
-      //     }) 
-      // }
+      
+      // this.apiService.deleteEditData(1).subscribe(res =>{
+      //   console.log(res);
+      // })
+      
+      console.log(this.factorsData[0]);
+      
+      this.apiService.updateEditData(this.factorsData[0], this.factorsData[0].id).subscribe((res) =>
+        console.log(res)   
+      )
 
-      // this.apiService.getdummyTree().subscribe((item:any) => {
-      //     console.log(item);})
-      console.log("Save Data");
-     
+
+      const str = JSON.stringify(this.factorsData[0]);
+
+      const replaceName = str.replace(/name/g, "text" );
+      const replaceChildrens = replaceName.replace(/childrens/g, "children");
+      const factorsObj = JSON.parse(replaceChildrens);
+
+      this.apiService.updateFactorsData(factorsObj, factorsObj.id).subscribe((res) =>
+        console.log(res)   
+      )
+
+      // console.log(factorsObj);
+
+      alert("Data Saved Successfully!!");
+      
+   
     }
+
 
 }

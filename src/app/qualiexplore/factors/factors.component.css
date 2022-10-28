@@ -49,3 +49,6 @@
     height: 300px;
     overflow-y: scroll;
 }
+.close{
+    cursor: pointer;
+}

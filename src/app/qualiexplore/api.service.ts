@@ -12,18 +12,16 @@ export class ApiService {
 
   //JSON-SERVER API for Filters Data
     postData(data: any){
-      return this.http.post("http://localhost:3000/filters", data);
+        return this.http.post("http://localhost:3000/filters", data);
     }
     getData(){
         return this.http.get("http://localhost:3000/filters"); 
     }
     deleteData(data){
-        return this.http.delete("http://localhost:3000/filters/"+data.id);
-        
+        return this.http.delete("http://localhost:3000/filters/"+data.id);   
     }
     editData(data:any, id : number){
-      return this.http.put("http://localhost:3000/filters/"+id, data);
-      
+        return this.http.put("http://localhost:3000/filters/"+id, data);
     }
 
   //JSON-SERVER API for editable Factors Data using NgxTreeDnd
@@ -34,4 +32,27 @@ export class ApiService {
       return this.http.post("http://localhost:3000/factors", data);
     }
 
+  // JSON-SERVER API to edit the tree
+    getEditData(){
+      return this.http.get("http://localhost:3000/edit"); 
+    }
+    deleteEditData(data){
+      return this.http.delete("http://localhost:3000/edit/"+data);
+    }
+    updateEditData(data: object,  id : number){
+      return this.http.put("http://localhost:3000/edit/"+id, data);
+    }
+
+  //JSON-SERVER API for Factors Data using TreeView
+    getFactorsData(){
+      return this.http.get("http://localhost:3000/factors"); 
+    }
+    postFactorsData(data: any){
+      return this.http.post("http://ilocalhost:3000/factors", data);
+    }
+    updateFactorsData(data: object,  id : number){
+      return this.http.put("http://localhost:3000/factors/"+id, data);
+    }
+
+  
 }
