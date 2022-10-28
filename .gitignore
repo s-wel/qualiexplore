@@ -40,7 +40,11 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+.editorconfig
 
 # System Files
 .DS_Store
 Thumbs.db
+
+# Security
+.env
