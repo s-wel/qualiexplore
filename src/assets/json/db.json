@@ -1,0 +1,768 @@
+{
+  "filters": [
+    {
+      "id": 3,
+      "category": "Another Feature",
+      "tasks": [
+        "Lorem ipsum dolor sitssss ametttt",
+        "Lorem ipsum dolor sit ametttt"
+      ]
+    },
+    {
+      "id": 6,
+      "category": "Goals",
+      "tasks": [
+        "Lorem ipsum dolor sit amet.",
+        "Lorem ipsum dolor sit amet.",
+        "Lorem ipsum dolor sit ame",
+        "Lorem ipsum dolor sit am"
+      ]
+    },
+    {
+      "id": 7,
+      "category": "lorem ",
+      "tasks": [
+        "lorem ipsum dolor site amnet",
+        "lorem ipsum dolor site amnet",
+        "lorem ipsum dolor site amnet",
+        "lorem ipsum dolor site amnet",
+        "lorem ipsum dolor site amnet"
+      ]
+    },
+    {
+      "category": "Features",
+      "tasks": [
+        "I want to track other’s products. ",
+        "I want to track other’s products. ",
+        "I want to track other’s products. "
+      ],
+      "id": 12
+    }
+  ],
+  "editableFactors": [
+    {
+      "name": "Platform information quality",
+      "id": 1,
+      "checked": false,
+      "value": {
+        "description": null
+      },
+      "childrens": [
+        {
+          "name": "Collection quality",
+          "id": 2,
+          "checked": false,
+          "value": {
+            "description": null
+          },
+          "childrens": [
+            {
+              "name": "Accuracy",
+              "id": 3,
+              "checked": false,
+              "value": {
+                "description": "The information is without syntactic and semantic problems. The information describes the true value of something."
+              },
+              "childrens": [
+                {
+                  "name": "Semantic errors",
+                  "id": 4,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      3,
+                      4,
+                      5,
+                      21,
+                      42,
+                      43
+                    ],
+                    "source": [
+                      "https://www.sltinfo.com/the-semantic-problem/"
+                    ],
+                    "description": "The semantic problem is a problem of linguistic processing. It relates to the issue of how spoken utterances are understood and, in particular, how we derive meaning from combinations of speech sounds (words)."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Syntactic errors",
+                  "id": 5,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      3,
+                      4,
+                      5,
+                      6,
+                      21,
+                      42,
+                      43
+                    ],
+                    "source": [
+                      "https://www.sltinfo.com/the-syntactic-problem/"
+                    ],
+                    "description": "The syntactic problem is a problem of linguistic processing. It concerns the problem of how roles such as subject and object are allocated in sentences and how different meanings are bound together."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Typographical errors",
+                  "id": 6,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      3,
+                      4,
+                      5,
+                      6,
+                      21,
+                      42,
+                      43
+                    ],
+                    "source": [
+                      "https://www.merriam-webster.com/dictionary/typographical%20error"
+                    ],
+                    "description": "A mistake (such as a misspelled word) in typed or printed text. (Definitionby Merriam Webster dictionary)"
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Bias",
+                  "id": 7,
+                  "checked": false,
+                  "value": {
+                    "description": null
+                  },
+                  "childrens": [
+                    {
+                      "name": "Sample bias",
+                      "id": 8,
+                      "checked": false,
+                      "value": {
+                        "label_ids": [
+                          21
+                        ],
+                        "source": [],
+                        "description": "The sampling process produced a dataset that underrepresents relevant product and/or user groups."
+                      },
+                      "childrens": []
+                    },
+                    {
+                      "name": "Selection bias",
+                      "id": 9,
+                      "checked": false,
+                      "value": {
+                        "label_ids": [
+                          21
+                        ],
+                        "source": [],
+                        "description": "Selections regarding the sample are biased."
+                      },
+                      "childrens": []
+                    }
+                  ]
+                },
+                {
+                  "name": "Measurement instrument information",
+                  "id": 10,
+                  "checked": false,
+                  "value": {
+                    "description": null
+                  },
+                  "childrens": [
+                    {
+                      "name": "Accuracy of sensors",
+                      "id": 11,
+                      "checked": false,
+                      "value": {
+                        "label_ids": [
+                          1,
+                          2,
+                          21,
+                          41
+                        ],
+                        "source": [
+                          "https://ieeexplore.ieee.org/document/8016712"
+                        ],
+                        "description": "Quantitative measure of the magnitude of error."
+                      },
+                      "childrens": []
+                    },
+                    {
+                      "name": "Placement of sensors",
+                      "id": 12,
+                      "checked": false,
+                      "value": {
+                        "label_ids": [
+                          1,
+                          2,
+                          21,
+                          41
+                        ],
+                        "source": [],
+                        "description": "The measurement device must be in place to capture the phenomenon it is intended to capture."
+                      },
+                      "childrens": []
+                    }
+                  ]
+                },
+                {
+                  "name": "Providing disinformation",
+                  "id": 13,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      3,
+                      6,
+                      7,
+                      21,
+                      43,
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Platform participants or third parties can willingly create false information."
+                  },
+                  "childrens": []
+                }
+              ]
+            },
+            {
+              "name": "Consistency",
+              "id": 14,
+              "checked": false,
+              "value": {
+                "description": "To what extent information is free from contradiction and coherent with other information."
+              },
+              "childrens": [
+                {
+                  "name": "Standard application",
+                  "id": 141,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      4,
+                      5,
+                      23,
+                      42
+                    ],
+                    "source": [],
+                    "description": "Catalog standards, such as eClass, define how to describe a product. Users that apply it contribute to a coherent view on the products in the platform."
+                  },
+                  "childrens": []
+                }
+              ]
+            },
+            {
+              "name": "Completeness",
+              "id": 15,
+              "checked": false,
+              "value": {
+                "description": "The information describes a population of events, products or persons."
+              },
+              "childrens": [
+                {
+                  "name": "Measurement frequency",
+                  "id": 16,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      22,
+                      41
+                    ],
+                    "source": [],
+                    "description": "Measurement frequency (periodic sensing) affects completeness of the dataset, but it is some times needed to cope with power consumption constraints."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Technical issue",
+                  "id": 17,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      22,
+                      41
+                    ],
+                    "source": [],
+                    "description": "Technical issue in data creation for inctance a server change can lead to missing data."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Software bug",
+                  "id": 18,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      22,
+                      41,
+                      45
+                    ],
+                    "source": [],
+                    "description": "A software bug, such as a faulty condition, can overlook specific situations that it should recognize automatically."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Standard application",
+                  "id": 19,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      4,
+                      5,
+                      22,
+                      41,
+                      42
+                    ],
+                    "source": [],
+                    "description": "Standards, such as eClass, UBL and EPCIS, define which information should be provided to represent events, products, and processes. They help users, for instance, to describe their products with acknowledged properties and contribute to the descriptions completeness."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Metadata",
+                  "id": 20,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      6,
+                      7,
+                      22,
+                      41,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Some data needs metadata to be considered complete. Critical business information might need more metadata in comparison with less critical information."
+                  },
+                  "childrens": []
+                }
+              ]
+            },
+            {
+              "name": "Currentness",
+              "id": 21,
+              "checked": false,
+              "value": {
+                "description": "The information has the right age for a specific context of use."
+              },
+              "childrens": [
+                {
+                  "name": "Reporting lags",
+                  "id": 22,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      24,
+                      43
+                    ],
+                    "source": [],
+                    "description": "The lag between observing an event and reporting it."
+                  },
+                  "childrens": []
+                }
+              ]
+            },
+            {
+              "name": "Understandability",
+              "id": 23,
+              "checked": false,
+              "value": {
+                "description": null
+              },
+              "childrens": [
+                {
+                  "name": "Language",
+                  "id": 24,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      3,
+                      5,
+                      42,
+                      43,
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Information in other languages than the target group's language might be unusable."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Presence of acronyms",
+                  "id": 25,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      3,
+                      5,
+                      42,
+                      43,
+                      44
+                    ],
+                    "source": [],
+                    "description": "Users may not know the meaning of acronyms and jargon."
+                  },
+                  "childrens": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Organization quality",
+          "id": 26,
+          "checked": false,
+          "value": {
+            "description": null
+          },
+          "childrens": [
+            {
+              "name": "Efficiency",
+              "id": 27,
+              "checked": false,
+              "value": {
+                "description": "The information does not contain meaningless data."
+              },
+              "childrens": [
+                {
+                  "name": "Data format",
+                  "id": 28,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      41,
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Formats need to respect business software, such as Office tools and specialized software (e.g. ERP and PIM)."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Data reduction",
+                  "id": 29,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      41
+                    ],
+                    "source": [],
+                    "description": "It is important to use an efficient data reduction method in preprocessing to reduce both data storage space and calculation time."
+                  },
+                  "childrens": []
+                }
+              ]
+            },
+            {
+              "name": "Portability",
+              "id": 30,
+              "checked": false,
+              "value": {
+                "description": null
+              },
+              "childrens": [
+                {
+                  "name": "Standard application",
+                  "id": 31,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Standards, such as eClass and UBL, use acknowledged properties to describe entities. They make it easier for users to import/export products in/from third party software."
+                  },
+                  "childrens": []
+                }
+              ]
+            },
+            {
+              "name": "Compliance",
+              "id": 32,
+              "checked": false,
+              "value": {
+                "description": null
+              },
+              "childrens": [
+                {
+                  "name": "Standard application",
+                  "id": 33,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      25,
+                      44
+                    ],
+                    "source": [],
+                    "description": "Visual indication which standards a product description meets can improve compliance."
+                  },
+                  "childrens": []
+                }
+              ]
+            },
+            {
+              "name": "Recoverability",
+              "id": 34,
+              "checked": false,
+              "value": {
+                "description": "How well the data contributes to maintenance and preservation of platform operations and quality of service."
+              },
+              "childrens": [
+                {
+                  "name": "Backup procedures",
+                  "id": 35,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      25
+                    ],
+                    "source": [],
+                    "description": "Records are stored in a backup. This ensures that platform operators can recover lost or erroneous data."
+                  },
+                  "childrens": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Presentation quality",
+          "id": 36,
+          "checked": false,
+          "value": {
+            "description": null
+          },
+          "childrens": [
+            {
+              "name": "Understandability",
+              "id": 37,
+              "checked": false,
+              "value": {
+                "description": null
+              },
+              "childrens": [
+                {
+                  "name": "Presentation format",
+                  "id": 38,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      2,
+                      5,
+                      43,
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "It is recommended to use simple charts and colorful indicatiors in the presentations to represent complex situations."
+                  },
+                  "childrens": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Application quality",
+          "id": 39,
+          "checked": false,
+          "value": {
+            "description": null
+          },
+          "childrens": [
+            {
+              "name": "Accessibility",
+              "id": 40,
+              "checked": false,
+              "value": {
+                "description": "The information provides an opportunity to be used when needed."
+              },
+              "childrens": [
+                {
+                  "name": "Commercial factors",
+                  "id": 41,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1
+                    ],
+                    "source": [],
+                    "description": "Commercial factors can prevent companies from getting access to the data."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Cultural factors",
+                  "id": 42,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1
+                    ],
+                    "source": [],
+                    "description": "Cultural factors can prevent companies from getting access to to data."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Political factors",
+                  "id": 43,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1
+                    ],
+                    "source": [],
+                    "description": "Political factors can prevent companies from getting access to to data."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Access permission",
+                  "id": 44,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      43,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Information retrieval from business information systems requires the permission access the available information."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Willingness to share information",
+                  "id": 45,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1
+                    ],
+                    "source": [],
+                    "description": "Platform users must see value in sharing the information they own."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Right format for use",
+                  "id": 46,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      43,
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "The information needs to be provided in the right format for off-platform processes."
+                  },
+                  "childrens": []
+                }
+              ]
+            },
+            {
+              "name": "Credibility",
+              "id": 47,
+              "checked": false,
+              "value": {
+                "description": "How true and believable the information is. Believability is a surrogate characteristic taking a bundle of quality characteristics into account.."
+              },
+              "childrens": [
+                {
+                  "name": "Original records",
+                  "id": 48,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      4,
+                      25,
+                      45
+                    ],
+                    "source": [],
+                    "description": "The accessibility of original records helps to understand changes."
+                  },
+                  "childrens": []
+                }
+              ]
+            },
+            {
+              "name": "Traceability",
+              "id": 49,
+              "checked": false,
+              "value": {
+                "description": "How well users can understand data changes and access of data."
+              },
+              "childrens": [
+                {
+                  "name": "Access logs",
+                  "id": 50,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      7,
+                      25
+                    ],
+                    "source": [],
+                    "description": "Data logs track users and services that access data on the platform."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Change logs",
+                  "id": 51,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      7,
+                      25
+                    ],
+                    "source": [],
+                    "description": "Data logs track data changes caused by users and the platform instance's services."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Retention period",
+                  "id": 52,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      7,
+                      25,
+                      43,
+                      44
+                    ],
+                    "source": [],
+                    "description": "Laws and standards can require a minimum retention period. Longer periods increase the traceability."
+                  },
+                  "childrens": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

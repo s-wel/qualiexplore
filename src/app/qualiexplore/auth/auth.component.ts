@@ -1,24 +1,33 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, OnDestroy , AfterViewInit, ViewChild, AfterContentChecked} from '@angular/core'
 import { NgForm } from '@angular/forms'
 import { Router } from '@angular/router'
-import { Observable } from 'rxjs'
+import { Observable, Subscription } from 'rxjs'
 import { AuthService } from './auth.service'
 import { User } from './user.model'
+
+
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css'],
 })
-export class AuthComponent implements OnInit {
+
+
+export class AuthComponent implements OnInit, OnDestroy, AfterViewInit, AfterContentChecked{
   constructor(private authService: AuthService, private router: Router) {}
+
+  @ViewChild('authForm', {static:true}) authForm:NgForm
 
   isValidUserFlag = false
   isLoading = false
+  invalid = false
   errorMessage: string = null
+  error:string = null
   result: any
   usernameServer: any[] = null
   passwordServer: string = null
+  subscription : Subscription
 
   ngOnInit() {
     const userData: {
@@ -34,10 +43,23 @@ export class AuthComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(){
+      
+      // this.subscription.unsubscribe();
+  }
+  ngAfterContentChecked(){
+    // this.errorMessage = null
+  }
+
+  ngAfterViewInit(){
+    this.errorMessage=null;
+    // console.log("After View!!");
+  }
+
   onSubmit(form: NgForm) {
     this.isLoading = true
-    const username = form.value.username
-    const password = form.value.password
+    let username = form.value.username
+    let password = form.value.password
     let authObs: Observable<any>
     let validUserObs: Observable<any>
 
@@ -45,32 +67,79 @@ export class AuthComponent implements OnInit {
 
     authObs = this.authService.login(username, password)
 
-    validUserObs.subscribe(
+ validUserObs.subscribe(
       (result: any) => {
-        console.log(result)
+        //console.log("valid user :",result)
         this.usernameServer = result.data.users[0].users
-        this.usernameServer.forEach((user) => {
-          if (user.username == username) {
-            if (user.password == password) {
+        // console.log("Users:",this.usernameServer);
+        for( let elem of this.usernameServer){
+          if(elem.username === username){
+            if(elem.password === password){
               authObs.subscribe(
                 (resData) => {
-                  this.router.navigate(['./qualiexplore/filters'])
                   this.isLoading = false
+                  this.router.navigate(['./qualiexplore/filters'])
                 },
-                (error) => {},
+                (error) => {
+                  this.isLoading = false
+                  // this.errorMessage = "Error";
+                  console.log("error", error);
+                },
               )
-            } else {
-              this.errorMessage = 'Invalid Credentials'
+            }
+            else{
+              this.errorMessage = "Invalid Credentials"
               this.isLoading = false
             }
           }
-        })
-      },
-      (error) => {
-        console.log(error)
-      },
-    )
+           
+          else{
+            // this.errorMessage = "invalid"
+            this.isLoading = false
+          }  
+        
+        }
+        
 
+      
+        
+        
+      //   this.usernameServer.forEach((user) => {
+      //     if (user.username == username) {
+      //       if (user.password == password) {
+      //         authObs.subscribe(
+      //           (resData) => {
+      //             // console.log("res :",resData)
+      //             // this.errorMessage = "SuccessFul Login"
+      //             this.isLoading = false
+      //             this.router.navigate(['./qualiexplore/filters'])
+      //           },
+      //           (error) => {
+      //             this.isLoading = false
+      //             this.errorMessage = "Error";
+      //             console.log("error", error);
+      //           },
+      //         )
+      //   } 
+      //   else {
+      //     this.errorMessage ="Invalid Password"
+      //     this.isLoading = false
+      //   }
+      // }
+    //   else{
+    //      this.isLoading = false
+    //      this.errorMessage ="Invalid Username"
+    //   }
+   
+    // })
+  },
+  (error) => {
+    console.log(error)
+    this.isLoading = false;
+  },
+  )
+       
     form.reset()
+  
   }
 }
