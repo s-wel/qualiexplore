@@ -75,7 +75,7 @@ export class EditTreeComponent implements OnInit, OnDestroy {
   };
   ngOnInit() {
       this.authService.autoLogin();
-      // this.rasaBot();
+      this.rasaBot();
 
       //get editable Tree factors data from JSON-Server watch db.json file
 
@@ -92,39 +92,36 @@ export class EditTreeComponent implements OnInit, OnDestroy {
     
   }
 
-  // rasaBot(){
+  rasaBot(){
     
-  //   let e = document.createElement("script"),
-  //   t = document.head || document.getElementsByTagName("head")[0];
-  //   (e.src =
-  //   "https://cdn.jsdelivr.net/npm/rasa-webchat@1.0.1/lib/index.js"),
-  //   // Replace 1.x.x with the version that you want
-  //   (e.async = !0),
-  //   (e.onload = () => {
-  //     window.WebChat.default(
-  //       {
-  //         initPayload : "/edit_tree",
-  //         customData: { language: "en" },
-  //         socketPath: "/socket.io/",
-  //         socketUrl: "http://localhost:5005",
-  //         title:"EditTree Bot",
-  //         onSocketEvent : {
-  //           'bot_uttered': () => console.log('the bot said something'),
-  //           'connect': () => console.log('connection established'),
-  //           'disconnect': () => console.log('Disconnect'),
-  //         },
-  //         // add other props here
-  //       },
-  //       null
-  //     );
-  //   }),
+    let e = document.createElement("script"),
+    t = document.head || document.getElementsByTagName("head")[0];
+    (e.src =
+    "https://cdn.jsdelivr.net/npm/rasa-webchat@1.0.1/lib/index.js"),
+    // Replace 1.x.x with the version that you want
+    (e.async = !0),
+    (e.onload = () => {
+      window.WebChat.default(
+        {
+          initPayload : "/edit_tree",
+          customData: { language: "en" },
+          socketPath: "/socket.io/",
+          socketUrl: "http://localhost:5005",
+          title:"EditTree Bot",
+          onSocketEvent : {
+            'bot_uttered': () => console.log('the bot said something'),
+            'connect': () => console.log('connection established'),
+            'disconnect': () => console.log('Disconnect'),
+          },
+          // add other props here
+        },
+        null
+      );
+    }),
     
-  //   t.insertBefore(e, t.firstChild);
-  //   // localStorage.clear();
-
-  //   // localStorage.clear();
-    
-  // }
+    t.insertBefore(e, t.firstChild);
+    // localStorage.clear();
+  }
 
 
 
@@ -201,9 +198,9 @@ export class EditTreeComponent implements OnInit, OnDestroy {
       let selections = sessionStorage.getItem('currentSelectionsSet');
       let arrayOfSelections = JSON.parse(selections);
       // for rasa
-      // this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(arrayOfSelections) } }).then(() => {
-      //   window.location.reload();
-      // });
+      this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(arrayOfSelections) } }).then(() => {
+        window.location.reload();
+      });
       this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(arrayOfSelections) } });
   
     }
