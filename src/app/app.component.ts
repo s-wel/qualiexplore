@@ -14,8 +14,7 @@
  */
 
 
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from './qualiexplore/auth/auth.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',

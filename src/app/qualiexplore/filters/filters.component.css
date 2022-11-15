@@ -1,0 +1,15 @@
+.icon-red{
+    color:red;
+    cursor: pointer;
+}
+/* input.ng-invalid.ng-touched{
+    border: 1px solid red;
+}  */
+.close{
+    cursor: pointer;
+}
+.ticon{
+    font-size: medium;
+    cursor: pointer;
+    
+}

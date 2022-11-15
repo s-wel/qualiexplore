@@ -10,18 +10,46 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. -->
+ *  limitations under the License.
+ *  MIT License for npm packages
+ *  ngx-tree-dnd : Copyright (c) 2018 Yaroslav Kikot
+-->
 
-<ng-template #itemTemplate let-item="item" let-onCollapseExpand="onCollapseExpand" let-onCheckedChange="onCheckedChange">
+ <ng-template #itemTemplate let-item="item" let-onCollapseExpand="onCollapseExpand" let-onCheckedChange="onCheckedChange">
     <div class="form-inline row-item">
         <i *ngIf="item.children" (click)="onCollapseExpand()" aria-hidden="true" class="fas mr-3" [class.fa-caret-right]="item.collapsed" [class.fa-caret-down]="!item.collapsed"></i>
         <!--checkbox -->
         <div class="form-check">
             <!-- <input type="checkbox" class="form-check-input" [(ngModel)]="item.checked" (ngModelChange)="onCheckedChange(); select(item);" [disabled]="item.disabled"
                [indeterminate]="item.indeterminate"/> -->
+
+
+            <!-- working
             <span class="form-check-label" *ngIf="item.value !== null && item.value['highlighted']">
-                <i class="{{item.value['class']}}" aria-hidden="true" title="Highlighted" [ngClass]="{'marked': item.checked}" (ngModelChange)="onCheckedChange()"></i>
+                <i class="{{item.value['class']}}" aria-hidden="true" title="Highlighted" [ngClass]="{'marked': item.checked && item.children == null}" (ngModelChange)="onCheckedChange()"></i>
             </span>
+            -->
+           
+              
+            <span class="form-check-label" *ngIf="item.value !== null && item.value['highlighted']">
+                <i class="{{item.value['class']}}" aria-hidden="true" title="Highlighted" [ngClass]="{'marked': item.checked && item.children == null}" (ngModelChange)="onCheckedChange()"></i>
+            </span>
+
+
+            <!-- [ngClass]="{'marked': item.checked}"  -->
+
+            <!-- <span *ngIf="item.value === undefined " class="form-check-label">
+                <i class="{{item.text}}" aria-hidden="true" title="Highlighted" (ngModelChange)="onCheckedChange()"></i>
+                <span class="form-check-label" *ngIf="(item.value === undefined) || (item.value !== null && item.value['highlighted'])">
+                    <i class="{{item.value ? item.value['class'] : item.text}}" aria-hidden="true" title="Highlighted" [ngClass]="{'marked': item.checked}" (ngModelChange)="onCheckedChange()"></i>
+                </span>
+            </span> -->
+          
+            
+          
+                
+            <!-- /// -->
+            
             <!-- <label class="form-check-label" (click)="item.checked = !item.checked; onCheckedChange(); select(item);">
           {{item.text}}
         </label> -->
@@ -33,11 +61,56 @@
 
 </ng-template>
 
-<app-header></app-header>
+<!-- Modal to Edit source and description -->
+<ng-template #content let-modal>
+          
+    <div class="modal-header">
+      <h4 class="modal-title" id="popUp">Edit Sources and Links</h4>
+      <span class="close" aria-label="Close" (click)="modal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </span>
+    </div>
+    <div class="modal-body">
+        <!--  -->
+            <div class="card-header" *ngIf="selectedFactor.text.length">
+                <b>{{selectedFactor.text}}</b>
+            </div>
+            <form [formGroup] = "editForm">
+                <div class="form-group">
+                    <textarea class="form-control mb-3" formControlName="description" rows="3"></textarea>
+                    <textarea class="form-control mb-3" formControlName="source" rows="1"></textarea>
+                </div>
+            </form>
+            <div class="scrollAble">
+                <!-- <div *ngFor="let number of selectedFactor.value.label_ids"> -->
+                <div *ngFor="let data of allData">
+                    <div class="form-check" *ngFor="let task of data.tasks">
+                        <!-- <input class="form-check-input" type="checkbox"> -->
+                        <!-- <input #checkboxes class="form-check-input" type="checkbox" value="{{task.id}}" [checked]="task.id == number" id="{{task.id}}" [(ngModel)]="task.checked" (change)="changeCheck(task.id, $event); task.checked = true;">
+                        <label class="form-check-label">{{task.name}} - {{task.id}}</label> -->
+                        <input #checkboxes class="form-check-input" type="checkbox" value="{{task.id}}" [checked]="selectedFactor.value.label_ids.includes(task.id) == true" id="{{task.id}}" (change)="changeCheck(task.id, $event); task.checked = true;">
+                        <label class="form-check-label">{{task.name}}</label>
+                        <!-- <input #checkboxes class="form-check-input" type="checkbox" value="{{task.id}}" [checked]="task.id == number" id="{{task.id}}">
+                        <label class="form-check-label">{{task.name}} - {{task.id}}</label> -->
+                    </div>
+                </div>
+                <!-- </div> -->
+               
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary mr-2" (click)="updateData(editForm.value)">Update</button>
+                <button type="button" id="cancel" class="btn btn-primary" (click)="modal.close()">Close</button>  
+            </div>
+    </div>
+</ng-template>
+
+
+
 <div class="container mt-lg-5 mb-lg-5">
-    <!-- <h2>
+    <h2>
         <span>QualiExplore</span>
-    </h2> -->
+    </h2>
     <div class="jumbotron">
         <h3 class="display-5"><span>Step-2</span></h3>
         <p class="lead"><span>This step highlights the most relevant factors with a </span> <i class="fas fa-flag fa-1x"></i></p>
@@ -47,39 +120,52 @@
         <div id="collapseFilters" [ngbCollapse]="collapseSelectedFilters">
             <ul class="filter-details" *ngFor="let filter of selectedFilterDetails">
                 <li>
-                    <i class="fas fa-check" *ngIf="filter['parent'] === 'Quality'"></i>
+                    <!-- <i class="fas fa-check" *ngIf="filter['parent'] === 'Quality'"></i>
                     <i class="fas fa-bullseye" *ngIf="filter['parent']==='Goals'"></i>
-                    <i class="fas fa-info" *ngIf="filter['parent'] === 'Sources'"></i> {{filter['name']}}
+                    <i class="fas fa-info" *ngIf="filter['parent'] === 'Sources'"></i>
+                    {{filter['name']}} -->
+                    <i class="fas fa-check"></i>
+                    {{filter['name']}}
+
                 </li>
             </ul>
+            <!-- <ul class="filter-details" *ngFor="let number of selected">
+                <li>
+                    <i class="fas fa-check"></i>
+                    {{number}}
+
+                </li>
+            </ul> -->
         </div>
         <br>
         <button class="btn btn-sm btn-outline-secondary mt-lg-2" (click)="backToStep1()"><span> Return to Step-1 </span></button>
     </div>
     <div class="row mt-5">
-        <div class="col-lg-6">
-            <h3><span>Discover all Quality Factors</span></h3>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+                <h3 class="d-inline">Discover all Quality Factors</h3>
+                <button class="btn btn-md btn-info ml-3" *ngIf = "updateButton" (click)="onEditTree()">Edit Tree</button>  
         </div>
-        <div class="col-lg-6">
+        
+        <div class="col-lg-6 col-md-6 col-sm-12">
             <h3><span>Quality Factor Information</span></h3>
         </div>
     </div>
     <div class="row mt-2">
-        <div class="col-lg-6">
+        <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="shadow p-3 mr-3">
                 <ngx-treeview [config]="config" [items]="items" [itemTemplate]="itemTemplate">
                 </ngx-treeview>
             </div>
         </div>
 
-        <div class="col-lg-6" *ngIf="selectedFactor == undefined">
+        <div class="col-lg-6 col-md-6 col-sm-12" *ngIf="selectedFactor == undefined">
             <div class="jumbotron">
                 <i class="fas fa-list-ul fa-3x"></i>
                 <p class="lead"><span>Please click on the list items on the left pane to find out relevant quality factors.</span></p>
                 <p class="lead"><span>After reading the provided information</span>, click on <em><span>Proceed</span></em></p>
             </div>
         </div>
-        <div class="col-lg-6" *ngIf="selectedFactor !== undefined">
+        <div class="col-lg-6 col-md-6 col-sm-12" *ngIf="selectedFactor !== undefined">
             <div class="shadow card bg-white rounded">
                 <div class="card-header" *ngIf="!selectedFactor.text.length">
                     <span>Factor</span>
@@ -106,12 +192,14 @@
                                 </li>
                             </ul>
                         </div>
+                        <hr>
+                        <button class="btn btn-primary" *ngIf = "updateButton" (click)="open(content)">Edit</button>
                         <button class="btn btn-md btn-primary float-right" (click)="markRead(selectedFactor); proceedButtonDisabled = !proceedButtonDisabled" [disabled]="proceedButtonDisabled || selectedFactor.checked"><span>Proceed</span></button>
                     </div>
                 </div>
             </div>
             <div class="row mt-5" *ngIf="totalHighlightedFactors">
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-md-6">
                     <h3><span>Progress</span></h3>
                     <div class="shadow p-3 mb-5 bg-white rounded">
                         <b>{{totalResolvedFactors}} of {{totalHighlightedFactors}}</b>

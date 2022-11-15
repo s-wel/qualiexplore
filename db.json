@@ -1,0 +1,4092 @@
+{
+  "filters": [
+    {
+      "id": 103,
+      "category": "Goals",
+      "tasks": [
+        {
+          "id": 40,
+          "name": "I want to track other’s products.",
+          "checked": false
+        },
+        {
+          "id": 41,
+          "name": "I want that customers can track my products.",
+          "checked": false
+        },
+        {
+          "id": 42,
+          "name": "I want to negotiate with partners.",
+          "checked": false
+        },
+        {
+          "id": 43,
+          "name": "I want to upload products.",
+          "checked": false
+        },
+        {
+          "id": 44,
+          "name": "I want customers to find my products.",
+          "checked": false
+        },
+        {
+          "id": 45,
+          "name": "I want customers to trust my company.",
+          "checked": false
+        },
+        {
+          "id": 46,
+          "name": "I want to understand cyber-attack risks.",
+          "checked": false
+        }
+      ]
+    },
+    {
+      "id": 105,
+      "category": "Quality",
+      "tasks": [
+        {
+          "id": 1,
+          "name": "I am concerned my information is erroneous.",
+          "checked": false
+        },
+        {
+          "id": 2,
+          "name": "I am concerned that my information is incomplete.",
+          "checked": false
+        },
+        {
+          "id": 3,
+          "name": "I do not want my information to be contradicting.",
+          "checked": false
+        },
+        {
+          "id": 4,
+          "name": "I am concerned that my information is outdated.",
+          "checked": false
+        },
+        {
+          "id": 5,
+          "name": "My information should be credible.",
+          "checked": false
+        }
+      ]
+    },
+    {
+      "category": "Sources",
+      "tasks": [
+        {
+          "id": 20,
+          "name": "I want to connect sensors to the platform.",
+          "checked": false
+        },
+        {
+          "id": 21,
+          "name": "I want to use platform forms.",
+          "checked": false
+        },
+        {
+          "id": 22,
+          "name": "I want to work with maintenance reports.",
+          "checked": false
+        },
+        {
+          "id": 23,
+          "name": "I want to upload files.",
+          "checked": false
+        },
+        {
+          "id": 24,
+          "name": "I want to connect/use a third party tool.",
+          "checked": false
+        }
+      ],
+      "id": 106
+    },
+    {
+      "id": 107,
+      "category": "Information",
+      "tasks": [
+        {
+          "id": 11,
+          "name": "I want to use another forms.",
+          "checked": false
+        },
+        {
+          "id": 12,
+          "name": "I want to upload files on cloud.",
+          "checked": false
+        },
+        {
+          "id": 13,
+          "name": "I want to keep my information secret.",
+          "checked": false
+        },
+        {
+          "id": 14,
+          "name": "I want to keep my information locked.",
+          "checked": false
+        }
+      ]
+    }
+  ],
+  "editableFactors": [
+    {
+      "name": "Platform information quality",
+      "id": 1,
+      "checked": false,
+      "value": {
+        "description": null
+      },
+      "childrens": [
+        {
+          "name": "Collection quality",
+          "id": 2,
+          "checked": false,
+          "value": {
+            "description": null
+          },
+          "childrens": [
+            {
+              "name": "Accuracy",
+              "id": 3,
+              "checked": false,
+              "value": {
+                "description": "The information is without syntactic and semantic problems. The information describes the true value of something."
+              },
+              "childrens": [
+                {
+                  "name": "Semantic errors",
+                  "id": 4,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      3,
+                      4,
+                      5,
+                      21,
+                      42,
+                      43
+                    ],
+                    "source": [
+                      "https://www.sltinfo.com/the-semantic-problem/"
+                    ],
+                    "description": "The semantic problem is a problem of linguistic processing. It relates to the issue of how spoken utterances are understood and, in particular, how we derive meaning from combinations of speech sounds (words)."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Syntactic errors",
+                  "id": 5,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      3,
+                      4,
+                      5,
+                      6,
+                      21,
+                      42,
+                      43
+                    ],
+                    "source": [
+                      "https://www.sltinfo.com/the-syntactic-problem/"
+                    ],
+                    "description": "The syntactic problem is a problem of linguistic processing. It concerns the problem of how roles such as subject and object are allocated in sentences and how different meanings are bound together."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Typographical errors",
+                  "id": 6,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      3,
+                      4,
+                      5,
+                      6,
+                      21,
+                      42,
+                      43
+                    ],
+                    "source": [
+                      "https://www.merriam-webster.com/dictionary/typographical%20error"
+                    ],
+                    "description": "A mistake (such as a misspelled word) in typed or printed text. (Definitionby Merriam Webster dictionary)"
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Bias",
+                  "id": 7,
+                  "checked": false,
+                  "value": {
+                    "description": null
+                  },
+                  "childrens": [
+                    {
+                      "name": "Sample bias",
+                      "id": 8,
+                      "checked": false,
+                      "value": {
+                        "label_ids": [
+                          21
+                        ],
+                        "source": [],
+                        "description": "The sampling process produced a dataset that underrepresents relevant product and/or user groups."
+                      },
+                      "childrens": []
+                    },
+                    {
+                      "name": "Selection bias",
+                      "id": 9,
+                      "checked": false,
+                      "value": {
+                        "label_ids": [
+                          21
+                        ],
+                        "source": [],
+                        "description": "Selections regarding the sample are biased."
+                      },
+                      "childrens": []
+                    }
+                  ]
+                },
+                {
+                  "name": "Measurement instrument information",
+                  "id": 10,
+                  "checked": false,
+                  "value": {
+                    "description": null
+                  },
+                  "childrens": [
+                    {
+                      "name": "Accuracy of sensors",
+                      "id": 11,
+                      "checked": false,
+                      "value": {
+                        "label_ids": [
+                          1,
+                          2,
+                          21,
+                          41
+                        ],
+                        "source": [
+                          "https://ieeexplore.ieee.org/document/8016712"
+                        ],
+                        "description": "Quantitative measure of the magnitude of error."
+                      },
+                      "childrens": []
+                    },
+                    {
+                      "name": "Placement of sensors",
+                      "id": 12,
+                      "checked": false,
+                      "value": {
+                        "label_ids": [
+                          1,
+                          2,
+                          21,
+                          41
+                        ],
+                        "source": [],
+                        "description": "The measurement device must be in place to capture the phenomenon it is intended to capture."
+                      },
+                      "childrens": []
+                    }
+                  ]
+                },
+                {
+                  "name": "Providing disinformation",
+                  "id": 13,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      3,
+                      6,
+                      7,
+                      21,
+                      43,
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Platform participants or third parties can willingly create false information."
+                  },
+                  "childrens": []
+                }
+              ]
+            },
+            {
+              "name": "Consistency",
+              "id": 14,
+              "checked": false,
+              "value": {
+                "description": "To what extent information is free from contradiction and coherent with other information."
+              },
+              "childrens": [
+                {
+                  "name": "Standard application",
+                  "id": 141,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      4,
+                      5,
+                      23,
+                      42
+                    ],
+                    "source": [],
+                    "description": "Catalog standards, such as eClass, define how to describe a product. Users that apply it contribute to a coherent view on the products in the platform."
+                  },
+                  "childrens": []
+                }
+              ]
+            },
+            {
+              "name": "Completeness",
+              "id": 15,
+              "checked": false,
+              "value": {
+                "description": "The information describes a population of events, products or persons."
+              },
+              "childrens": [
+                {
+                  "name": "Measurement frequency",
+                  "id": 16,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      22,
+                      41
+                    ],
+                    "source": [],
+                    "description": "Measurement frequency (periodic sensing) affects completeness of the dataset, but it is some times needed to cope with power consumption constraints."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Technical issue",
+                  "id": 17,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      22,
+                      41
+                    ],
+                    "source": [],
+                    "description": "Technical issue in data creation for inctance a server change can lead to missing data."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Software bug",
+                  "id": 18,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      22,
+                      41,
+                      45
+                    ],
+                    "source": [],
+                    "description": "A software bug, such as a faulty condition, can overlook specific situations that it should recognize automatically."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Standard application",
+                  "id": 19,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      4,
+                      5,
+                      22,
+                      41,
+                      42
+                    ],
+                    "source": [],
+                    "description": "Standards, such as eClass, UBL and EPCIS, define which information should be provided to represent events, products, and processes. They help users, for instance, to describe their products with acknowledged properties and contribute to the descriptions completeness."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Metadata",
+                  "id": 20,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      6,
+                      7,
+                      22,
+                      41,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Some data needs metadata to be considered complete. Critical business information might need more metadata in comparison with less critical information."
+                  },
+                  "childrens": []
+                }
+              ]
+            },
+            {
+              "name": "Currentness",
+              "id": 21,
+              "checked": false,
+              "value": {
+                "description": "The information has the right age for a specific context of use."
+              },
+              "childrens": [
+                {
+                  "name": "Reporting lags",
+                  "id": 22,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      24,
+                      43
+                    ],
+                    "source": [],
+                    "description": "The lag between observing an event and reporting it."
+                  },
+                  "childrens": []
+                }
+              ]
+            },
+            {
+              "name": "Understandability",
+              "id": 23,
+              "checked": false,
+              "value": {
+                "description": null
+              },
+              "childrens": [
+                {
+                  "name": "Language",
+                  "id": 24,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      3,
+                      5,
+                      42,
+                      43,
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Information in other languages than the target group's language might be unusable."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Presence of acronyms",
+                  "id": 25,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      3,
+                      5,
+                      42,
+                      43,
+                      44
+                    ],
+                    "source": [],
+                    "description": "Users may not know the meaning of acronyms and jargon."
+                  },
+                  "childrens": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Organization quality",
+          "id": 26,
+          "checked": false,
+          "value": {
+            "description": null
+          },
+          "childrens": [
+            {
+              "name": "Efficiency",
+              "id": 27,
+              "checked": false,
+              "value": {
+                "description": "The information does not contain meaningless data."
+              },
+              "childrens": [
+                {
+                  "name": "Data format",
+                  "id": 28,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      41,
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Formats need to respect business software, such as Office tools and specialized software (e.g. ERP and PIM)."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Data reduction",
+                  "id": 29,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      41
+                    ],
+                    "source": [],
+                    "description": "It is important to use an efficient data reduction method in preprocessing to reduce both data storage space and calculation time."
+                  },
+                  "childrens": []
+                }
+              ]
+            },
+            {
+              "name": "Portability",
+              "id": 30,
+              "checked": false,
+              "value": {
+                "description": null
+              },
+              "childrens": [
+                {
+                  "name": "Standard application",
+                  "id": 31,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Standards, such as eClass and UBL, use acknowledged properties to describe entities. They make it easier for users to import/export products in/from third party software."
+                  },
+                  "childrens": []
+                }
+              ]
+            },
+            {
+              "name": "Compliance",
+              "id": 32,
+              "checked": false,
+              "value": {
+                "description": null
+              },
+              "childrens": [
+                {
+                  "name": "Standard application",
+                  "id": 33,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      25,
+                      44
+                    ],
+                    "source": [],
+                    "description": "Visual indication which standards a product description meets can improve compliance."
+                  },
+                  "childrens": []
+                }
+              ]
+            },
+            {
+              "name": "Recoverability",
+              "id": 34,
+              "checked": false,
+              "value": {
+                "description": "How well the data contributes to maintenance and preservation of platform operations and quality of service."
+              },
+              "childrens": [
+                {
+                  "name": "Backup procedures",
+                  "id": 35,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      25
+                    ],
+                    "source": [],
+                    "description": "Records are stored in a backup. This ensures that platform operators can recover lost or erroneous data."
+                  },
+                  "childrens": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Presentation quality",
+          "id": 36,
+          "checked": false,
+          "value": {
+            "description": null
+          },
+          "childrens": [
+            {
+              "name": "Understandability",
+              "id": 37,
+              "checked": false,
+              "value": {
+                "description": null
+              },
+              "childrens": [
+                {
+                  "name": "Presentation format",
+                  "id": 38,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      2,
+                      5,
+                      43,
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "It is recommended to use simple charts and colorful indicatiors in the presentations to represent complex situations."
+                  },
+                  "childrens": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Application quality",
+          "id": 39,
+          "checked": false,
+          "value": {
+            "description": null
+          },
+          "childrens": [
+            {
+              "name": "Accessibility",
+              "id": 40,
+              "checked": false,
+              "value": {
+                "description": "The information provides an opportunity to be used when needed."
+              },
+              "childrens": [
+                {
+                  "name": "Commercial factors",
+                  "id": 41,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1
+                    ],
+                    "source": [],
+                    "description": "Commercial factors can prevent companies from getting access to the data."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Cultural factors",
+                  "id": 42,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1
+                    ],
+                    "source": [],
+                    "description": "Cultural factors can prevent companies from getting access to to data."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Political factors",
+                  "id": 43,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1
+                    ],
+                    "source": [],
+                    "description": "Political factors can prevent companies from getting access to to data."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Access permission",
+                  "id": 44,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      43,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Information retrieval from business information systems requires the permission access the available information."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Willingness to share information",
+                  "id": 45,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1
+                    ],
+                    "source": [],
+                    "description": "Platform users must see value in sharing the information they own."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Right format for use",
+                  "id": 46,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      43,
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "The information needs to be provided in the right format for off-platform processes."
+                  },
+                  "childrens": []
+                }
+              ]
+            },
+            {
+              "name": "Credibility",
+              "id": 47,
+              "checked": false,
+              "value": {
+                "description": "How true and believable the information is. Believability is a surrogate characteristic taking a bundle of quality characteristics into account.."
+              },
+              "childrens": [
+                {
+                  "name": "Original records",
+                  "id": 48,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      4,
+                      25,
+                      45
+                    ],
+                    "source": [],
+                    "description": "The accessibility of original records helps to understand changes."
+                  },
+                  "childrens": []
+                }
+              ]
+            },
+            {
+              "name": "Traceability",
+              "id": 49,
+              "checked": false,
+              "value": {
+                "description": "How well users can understand data changes and access of data."
+              },
+              "childrens": [
+                {
+                  "name": "Access logs",
+                  "id": 50,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      7,
+                      25
+                    ],
+                    "source": [],
+                    "description": "Data logs track users and services that access data on the platform."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Change logs",
+                  "id": 51,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      7,
+                      25
+                    ],
+                    "source": [],
+                    "description": "Data logs track data changes caused by users and the platform instance's services."
+                  },
+                  "childrens": []
+                },
+                {
+                  "name": "Retention period",
+                  "id": 52,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      7,
+                      25,
+                      43,
+                      44
+                    ],
+                    "source": [],
+                    "description": "Laws and standards can require a minimum retention period. Longer periods increase the traceability."
+                  },
+                  "childrens": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "factors": [
+    {
+      "text": "Platform information quality",
+      "id": 1,
+      "checked": false,
+      "value": {
+        "description": null
+      },
+      "children": [
+        {
+          "text": "Collection qualitiy",
+          "id": 2,
+          "checked": false,
+          "value": {
+            "description": null
+          },
+          "children": [
+            {
+              "text": "Accuracy",
+              "id": 3,
+              "checked": false,
+              "value": {
+                "description": "The information is without syntactic and semantic problems. The information describes the true value of something."
+              },
+              "children": [
+                {
+                  "text": "Semantic error",
+                  "id": 4,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      3,
+                      4,
+                      5,
+                      21,
+                      42,
+                      43
+                    ],
+                    "source": [
+                      "https://www.sltinfo.com/the-semantic-problem/"
+                    ],
+                    "description": "The semantic problem is a problem of linguistic processing. It relates to the issue of how spoken utterances are understood and, in particular, how we derive meaning from combinations of speech sounds (words)."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 1,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "text": "Syntactic errors",
+                  "id": 5,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      3,
+                      4,
+                      5,
+                      6,
+                      21,
+                      42,
+                      43
+                    ],
+                    "source": [
+                      "https://www.sltinfo.com/the-syntactic-problem/"
+                    ],
+                    "description": "The syntactic problem is a problem of linguistic processing. It concerns the problem of how roles such as subject and object are allocated in sentences and how different meanings are bound together."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 2,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "text": "Typographical errors",
+                  "id": 6,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      3,
+                      4,
+                      5,
+                      6,
+                      21,
+                      42,
+                      43
+                    ],
+                    "source": [
+                      "https://www.merriam-webster.com/dictionary/typographical%20error"
+                    ],
+                    "description": "A mistake (such as a misspelled word) in typed or printed text. (Definitionby Merriam Webster dictionary)"
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 3,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "text": "Bias",
+                  "id": 7,
+                  "checked": false,
+                  "value": {
+                    "description": null
+                  },
+                  "children": [
+                    {
+                      "text": "Sample bias",
+                      "id": 8,
+                      "checked": false,
+                      "value": {
+                        "label_ids": [
+                          21
+                        ],
+                        "source": [],
+                        "description": "The sampling process produced a dataset that underrepresents relevant product and/or user groups."
+                      },
+                      "children": [],
+                      "options": {
+                        "href": "#",
+                        "hidden": false,
+                        "hideChildrens": false,
+                        "position": 1,
+                        "draggable": true,
+                        "edit": false,
+                        "showActionButtons": true,
+                        "currentlyDragging": false,
+                        "destenationTop": false,
+                        "destenationBottom": false,
+                        "disabled": false,
+                        "showExpandButton": true,
+                        "showDeleteButton": true,
+                        "showDropChildZone": false
+                      }
+                    },
+                    {
+                      "text": "Selection bias",
+                      "id": 9,
+                      "checked": false,
+                      "value": {
+                        "label_ids": [
+                          21
+                        ],
+                        "source": [],
+                        "description": "Selections regarding the sample are biased."
+                      },
+                      "children": [],
+                      "options": {
+                        "href": "#",
+                        "hidden": false,
+                        "hideChildrens": false,
+                        "position": 2,
+                        "draggable": true,
+                        "edit": false,
+                        "showActionButtons": true,
+                        "currentlyDragging": false,
+                        "destenationTop": false,
+                        "destenationBottom": false,
+                        "disabled": false,
+                        "showExpandButton": true,
+                        "showDeleteButton": true,
+                        "showDropChildZone": false
+                      }
+                    },
+                    {
+                      "id": 202221658841128580,
+                      "text": "another bias",
+                      "options": {
+                        "href": "#",
+                        "hidden": false,
+                        "hideChildrens": false,
+                        "position": 3,
+                        "draggable": true,
+                        "edit": false,
+                        "showActionButtons": true,
+                        "currentlyDragging": false,
+                        "destenationTop": false,
+                        "destenationBottom": false,
+                        "disabled": false,
+                        "showExpandButton": true,
+                        "showDeleteButton": true
+                      },
+                      "children": []
+                    }
+                  ],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 4,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "text": "Measurement instrument information",
+                  "id": 10,
+                  "checked": false,
+                  "value": {
+                    "description": null
+                  },
+                  "children": [
+                    {
+                      "text": "Accuracy of sensors",
+                      "id": 11,
+                      "checked": false,
+                      "value": {
+                        "label_ids": [
+                          1,
+                          2,
+                          21,
+                          41
+                        ],
+                        "source": [
+                          "https://ieeexplore.ieee.org/document/8016712"
+                        ],
+                        "description": "Quantitative measure of the magnitude of error."
+                      },
+                      "children": [],
+                      "options": {
+                        "href": "#",
+                        "hidden": false,
+                        "hideChildrens": false,
+                        "position": 1,
+                        "draggable": true,
+                        "edit": false,
+                        "showActionButtons": true,
+                        "currentlyDragging": false,
+                        "destenationTop": false,
+                        "destenationBottom": false,
+                        "disabled": false,
+                        "showExpandButton": true,
+                        "showDeleteButton": true,
+                        "showDropChildZone": false
+                      }
+                    },
+                    {
+                      "text": "Placement of sensors",
+                      "id": 12,
+                      "checked": false,
+                      "value": {
+                        "label_ids": [
+                          1,
+                          2,
+                          21,
+                          41
+                        ],
+                        "source": [],
+                        "description": "The measurement device must be in place to capture the phenomenon it is intended to capture."
+                      },
+                      "children": [],
+                      "options": {
+                        "href": "#",
+                        "hidden": false,
+                        "hideChildrens": false,
+                        "position": 2,
+                        "draggable": true,
+                        "edit": false,
+                        "showActionButtons": true,
+                        "currentlyDragging": false,
+                        "destenationTop": false,
+                        "destenationBottom": false,
+                        "disabled": false,
+                        "showExpandButton": true,
+                        "showDeleteButton": true,
+                        "showDropChildZone": false
+                      }
+                    }
+                  ],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 5,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "text": "Providing disinformation",
+                  "id": 13,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      3,
+                      6,
+                      7,
+                      21,
+                      43,
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Platform participants or third parties can willingly create false information."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 6,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "id": 202211658737715500,
+                  "text": "Another error",
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 7,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  },
+                  "children": []
+                }
+              ],
+              "options": {
+                "href": "#",
+                "hidden": false,
+                "hideChildrens": false,
+                "position": 1,
+                "draggable": true,
+                "edit": false,
+                "showActionButtons": true,
+                "currentlyDragging": false,
+                "destenationTop": false,
+                "destenationBottom": false,
+                "disabled": false,
+                "showExpandButton": true,
+                "showDeleteButton": true,
+                "showDropChildZone": false
+              }
+            },
+            {
+              "text": "Consistency",
+              "id": 14,
+              "checked": false,
+              "value": {
+                "description": "To what extent information is free from contradiction and coherent with other information."
+              },
+              "children": [
+                {
+                  "text": "Standard application",
+                  "id": 141,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      4,
+                      5,
+                      23,
+                      42
+                    ],
+                    "source": [],
+                    "description": "Catalog standards, such as eClass, define how to describe a product. Users that apply it contribute to a coherent view on the products in the platform."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 1,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                }
+              ],
+              "options": {
+                "href": "#",
+                "hidden": false,
+                "hideChildrens": false,
+                "position": 2,
+                "draggable": true,
+                "edit": false,
+                "showActionButtons": true,
+                "currentlyDragging": false,
+                "destenationTop": false,
+                "destenationBottom": false,
+                "disabled": false,
+                "showExpandButton": true,
+                "showDeleteButton": true,
+                "showDropChildZone": false
+              }
+            },
+            {
+              "text": "Completeness",
+              "id": 15,
+              "checked": false,
+              "value": {
+                "description": "The information describes a population of events, products or persons."
+              },
+              "children": [
+                {
+                  "text": "Measurement frequency",
+                  "id": 16,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      22,
+                      41
+                    ],
+                    "source": [],
+                    "description": "Measurement frequency (periodic sensing) affects completeness of the dataset, but it is some times needed to cope with power consumption constraints."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 1,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "text": "Technical issue",
+                  "id": 17,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      22,
+                      41
+                    ],
+                    "source": [],
+                    "description": "Technical issue in data creation for inctance a server change can lead to missing data."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 2,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "text": "Software bug",
+                  "id": 18,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      22,
+                      41,
+                      45
+                    ],
+                    "source": [],
+                    "description": "A software bug, such as a faulty condition, can overlook specific situations that it should recognize automatically."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 3,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "text": "Standard application",
+                  "id": 19,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      4,
+                      5,
+                      22,
+                      41,
+                      42
+                    ],
+                    "source": [],
+                    "description": "Standards, such as eClass, UBL and EPCIS, define which information should be provided to represent events, products, and processes. They help users, for instance, to describe their products with acknowledged properties and contribute to the descriptions completeness."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 4,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "text": "Metadata",
+                  "id": 20,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      6,
+                      7,
+                      22,
+                      41,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Some data needs metadata to be considered complete. Critical business information might need more metadata in comparison with less critical information."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 5,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                }
+              ],
+              "options": {
+                "href": "#",
+                "hidden": false,
+                "hideChildrens": false,
+                "position": 3,
+                "draggable": true,
+                "edit": false,
+                "showActionButtons": true,
+                "currentlyDragging": false,
+                "destenationTop": false,
+                "destenationBottom": false,
+                "disabled": false,
+                "showExpandButton": true,
+                "showDeleteButton": true,
+                "showDropChildZone": false
+              }
+            },
+            {
+              "text": "Currentness",
+              "id": 21,
+              "checked": false,
+              "value": {
+                "description": "The information has the right age for a specific context of use."
+              },
+              "children": [
+                {
+                  "text": "Reporting lags",
+                  "id": 22,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      11,
+                      24,
+                      43
+                    ],
+                    "source": [
+                      ""
+                    ],
+                    "description": "The lag between observing an event and reporting it."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 1,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                }
+              ],
+              "options": {
+                "href": "#",
+                "hidden": false,
+                "hideChildrens": false,
+                "position": 4,
+                "draggable": true,
+                "edit": false,
+                "showActionButtons": true,
+                "currentlyDragging": false,
+                "destenationTop": false,
+                "destenationBottom": false,
+                "disabled": false,
+                "showExpandButton": true,
+                "showDeleteButton": true,
+                "showDropChildZone": false
+              }
+            },
+            {
+              "text": "Understandability",
+              "id": 23,
+              "checked": false,
+              "value": {
+                "description": null
+              },
+              "children": [
+                {
+                  "text": "Language",
+                  "id": 24,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      3,
+                      5,
+                      42,
+                      43,
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Information in other languages than the target group's language might be unusable."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 1,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "text": "Presence of acronyms",
+                  "id": 25,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      3,
+                      5,
+                      42,
+                      43,
+                      44
+                    ],
+                    "source": [],
+                    "description": "Users may not know the meaning of acronyms and jargon."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 2,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                }
+              ],
+              "options": {
+                "href": "#",
+                "hidden": false,
+                "hideChildrens": false,
+                "position": 5,
+                "draggable": true,
+                "edit": false,
+                "showActionButtons": true,
+                "currentlyDragging": false,
+                "destenationTop": false,
+                "destenationBottom": false,
+                "disabled": false,
+                "showExpandButton": true,
+                "showDeleteButton": true,
+                "showDropChildZone": false
+              }
+            }
+          ],
+          "options": {
+            "href": "#",
+            "hidden": false,
+            "hideChildrens": false,
+            "position": 1,
+            "draggable": true,
+            "edit": false,
+            "showActionButtons": true,
+            "currentlyDragging": false,
+            "destenationTop": false,
+            "destenationBottom": false,
+            "disabled": false,
+            "showExpandButton": true,
+            "showDeleteButton": true,
+            "showDropChildZone": false
+          }
+        },
+        {
+          "text": "Organization quality",
+          "id": 26,
+          "checked": false,
+          "value": {
+            "description": null
+          },
+          "children": [
+            {
+              "text": "Efficiency",
+              "id": 27,
+              "checked": false,
+              "value": {
+                "description": "The information does not contain meaningless data."
+              },
+              "children": [
+                {
+                  "text": "Data format",
+                  "id": 28,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      41,
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Formats need to respect business software, such as Office tools and specialized software (e.g. ERP and PIM)."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 1,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "text": "Data reduction",
+                  "id": 29,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      41
+                    ],
+                    "source": [],
+                    "description": "It is important to use an efficient data reduction method in preprocessing to reduce both data storage space and calculation time."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 2,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                }
+              ],
+              "options": {
+                "href": "#",
+                "hidden": false,
+                "hideChildrens": false,
+                "position": 1,
+                "draggable": true,
+                "edit": false,
+                "showActionButtons": true,
+                "currentlyDragging": false,
+                "destenationTop": false,
+                "destenationBottom": false,
+                "disabled": false,
+                "showExpandButton": true,
+                "showDeleteButton": true,
+                "showDropChildZone": false
+              }
+            },
+            {
+              "text": "Portability",
+              "id": 30,
+              "checked": false,
+              "value": {
+                "description": null
+              },
+              "children": [
+                {
+                  "text": "Standard application",
+                  "id": 31,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Standards, such as eClass and UBL, use acknowledged properties to describe entities. They make it easier for users to import/export products in/from third party software."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 1,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                }
+              ],
+              "options": {
+                "href": "#",
+                "hidden": false,
+                "hideChildrens": false,
+                "position": 2,
+                "draggable": true,
+                "edit": false,
+                "showActionButtons": true,
+                "currentlyDragging": false,
+                "destenationTop": false,
+                "destenationBottom": false,
+                "disabled": false,
+                "showExpandButton": true,
+                "showDeleteButton": true,
+                "showDropChildZone": false
+              }
+            },
+            {
+              "text": "Compliance",
+              "id": 32,
+              "checked": false,
+              "value": {
+                "description": null
+              },
+              "children": [
+                {
+                  "text": "Standard application",
+                  "id": 33,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      25,
+                      44
+                    ],
+                    "source": [],
+                    "description": "Visual indication which standards a product description meets can improve compliance."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 1,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                }
+              ],
+              "options": {
+                "href": "#",
+                "hidden": false,
+                "hideChildrens": false,
+                "position": 3,
+                "draggable": true,
+                "edit": false,
+                "showActionButtons": true,
+                "currentlyDragging": false,
+                "destenationTop": false,
+                "destenationBottom": false,
+                "disabled": false,
+                "showExpandButton": true,
+                "showDeleteButton": true,
+                "showDropChildZone": false
+              }
+            },
+            {
+              "text": "Recoverability",
+              "id": 34,
+              "checked": false,
+              "value": {
+                "description": "How well the data contributes to maintenance and preservation of platform operations and quality of service."
+              },
+              "children": [
+                {
+                  "text": "Backup procedures",
+                  "id": 35,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      25
+                    ],
+                    "source": [],
+                    "description": "Records are stored in a backup. This ensures that platform operators can recover lost or erroneous data."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 1,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                }
+              ],
+              "options": {
+                "href": "#",
+                "hidden": false,
+                "hideChildrens": false,
+                "position": 4,
+                "draggable": true,
+                "edit": false,
+                "showActionButtons": true,
+                "currentlyDragging": false,
+                "destenationTop": false,
+                "destenationBottom": false,
+                "disabled": false,
+                "showExpandButton": true,
+                "showDeleteButton": true,
+                "showDropChildZone": false
+              }
+            }
+          ],
+          "options": {
+            "href": "#",
+            "hidden": false,
+            "hideChildrens": false,
+            "position": 2,
+            "draggable": true,
+            "edit": false,
+            "showActionButtons": true,
+            "currentlyDragging": false,
+            "destenationTop": false,
+            "destenationBottom": false,
+            "disabled": false,
+            "showExpandButton": true,
+            "showDeleteButton": true,
+            "showDropChildZone": false
+          }
+        },
+        {
+          "text": "Presentation quality",
+          "id": 36,
+          "checked": false,
+          "value": {
+            "description": null
+          },
+          "children": [
+            {
+              "text": "Understandability",
+              "id": 37,
+              "checked": false,
+              "value": {
+                "description": null
+              },
+              "children": [
+                {
+                  "text": "Presentation format",
+                  "id": 38,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      2,
+                      5,
+                      43,
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "It is recommended to use simple charts and colorful indicatiors in the presentations to represent complex situations."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 1,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                }
+              ],
+              "options": {
+                "href": "#",
+                "hidden": false,
+                "hideChildrens": false,
+                "position": 1,
+                "draggable": true,
+                "edit": false,
+                "showActionButtons": true,
+                "currentlyDragging": false,
+                "destenationTop": false,
+                "destenationBottom": false,
+                "disabled": false,
+                "showExpandButton": true,
+                "showDeleteButton": true,
+                "showDropChildZone": false
+              }
+            }
+          ],
+          "options": {
+            "href": "#",
+            "hidden": false,
+            "hideChildrens": false,
+            "position": 3,
+            "draggable": true,
+            "edit": false,
+            "showActionButtons": true,
+            "currentlyDragging": false,
+            "destenationTop": false,
+            "destenationBottom": false,
+            "disabled": false,
+            "showExpandButton": true,
+            "showDeleteButton": true,
+            "showDropChildZone": false
+          }
+        },
+        {
+          "text": "Application quality",
+          "id": 39,
+          "checked": false,
+          "value": {
+            "description": null
+          },
+          "children": [
+            {
+              "text": "Accessibility",
+              "id": 40,
+              "checked": false,
+              "value": {
+                "description": "The information provides an opportunity to be used when needed."
+              },
+              "children": [
+                {
+                  "text": "Commercial factors",
+                  "id": 41,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1
+                    ],
+                    "source": [],
+                    "description": "Commercial factors can prevent companies from getting access to the data."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 1,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "text": "Cultural factors",
+                  "id": 42,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1
+                    ],
+                    "source": [],
+                    "description": "Cultural factors can prevent companies from getting access to to data."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 2,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "text": "Political factors",
+                  "id": 43,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1
+                    ],
+                    "source": [],
+                    "description": "Political factors can prevent companies from getting access to to data."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 3,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "text": "Access permission",
+                  "id": 44,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      43,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Information retrieval from business information systems requires the permission access the available information."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 4,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "text": "Willingness to share information",
+                  "id": 45,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1
+                    ],
+                    "source": [],
+                    "description": "Platform users must see value in sharing the information they own."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 5,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "text": "Right format for use",
+                  "id": 46,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      43,
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "The information needs to be provided in the right format for off-platform processes."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 6,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                }
+              ],
+              "options": {
+                "href": "#",
+                "hidden": false,
+                "hideChildrens": false,
+                "position": 1,
+                "draggable": true,
+                "edit": false,
+                "showActionButtons": true,
+                "currentlyDragging": false,
+                "destenationTop": false,
+                "destenationBottom": false,
+                "disabled": false,
+                "showExpandButton": true,
+                "showDeleteButton": true,
+                "showDropChildZone": false
+              }
+            },
+            {
+              "text": "Credibility",
+              "id": 47,
+              "checked": false,
+              "value": {
+                "description": "How true and believable the information is. Believability is a surrogate characteristic taking a bundle of quality characteristics into account.."
+              },
+              "children": [
+                {
+                  "text": "Original records",
+                  "id": 48,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      4,
+                      25,
+                      45
+                    ],
+                    "source": [],
+                    "description": "The accessibility of original records helps to understand changes."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 1,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                }
+              ],
+              "options": {
+                "href": "#",
+                "hidden": false,
+                "hideChildrens": false,
+                "position": 2,
+                "draggable": true,
+                "edit": false,
+                "showActionButtons": true,
+                "currentlyDragging": false,
+                "destenationTop": false,
+                "destenationBottom": false,
+                "disabled": false,
+                "showExpandButton": true,
+                "showDeleteButton": true,
+                "showDropChildZone": false
+              }
+            },
+            {
+              "text": "Traceability",
+              "id": 49,
+              "checked": false,
+              "value": {
+                "description": "How well users can understand data changes and access of data."
+              },
+              "children": [
+                {
+                  "text": "Access logs",
+                  "id": 50,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      7,
+                      25
+                    ],
+                    "source": [],
+                    "description": "Data logs track users and services that access data on the platform."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 1,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "text": "Change logs",
+                  "id": 51,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      7,
+                      25
+                    ],
+                    "source": [],
+                    "description": "Data logs track data changes caused by users and the platform instance's services."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 2,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "text": "Retention period",
+                  "id": 52,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      7,
+                      25,
+                      43,
+                      44
+                    ],
+                    "source": [],
+                    "description": "Laws and standards can require a minimum retention period. Longer periods increase the traceability."
+                  },
+                  "children": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 3,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                }
+              ],
+              "options": {
+                "href": "#",
+                "hidden": false,
+                "hideChildrens": false,
+                "position": 3,
+                "draggable": true,
+                "edit": false,
+                "showActionButtons": true,
+                "currentlyDragging": false,
+                "destenationTop": false,
+                "destenationBottom": false,
+                "disabled": false,
+                "showExpandButton": true,
+                "showDeleteButton": true,
+                "showDropChildZone": false
+              }
+            }
+          ],
+          "options": {
+            "href": "#",
+            "hidden": false,
+            "hideChildrens": false,
+            "position": 4,
+            "draggable": true,
+            "edit": false,
+            "showActionButtons": true,
+            "currentlyDragging": false,
+            "destenationTop": false,
+            "destenationBottom": false,
+            "disabled": false,
+            "showExpandButton": true,
+            "showDeleteButton": true,
+            "showDropChildZone": false
+          }
+        }
+      ],
+      "options": {
+        "href": "#",
+        "hidden": false,
+        "hideChildrens": false,
+        "position": 1,
+        "draggable": true,
+        "edit": false,
+        "showActionButtons": true,
+        "currentlyDragging": false,
+        "destenationTop": false,
+        "destenationBottom": false,
+        "disabled": false,
+        "showExpandButton": true,
+        "showDeleteButton": true,
+        "showDropChildZone": false
+      }
+    }
+  ],
+  "edit": [
+    {
+      "name": "Platform information quality",
+      "id": 1,
+      "checked": false,
+      "value": {
+        "description": null
+      },
+      "childrens": [
+        {
+          "name": "Collection qualitiy",
+          "id": 2,
+          "checked": false,
+          "value": {
+            "description": null
+          },
+          "childrens": [
+            {
+              "name": "Accuracy",
+              "id": 3,
+              "checked": false,
+              "value": {
+                "description": "The information is without syntactic and semantic problems. The information describes the true value of something."
+              },
+              "childrens": [
+                {
+                  "name": "Semantic error",
+                  "id": 4,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      3,
+                      4,
+                      5,
+                      21,
+                      42,
+                      43
+                    ],
+                    "source": [
+                      "https://www.sltinfo.com/the-semantic-problem/"
+                    ],
+                    "description": "The semantic problem is a problem of linguistic processing. It relates to the issue of how spoken utterances are understood and, in particular, how we derive meaning from combinations of speech sounds (words)."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 1,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "name": "Syntactic errors",
+                  "id": 5,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      3,
+                      4,
+                      5,
+                      6,
+                      21,
+                      42,
+                      43
+                    ],
+                    "source": [
+                      "https://www.sltinfo.com/the-syntactic-problem/"
+                    ],
+                    "description": "The syntactic problem is a problem of linguistic processing. It concerns the problem of how roles such as subject and object are allocated in sentences and how different meanings are bound together."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 2,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "name": "Typographical errors",
+                  "id": 6,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      3,
+                      4,
+                      5,
+                      6,
+                      21,
+                      42,
+                      43
+                    ],
+                    "source": [
+                      "https://www.merriam-webster.com/dictionary/typographical%20error"
+                    ],
+                    "description": "A mistake (such as a misspelled word) in typed or printed text. (Definitionby Merriam Webster dictionary)"
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 3,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "name": "Bias",
+                  "id": 7,
+                  "checked": false,
+                  "value": {
+                    "description": null
+                  },
+                  "childrens": [
+                    {
+                      "name": "Sample bias",
+                      "id": 8,
+                      "checked": false,
+                      "value": {
+                        "label_ids": [
+                          21
+                        ],
+                        "source": [],
+                        "description": "The sampling process produced a dataset that underrepresents relevant product and/or user groups."
+                      },
+                      "childrens": [],
+                      "options": {
+                        "href": "#",
+                        "hidden": false,
+                        "hideChildrens": false,
+                        "position": 1,
+                        "draggable": true,
+                        "edit": false,
+                        "showActionButtons": true,
+                        "currentlyDragging": false,
+                        "destenationTop": false,
+                        "destenationBottom": false,
+                        "disabled": false,
+                        "showExpandButton": true,
+                        "showDeleteButton": true,
+                        "showDropChildZone": false
+                      }
+                    },
+                    {
+                      "name": "Selection bias",
+                      "id": 9,
+                      "checked": false,
+                      "value": {
+                        "label_ids": [
+                          21
+                        ],
+                        "source": [],
+                        "description": "Selections regarding the sample are biased."
+                      },
+                      "childrens": [],
+                      "options": {
+                        "href": "#",
+                        "hidden": false,
+                        "hideChildrens": false,
+                        "position": 2,
+                        "draggable": true,
+                        "edit": false,
+                        "showActionButtons": true,
+                        "currentlyDragging": false,
+                        "destenationTop": false,
+                        "destenationBottom": false,
+                        "disabled": false,
+                        "showExpandButton": true,
+                        "showDeleteButton": true,
+                        "showDropChildZone": false
+                      }
+                    },
+                    {
+                      "id": 202221658841128580,
+                      "name": "another bias",
+                      "options": {
+                        "href": "#",
+                        "hidden": false,
+                        "hideChildrens": false,
+                        "position": 3,
+                        "draggable": true,
+                        "edit": false,
+                        "showActionButtons": true,
+                        "currentlyDragging": false,
+                        "destenationTop": false,
+                        "destenationBottom": false,
+                        "disabled": false,
+                        "showExpandButton": true,
+                        "showDeleteButton": true
+                      },
+                      "childrens": []
+                    }
+                  ],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 4,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "name": "Measurement instrument information",
+                  "id": 10,
+                  "checked": false,
+                  "value": {
+                    "description": null
+                  },
+                  "childrens": [
+                    {
+                      "name": "Accuracy of sensors",
+                      "id": 11,
+                      "checked": false,
+                      "value": {
+                        "label_ids": [
+                          1,
+                          2,
+                          21,
+                          41
+                        ],
+                        "source": [
+                          "https://ieeexplore.ieee.org/document/8016712"
+                        ],
+                        "description": "Quantitative measure of the magnitude of error."
+                      },
+                      "childrens": [],
+                      "options": {
+                        "href": "#",
+                        "hidden": false,
+                        "hideChildrens": false,
+                        "position": 1,
+                        "draggable": true,
+                        "edit": false,
+                        "showActionButtons": true,
+                        "currentlyDragging": false,
+                        "destenationTop": false,
+                        "destenationBottom": false,
+                        "disabled": false,
+                        "showExpandButton": true,
+                        "showDeleteButton": true,
+                        "showDropChildZone": false
+                      }
+                    },
+                    {
+                      "name": "Placement of sensors",
+                      "id": 12,
+                      "checked": false,
+                      "value": {
+                        "label_ids": [
+                          1,
+                          2,
+                          21,
+                          41
+                        ],
+                        "source": [],
+                        "description": "The measurement device must be in place to capture the phenomenon it is intended to capture."
+                      },
+                      "childrens": [],
+                      "options": {
+                        "href": "#",
+                        "hidden": false,
+                        "hideChildrens": false,
+                        "position": 2,
+                        "draggable": true,
+                        "edit": false,
+                        "showActionButtons": true,
+                        "currentlyDragging": false,
+                        "destenationTop": false,
+                        "destenationBottom": false,
+                        "disabled": false,
+                        "showExpandButton": true,
+                        "showDeleteButton": true,
+                        "showDropChildZone": false
+                      }
+                    }
+                  ],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 5,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "name": "Providing disinformation",
+                  "id": 13,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      3,
+                      6,
+                      7,
+                      21,
+                      43,
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Platform participants or third parties can willingly create false information."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 6,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "id": 202211658737715500,
+                  "name": "Another error",
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 7,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  },
+                  "childrens": []
+                }
+              ],
+              "options": {
+                "href": "#",
+                "hidden": false,
+                "hideChildrens": false,
+                "position": 1,
+                "draggable": true,
+                "edit": false,
+                "showActionButtons": true,
+                "currentlyDragging": false,
+                "destenationTop": false,
+                "destenationBottom": false,
+                "disabled": false,
+                "showExpandButton": true,
+                "showDeleteButton": true,
+                "showDropChildZone": false
+              }
+            },
+            {
+              "name": "Consistency",
+              "id": 14,
+              "checked": false,
+              "value": {
+                "description": "To what extent information is free from contradiction and coherent with other information."
+              },
+              "childrens": [
+                {
+                  "name": "Standard application",
+                  "id": 141,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      4,
+                      5,
+                      23,
+                      42
+                    ],
+                    "source": [],
+                    "description": "Catalog standards, such as eClass, define how to describe a product. Users that apply it contribute to a coherent view on the products in the platform."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 1,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                }
+              ],
+              "options": {
+                "href": "#",
+                "hidden": false,
+                "hideChildrens": false,
+                "position": 2,
+                "draggable": true,
+                "edit": false,
+                "showActionButtons": true,
+                "currentlyDragging": false,
+                "destenationTop": false,
+                "destenationBottom": false,
+                "disabled": false,
+                "showExpandButton": true,
+                "showDeleteButton": true,
+                "showDropChildZone": false
+              }
+            },
+            {
+              "name": "Completeness",
+              "id": 15,
+              "checked": false,
+              "value": {
+                "description": "The information describes a population of events, products or persons."
+              },
+              "childrens": [
+                {
+                  "name": "Measurement frequency",
+                  "id": 16,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      22,
+                      41
+                    ],
+                    "source": [],
+                    "description": "Measurement frequency (periodic sensing) affects completeness of the dataset, but it is some times needed to cope with power consumption constraints."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 1,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "name": "Technical issue",
+                  "id": 17,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      22,
+                      41
+                    ],
+                    "source": [],
+                    "description": "Technical issue in data creation for inctance a server change can lead to missing data."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 2,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "name": "Software bug",
+                  "id": 18,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      22,
+                      41,
+                      45
+                    ],
+                    "source": [],
+                    "description": "A software bug, such as a faulty condition, can overlook specific situations that it should recognize automatically."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 3,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "name": "Standard application",
+                  "id": 19,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      4,
+                      5,
+                      22,
+                      41,
+                      42
+                    ],
+                    "source": [],
+                    "description": "Standards, such as eClass, UBL and EPCIS, define which information should be provided to represent events, products, and processes. They help users, for instance, to describe their products with acknowledged properties and contribute to the descriptions completeness."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 4,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "name": "Metadata",
+                  "id": 20,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      6,
+                      7,
+                      22,
+                      41,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Some data needs metadata to be considered complete. Critical business information might need more metadata in comparison with less critical information."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 5,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                }
+              ],
+              "options": {
+                "href": "#",
+                "hidden": false,
+                "hideChildrens": false,
+                "position": 3,
+                "draggable": true,
+                "edit": false,
+                "showActionButtons": true,
+                "currentlyDragging": false,
+                "destenationTop": false,
+                "destenationBottom": false,
+                "disabled": false,
+                "showExpandButton": true,
+                "showDeleteButton": true,
+                "showDropChildZone": false
+              }
+            },
+            {
+              "name": "Currentness",
+              "id": 21,
+              "checked": false,
+              "value": {
+                "description": "The information has the right age for a specific context of use."
+              },
+              "childrens": [
+                {
+                  "name": "Reporting lags",
+                  "id": 22,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      24,
+                      43
+                    ],
+                    "source": [],
+                    "description": "The lag between observing an event and reporting it."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 1,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                }
+              ],
+              "options": {
+                "href": "#",
+                "hidden": false,
+                "hideChildrens": false,
+                "position": 4,
+                "draggable": true,
+                "edit": false,
+                "showActionButtons": true,
+                "currentlyDragging": false,
+                "destenationTop": false,
+                "destenationBottom": false,
+                "disabled": false,
+                "showExpandButton": true,
+                "showDeleteButton": true,
+                "showDropChildZone": false
+              }
+            },
+            {
+              "name": "Understandability",
+              "id": 23,
+              "checked": false,
+              "value": {
+                "description": null
+              },
+              "childrens": [
+                {
+                  "name": "Language",
+                  "id": 24,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      3,
+                      5,
+                      42,
+                      43,
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Information in other languages than the target group's language might be unusable."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 1,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "name": "Presence of acronyms",
+                  "id": 25,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      3,
+                      5,
+                      42,
+                      43,
+                      44
+                    ],
+                    "source": [],
+                    "description": "Users may not know the meaning of acronyms and jargon."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 2,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                }
+              ],
+              "options": {
+                "href": "#",
+                "hidden": false,
+                "hideChildrens": false,
+                "position": 5,
+                "draggable": true,
+                "edit": false,
+                "showActionButtons": true,
+                "currentlyDragging": false,
+                "destenationTop": false,
+                "destenationBottom": false,
+                "disabled": false,
+                "showExpandButton": true,
+                "showDeleteButton": true,
+                "showDropChildZone": false
+              }
+            }
+          ],
+          "options": {
+            "href": "#",
+            "hidden": false,
+            "hideChildrens": false,
+            "position": 1,
+            "draggable": true,
+            "edit": false,
+            "showActionButtons": true,
+            "currentlyDragging": false,
+            "destenationTop": false,
+            "destenationBottom": false,
+            "disabled": false,
+            "showExpandButton": true,
+            "showDeleteButton": true,
+            "showDropChildZone": false
+          }
+        },
+        {
+          "name": "Organization quality",
+          "id": 26,
+          "checked": false,
+          "value": {
+            "description": null
+          },
+          "childrens": [
+            {
+              "name": "Efficiency",
+              "id": 27,
+              "checked": false,
+              "value": {
+                "description": "The information does not contain meaningless data."
+              },
+              "childrens": [
+                {
+                  "name": "Data format",
+                  "id": 28,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      41,
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Formats need to respect business software, such as Office tools and specialized software (e.g. ERP and PIM)."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 1,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "name": "Data reduction",
+                  "id": 29,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      41
+                    ],
+                    "source": [],
+                    "description": "It is important to use an efficient data reduction method in preprocessing to reduce both data storage space and calculation time."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 2,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                }
+              ],
+              "options": {
+                "href": "#",
+                "hidden": false,
+                "hideChildrens": false,
+                "position": 1,
+                "draggable": true,
+                "edit": false,
+                "showActionButtons": true,
+                "currentlyDragging": false,
+                "destenationTop": false,
+                "destenationBottom": false,
+                "disabled": false,
+                "showExpandButton": true,
+                "showDeleteButton": true,
+                "showDropChildZone": false
+              }
+            },
+            {
+              "name": "Portability",
+              "id": 30,
+              "checked": false,
+              "value": {
+                "description": null
+              },
+              "childrens": [
+                {
+                  "name": "Standard application",
+                  "id": 31,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Standards, such as eClass and UBL, use acknowledged properties to describe entities. They make it easier for users to import/export products in/from third party software."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 1,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                }
+              ],
+              "options": {
+                "href": "#",
+                "hidden": false,
+                "hideChildrens": false,
+                "position": 2,
+                "draggable": true,
+                "edit": false,
+                "showActionButtons": true,
+                "currentlyDragging": false,
+                "destenationTop": false,
+                "destenationBottom": false,
+                "disabled": false,
+                "showExpandButton": true,
+                "showDeleteButton": true,
+                "showDropChildZone": false
+              }
+            },
+            {
+              "name": "Compliance",
+              "id": 32,
+              "checked": false,
+              "value": {
+                "description": null
+              },
+              "childrens": [
+                {
+                  "name": "Standard application",
+                  "id": 33,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      25,
+                      44
+                    ],
+                    "source": [],
+                    "description": "Visual indication which standards a product description meets can improve compliance."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 1,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                }
+              ],
+              "options": {
+                "href": "#",
+                "hidden": false,
+                "hideChildrens": false,
+                "position": 3,
+                "draggable": true,
+                "edit": false,
+                "showActionButtons": true,
+                "currentlyDragging": false,
+                "destenationTop": false,
+                "destenationBottom": false,
+                "disabled": false,
+                "showExpandButton": true,
+                "showDeleteButton": true,
+                "showDropChildZone": false
+              }
+            },
+            {
+              "name": "Recoverability",
+              "id": 34,
+              "checked": false,
+              "value": {
+                "description": "How well the data contributes to maintenance and preservation of platform operations and quality of service."
+              },
+              "childrens": [
+                {
+                  "name": "Backup procedures",
+                  "id": 35,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      25
+                    ],
+                    "source": [],
+                    "description": "Records are stored in a backup. This ensures that platform operators can recover lost or erroneous data."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 1,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                }
+              ],
+              "options": {
+                "href": "#",
+                "hidden": false,
+                "hideChildrens": false,
+                "position": 4,
+                "draggable": true,
+                "edit": false,
+                "showActionButtons": true,
+                "currentlyDragging": false,
+                "destenationTop": false,
+                "destenationBottom": false,
+                "disabled": false,
+                "showExpandButton": true,
+                "showDeleteButton": true,
+                "showDropChildZone": false
+              }
+            }
+          ],
+          "options": {
+            "href": "#",
+            "hidden": false,
+            "hideChildrens": false,
+            "position": 2,
+            "draggable": true,
+            "edit": false,
+            "showActionButtons": true,
+            "currentlyDragging": false,
+            "destenationTop": false,
+            "destenationBottom": false,
+            "disabled": false,
+            "showExpandButton": true,
+            "showDeleteButton": true,
+            "showDropChildZone": false
+          }
+        },
+        {
+          "name": "Presentation quality",
+          "id": 36,
+          "checked": false,
+          "value": {
+            "description": null
+          },
+          "childrens": [
+            {
+              "name": "Understandability",
+              "id": 37,
+              "checked": false,
+              "value": {
+                "description": null
+              },
+              "childrens": [
+                {
+                  "name": "Presentation format",
+                  "id": 38,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      2,
+                      5,
+                      43,
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "It is recommended to use simple charts and colorful indicatiors in the presentations to represent complex situations."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 1,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                }
+              ],
+              "options": {
+                "href": "#",
+                "hidden": false,
+                "hideChildrens": false,
+                "position": 1,
+                "draggable": true,
+                "edit": false,
+                "showActionButtons": true,
+                "currentlyDragging": false,
+                "destenationTop": false,
+                "destenationBottom": false,
+                "disabled": false,
+                "showExpandButton": true,
+                "showDeleteButton": true,
+                "showDropChildZone": false
+              }
+            }
+          ],
+          "options": {
+            "href": "#",
+            "hidden": false,
+            "hideChildrens": false,
+            "position": 3,
+            "draggable": true,
+            "edit": false,
+            "showActionButtons": true,
+            "currentlyDragging": false,
+            "destenationTop": false,
+            "destenationBottom": false,
+            "disabled": false,
+            "showExpandButton": true,
+            "showDeleteButton": true,
+            "showDropChildZone": false
+          }
+        },
+        {
+          "name": "Application quality",
+          "id": 39,
+          "checked": false,
+          "value": {
+            "description": null
+          },
+          "childrens": [
+            {
+              "name": "Accessibility",
+              "id": 40,
+              "checked": false,
+              "value": {
+                "description": "The information provides an opportunity to be used when needed."
+              },
+              "childrens": [
+                {
+                  "name": "Commercial factors",
+                  "id": 41,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1
+                    ],
+                    "source": [],
+                    "description": "Commercial factors can prevent companies from getting access to the data."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 1,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "name": "Cultural factors",
+                  "id": 42,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1
+                    ],
+                    "source": [],
+                    "description": "Cultural factors can prevent companies from getting access to to data."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 2,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "name": "Political factors",
+                  "id": 43,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1
+                    ],
+                    "source": [],
+                    "description": "Political factors can prevent companies from getting access to to data."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 3,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "name": "Access permission",
+                  "id": 44,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      43,
+                      45
+                    ],
+                    "source": [],
+                    "description": "Information retrieval from business information systems requires the permission access the available information."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 4,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "name": "Willingness to share information",
+                  "id": 45,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1
+                    ],
+                    "source": [],
+                    "description": "Platform users must see value in sharing the information they own."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 5,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "name": "Right format for use",
+                  "id": 46,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      43,
+                      44,
+                      45
+                    ],
+                    "source": [],
+                    "description": "The information needs to be provided in the right format for off-platform processes."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 6,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                }
+              ],
+              "options": {
+                "href": "#",
+                "hidden": false,
+                "hideChildrens": false,
+                "position": 1,
+                "draggable": true,
+                "edit": false,
+                "showActionButtons": true,
+                "currentlyDragging": false,
+                "destenationTop": false,
+                "destenationBottom": false,
+                "disabled": false,
+                "showExpandButton": true,
+                "showDeleteButton": true,
+                "showDropChildZone": false
+              }
+            },
+            {
+              "name": "Credibility",
+              "id": 47,
+              "checked": false,
+              "value": {
+                "description": "How true and believable the information is. Believability is a surrogate characteristic taking a bundle of quality characteristics into account.."
+              },
+              "childrens": [
+                {
+                  "name": "Original records",
+                  "id": 48,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      4,
+                      25,
+                      45
+                    ],
+                    "source": [],
+                    "description": "The accessibility of original records helps to understand changes."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 1,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                }
+              ],
+              "options": {
+                "href": "#",
+                "hidden": false,
+                "hideChildrens": false,
+                "position": 2,
+                "draggable": true,
+                "edit": false,
+                "showActionButtons": true,
+                "currentlyDragging": false,
+                "destenationTop": false,
+                "destenationBottom": false,
+                "disabled": false,
+                "showExpandButton": true,
+                "showDeleteButton": true,
+                "showDropChildZone": false
+              }
+            },
+            {
+              "name": "Traceability",
+              "id": 49,
+              "checked": false,
+              "value": {
+                "description": "How well users can understand data changes and access of data."
+              },
+              "childrens": [
+                {
+                  "name": "Access logs",
+                  "id": 50,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      7,
+                      25
+                    ],
+                    "source": [],
+                    "description": "Data logs track users and services that access data on the platform."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 1,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "name": "Change logs",
+                  "id": 51,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      7,
+                      25
+                    ],
+                    "source": [],
+                    "description": "Data logs track data changes caused by users and the platform instance's services."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 2,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                },
+                {
+                  "name": "Retention period",
+                  "id": 52,
+                  "checked": false,
+                  "value": {
+                    "label_ids": [
+                      1,
+                      2,
+                      7,
+                      25,
+                      43,
+                      44
+                    ],
+                    "source": [],
+                    "description": "Laws and standards can require a minimum retention period. Longer periods increase the traceability."
+                  },
+                  "childrens": [],
+                  "options": {
+                    "href": "#",
+                    "hidden": false,
+                    "hideChildrens": false,
+                    "position": 3,
+                    "draggable": true,
+                    "edit": false,
+                    "showActionButtons": true,
+                    "currentlyDragging": false,
+                    "destenationTop": false,
+                    "destenationBottom": false,
+                    "disabled": false,
+                    "showExpandButton": true,
+                    "showDeleteButton": true,
+                    "showDropChildZone": false
+                  }
+                }
+              ],
+              "options": {
+                "href": "#",
+                "hidden": false,
+                "hideChildrens": false,
+                "position": 3,
+                "draggable": true,
+                "edit": false,
+                "showActionButtons": true,
+                "currentlyDragging": false,
+                "destenationTop": false,
+                "destenationBottom": false,
+                "disabled": false,
+                "showExpandButton": true,
+                "showDeleteButton": true,
+                "showDropChildZone": false
+              }
+            }
+          ],
+          "options": {
+            "href": "#",
+            "hidden": false,
+            "hideChildrens": false,
+            "position": 4,
+            "draggable": true,
+            "edit": false,
+            "showActionButtons": true,
+            "currentlyDragging": false,
+            "destenationTop": false,
+            "destenationBottom": false,
+            "disabled": false,
+            "showExpandButton": true,
+            "showDeleteButton": true,
+            "showDropChildZone": false
+          }
+        }
+      ],
+      "options": {
+        "href": "#",
+        "hidden": false,
+        "hideChildrens": false,
+        "position": 1,
+        "draggable": true,
+        "edit": false,
+        "showActionButtons": true,
+        "currentlyDragging": false,
+        "destenationTop": false,
+        "destenationBottom": false,
+        "disabled": false,
+        "showExpandButton": true,
+        "showDeleteButton": true,
+        "showDropChildZone": false
+      }
+    }
+  ]
+}

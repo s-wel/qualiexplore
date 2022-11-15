@@ -13,26 +13,29 @@
  * limitations under the License.
  */
 
-import { Injectable } from '@angular/core'
-import { HttpClient } from '@angular/common/http'
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Apollo, gql } from 'apollo-angular'
 import { Filter } from './model/filter.model'
-import { map } from 'rxjs/operators'
 import { Subject } from 'rxjs'
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class FiltersService {
-  response = new Subject<any>()
-  result: any
-  constructor(private http: HttpClient, private apollo: Apollo) {}
+  constructor(private http: HttpClient, private apollo: Apollo) { }
 
+  // Using Static data from asstets/json
+
+  // async getQuestions() {
+  //   try {
+  //     const response = await this.http.get('./assets/json/filters.json').toPromise();
+  //     return response;
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
+  
   getQuestions() {
-    // try {
-    //   const response = await this.http.get('./assets/json/filters.json').toPromise();
-    //   return response;
-    // } catch (err) {
-    //   console.log(err);
-    // }
     const filtersQuery = gql`
       query {
         filters {
@@ -52,4 +55,5 @@ export class FiltersService {
       query: filtersQuery,
     }).valueChanges
   }
+ 
 }
