@@ -8,6 +8,10 @@ import { AuthService } from '../auth/auth.service'
 import { Observable } from 'rxjs'
 import { TYPED_NULL_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Key } from 'protractor';
+<<<<<<< HEAD
+import { environment } from '../../../environments/environment'
+=======
+>>>>>>> 07beca67d6f917a67f941cbfb47895780c5304b6
 
 @Component({
   selector: 'app-edit-tree',
@@ -106,8 +110,17 @@ export class EditTreeComponent implements OnInit, OnDestroy {
           initPayload : "/edit_tree",
           customData: { language: "en" },
           socketPath: "/socket.io/",
+<<<<<<< HEAD
+          socketUrl: environment.socketUrlApi,
+          title:"Tree Bot",
+          mainColor: "#138496",
+          userBackgroundColor: "#138496",
+          userTextColor: "#cde9ce",
+          inputTextFieldHint: "Type your message here..",
+=======
           socketUrl: "http://localhost:5005",
           title:"EditTree Bot",
+>>>>>>> 07beca67d6f917a67f941cbfb47895780c5304b6
           onSocketEvent : {
             'bot_uttered': () => console.log('the bot said something'),
             'connect': () => console.log('connection established'),
@@ -120,7 +133,11 @@ export class EditTreeComponent implements OnInit, OnDestroy {
     }),
     
     t.insertBefore(e, t.firstChild);
+<<<<<<< HEAD
+   
+=======
     // localStorage.clear();
+>>>>>>> 07beca67d6f917a67f941cbfb47895780c5304b6
   }
 
 
