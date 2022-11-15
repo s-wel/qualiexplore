@@ -34,7 +34,7 @@ Qualiexplore is also available on [Docker Hub]
 * V1 https://hub.docker.com/repository/docker/shantanoodesai/qualiexplore
 * V2 https://hub.docker.com/repository/docker/robinkuri/qualiexpolire-with-editing-environment
 
-See Dockerfile and docker-compose.yml file
+See Dockerfile and docker-compose.yml file for details
 
 ## Contact
 
