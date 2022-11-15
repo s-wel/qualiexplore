@@ -2,7 +2,7 @@
 
 Standalone Frontend Angular application of QualiExplore Component in the [i4Q](www.i4q-project.eu)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version <-to be updated->.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.15.
 
 ## Important Notes
 
