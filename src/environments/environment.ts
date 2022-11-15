@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  socketUrlApi : "http://rasaHost:rasaPort"
+  socketUrlApi : "http://rasaDevHost:rasaPort"
 };
 
 /*
