@@ -21,8 +21,8 @@ The app will automatically reload if you change any of the source files.
 
 For local setup:
 
-*Run `npm install -g json-server`  --to install json server on the system
-*Run `json-server --watch db.json` --to run json server
+* Run `npm install -g json-server`  --to install json server on the system
+* Run `json-server --watch db.json` --to run json server
 
 For Docker use this image from dockerhub : robinkuri/quali-json-server 
 
