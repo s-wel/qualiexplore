@@ -32,8 +32,8 @@ For Docker use this image from dockerhub : robinkuri/quali-json-server
 
 QualiExplore is served through `nginx` HTTP Server. See `Dockerfile` for details.
 Qualiexplore is also available on [Docker Hub]
-V1. https://hub.docker.com/repository/docker/shantanoodesai/qualiexplore
-V2. https://hub.docker.com/repository/docker/robinkuri/qualiexpolire-with-editing-environment
+* V1. https://hub.docker.com/repository/docker/shantanoodesai/qualiexplore
+* V2. https://hub.docker.com/repository/docker/robinkuri/qualiexpolire-with-editing-environment
 
 See Dockerfile and docker-compose.yml file
 
