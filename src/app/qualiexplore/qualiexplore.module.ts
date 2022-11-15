@@ -13,10 +13,12 @@
  * limitations under the License.
  */
 
-import { NgModule, OnInit } from '@angular/core';
+
+import { NgModule} from '@angular/core';
+// import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TreeviewModule } from 'ngx-treeview';
 import { FiltersComponent } from './filters/filters.component';
@@ -27,20 +29,33 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
 import { AuthService } from './auth/auth.service';
 import { HeaderComponent } from './header/header.component';
 import { AuthGuard } from './auth/auth.guard';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { NgxTreeDndModule } from 'ngx-tree-dnd';
+import { EditTreeComponent } from './edit-tree/edit-tree.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faEdit,faMinus,faPlus,faTimes } from '@fortawesome/free-solid-svg-icons';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
 
 @NgModule({
-  declarations: [FiltersComponent, FactorsComponent, AuthComponent, HeaderComponent, LoadingSpinnerComponent],
+  declarations: [FiltersComponent, FactorsComponent, PageNotFoundComponent, EditTreeComponent, AuthComponent, HeaderComponent, LoadingSpinnerComponent],
   imports: [
     CommonModule,
     QualiexploreRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
+    NgxTreeDndModule,
     TreeviewModule.forRoot(),
-    NgbModule
+    NgbModule, 
+    FontAwesomeModule
   ],
   providers: [AuthService]
 })
-
-export class QualiexploreModule {}
-
+export class QualiexploreModule {
+   constructor(){
+      library.add( faEdit,faMinus,faPlus,faTimes, fas, far);
+   }
+ }

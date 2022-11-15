@@ -6,7 +6,12 @@ services:
     ports:
       - 80:80
     
-    image: hrabhijith/graphene-qualiexplore:latest
+    image: robinkuri/i4q-editing-environment:latest
+
+  json-server:
+    ports:
+      - 3000:3000
+    image: robinkuri/quali-json-server:latest
   
   gql-mongo:
     ports:

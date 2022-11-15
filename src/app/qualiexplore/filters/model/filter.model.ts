@@ -18,8 +18,26 @@ export interface Label {
     name: string;
     checked: boolean;
 }
-
+export interface Task {
+    id: number;
+    name: string;
+    checked: boolean;
+}
 export interface Filter {
     name: string;
     labels: Label[];
 }
+
+export class fomrObj{
+    id : number;
+    category : string;
+    tasks: [];
+}
+
+export interface newFilter{
+    id: number;
+    category: string;
+    tasks: Task[];
+}
+
+
