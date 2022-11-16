@@ -24,11 +24,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service'
 import { stringify } from 'querystring';
-<<<<<<< HEAD
 import { environment } from '../../../environments/environment'
-=======
->>>>>>> 07beca67d6f917a67f941cbfb47895780c5304b6
-
 
 // import { apiService } from '../api.service';
 // import { formDataModel } from './data.model';
@@ -192,14 +188,8 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
             initPayload : "/filters",
             customData: { language: "en" },
             socketPath: "/socket.io/",
-<<<<<<< HEAD
             socketUrl: environment.socketUrlApi,
             title:"Filters Bot",
-=======
-            socketUrl: "http://localhost:5005",
-            title:"Filters Bot",
-            subtitle:"Chat like a pro..",
->>>>>>> 07beca67d6f917a67f941cbfb47895780c5304b6
             params: {"storage": "session"},
             mainColor: "#138496",
             userBackgroundColor: "#138496",
