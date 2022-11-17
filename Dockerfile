@@ -2,7 +2,7 @@
 
 FROM node:12.8-alpine AS builder
 
-LABEL maintainer="Shantanoo Desai <des@biba.uni-bremen.de>"
+LABEL maintainer="Stefan Wellsandt <wel@biba.uni-bremen.de>"
 
 WORKDIR /usr/src/app
 COPY . .

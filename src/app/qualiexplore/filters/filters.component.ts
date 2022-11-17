@@ -24,7 +24,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service'
 import { stringify } from 'querystring';
-
+import { environment } from '../../../environments/environment'
 
 // import { apiService } from '../api.service';
 // import { formDataModel } from './data.model';
@@ -188,9 +188,8 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
             initPayload : "/filters",
             customData: { language: "en" },
             socketPath: "/socket.io/",
-            socketUrl: "http://i4q-dev.ikap.biba.uni-bremen.de:5005",
+            socketUrl: environment.socketUrlApi,
             title:"Filters Bot",
-            subtitle:"Chat like a pro..",
             params: {"storage": "session"},
             mainColor: "#138496",
             userBackgroundColor: "#138496",
@@ -203,7 +202,7 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
         );
       }),
       t.insertBefore(e, t.firstChild);
-      localStorage.clear();
+      // localStorage.clear();
     }
 
     isEditFormValid(): boolean {
@@ -273,7 +272,7 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
         sessionStorage.setItem('currentFilters', JSON.stringify(this.filters));
         sessionStorage.setItem('currentNewFilters', JSON.stringify(this.newFilters));
         sessionStorage.setItem('currentSelectionsSet', JSON.stringify(this.selections));
-        //for rasa
+        // for rasa
         this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(this.selections) } }).then(() => {
           window.location.reload();
         });
