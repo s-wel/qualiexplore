@@ -5,7 +5,8 @@
 
 export const environment = {
   production: false,
-  socketUrlApi : "http://i4q-dev.ikap.biba.uni-bremen.de:5005"
+  socketUrlApi : "http://i4q-dev.ikap.biba.uni-bremen.de:5005",
+  botName: "QualiExplore assistant"
 };
 
 /*

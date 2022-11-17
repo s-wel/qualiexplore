@@ -109,14 +109,14 @@ export class EditTreeComponent implements OnInit, OnDestroy {
           customData: { language: "en" },
           socketPath: "/socket.io/",
           socketUrl: environment.socketUrlApi,
-          title:"Tree Bot",
+          title: environment.botName,
           mainColor: "#138496",
           userBackgroundColor: "#138496",
           userTextColor: "#cde9ce",
           inputTextFieldHint: "Type your message here..",
           onSocketEvent : {
-            'bot_uttered': () => console.log('the bot said something'),
-            'connect': () => console.log('connection established'),
+            'bot_uttered': () => console.log('The bot said something'),
+            'connect': () => console.log('Connection established'),
             'disconnect': () => console.log('Disconnect'),
           },
           // add other props here

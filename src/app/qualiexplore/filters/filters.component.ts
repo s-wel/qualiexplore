@@ -189,7 +189,7 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
             customData: { language: "en" },
             socketPath: "/socket.io/",
             socketUrl: environment.socketUrlApi,
-            title:"Filters Bot",
+            title: environment.botName,
             params: {"storage": "session"},
             mainColor: "#138496",
             userBackgroundColor: "#138496",
