@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  socketUrlApi : "http://i4q-dev.ikap.biba.uni-bremen.de:5055"
+  socketUrlApi : "http://i4q-dev.ikap.biba.uni-bremen.de:5005"
 };
 
 /*
