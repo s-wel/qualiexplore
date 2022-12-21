@@ -185,7 +185,7 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
       (e.onload = () => {
         window.WebChat.default(
           {
-            initPayload : "/filters",
+            initPayload : "/request_gdpr_introduction",
             customData: { language: "en" },
             socketPath: "/socket.io/",
             socketUrl: environment.socketUrlApi,

@@ -105,7 +105,7 @@ export class EditTreeComponent implements OnInit, OnDestroy {
     (e.onload = () => {
       window.WebChat.default(
         {
-          initPayload : "/edit_tree",
+          initPayload : "/request_gdpr_introduction",
           customData: { language: "en" },
           socketPath: "/socket.io/",
           socketUrl: environment.socketUrlApi,
