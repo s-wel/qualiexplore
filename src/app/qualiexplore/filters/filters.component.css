@@ -13,3 +13,29 @@
     cursor: pointer;
     
 }
+
+/* .rw-widget-container {
+    left: 0;
+} */
+::ng-deep #rasaWebchatPro .rw-widget-container{
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    margin: 0px 20px 20px 20px;
+    position: fixed;
+    width: auto;
+    left:0;
+    z-index: 1;
+    align-items: flex-start;
+    justify-content: flex-start; 
+}
+
+.container-color{
+    background-color:#A2A2A2 ;
+}
+
+.btn-color{
+    background-color: #8064A2;
+    color: white;
+    text-align: right;
+}

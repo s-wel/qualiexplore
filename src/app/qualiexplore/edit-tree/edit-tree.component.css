@@ -2,6 +2,12 @@
     height: 700px;
     overflow-y: scroll;
 }
-/* .btn{
-    font-size: 1.3vw;
-} */
+.bar-color{
+    background-color: #A2A2A2 ;
+}
+
+.btn-color{
+    background-color: #8064A2;
+    color: white;
+    text-align: center;
+}

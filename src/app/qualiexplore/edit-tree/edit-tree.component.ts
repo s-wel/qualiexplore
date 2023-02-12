@@ -8,6 +8,7 @@ import { AuthService } from '../auth/auth.service'
 import { Observable } from 'rxjs'
 import { TYPED_NULL_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Key } from 'protractor';
+import { environment } from '../../../environments/environment'
 
 @Component({
   selector: 'app-edit-tree',
@@ -15,6 +16,8 @@ import { Key } from 'protractor';
   styleUrls: ['./edit-tree.component.css']
 })
 export class EditTreeComponent implements OnInit, OnDestroy {
+  
+  websocketUrl = environment.socketUrlApi
 
   constructor(private route: ActivatedRoute,
     private router: Router, private service : EditTreeService, private apiService : ApiService, private location: Location,  private authService: AuthService, ) { 
@@ -74,14 +77,16 @@ export class EditTreeComponent implements OnInit, OnDestroy {
     setIconSize: 13
   };
   ngOnInit() {
+      // TODO enbale when user connection is ready
       this.authService.autoLogin();
-      // this.rasaBot();
+      // Qualiexplore bot widget
+      // this.chatWidget()
 
       //get editable Tree factors data from JSON-Server watch db.json file
 
-      this.apiService.getEditData().subscribe(res => {
-        this.factorsData = res;
-      })
+      // this.apiService.getEditData().subscribe(res => {
+      //   this.factorsData = res;
+      // })
 
   }
 
@@ -90,6 +95,14 @@ export class EditTreeComponent implements OnInit, OnDestroy {
     // console.log('destroy', this.rasaBot);
     
     
+  }
+
+  chatWidget(){
+    let script = document.createElement("script");
+    const head = document.getElementsByTagName("head")[0];
+    script.src = "https://unpkg.com/@rasahq/rasa-chat";
+    script.type = "application/javascript";
+    head.insertBefore(script, head.firstChild)
   }
 
   // rasaBot(){

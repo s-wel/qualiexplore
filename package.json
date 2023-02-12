@@ -28,6 +28,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@ng-bootstrap/ng-bootstrap": "^5.2.2",
     "apollo-angular": "^2.6.0",
+    "dotenv": "^16.0.3",
     "graphql": "^15.0.0",
     "ngx-tree-dnd": "^2.6.0",
     "ngx-treeview": "^6.0.2",

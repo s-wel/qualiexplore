@@ -52,3 +52,15 @@
 .close{
     cursor: pointer;
 }
+
+.bar-color{
+    background-color: #A2A2A2 ;
+}
+
+.btn-color{
+    background-color: #8064A2;
+    color: white;
+}
+.btn-outline-purple{
+    border-color: #8064A2;
+}

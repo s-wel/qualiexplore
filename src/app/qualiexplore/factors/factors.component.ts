@@ -16,7 +16,7 @@
  import { Component, OnInit } from '@angular/core';
  import { ActivatedRoute, Router } from '@angular/router';
  import { FactorsService } from './factors.service';
- import { ApiService } from '../api.service';
+//  import { ApiService } from '../api.service';
  import { TreeviewConfig, TreeviewItem, TreeItem } from 'ngx-treeview';
  import { Location } from '@angular/common';
  import { Filter } from '../filters/model/filter.model';
@@ -24,7 +24,8 @@
  import { FormArray, FormBuilder, FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
  import { AuthService } from '../auth/auth.service'
  import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
- import { Observable } from 'rxjs'
+ import { Observable, Subscription } from 'rxjs'
+ import {graphqlApiService} from '../graphqlApi.service'
  
  @Component({
      selector: 'app-factors',
@@ -62,26 +63,58 @@
      //form
      editForm:FormGroup;
      allData : any;
+     allFS : any
      allTasks = [];
 
      ///
      isAuthenticated = false
      user: string = null
      updateButton = false
+
+     // interfaces
+
+    
      
      constructor(
        private service: FactorsService,
        private route: ActivatedRoute,
        private router: Router,
        private modalService : NgbModal,
-       private apiService : ApiService,
+    //    private apiService : ApiService,
        private authService: AuthService,
-       private location : Location
+       private location : Location,
+       private graphqlApi: graphqlApiService
        ) {
-     }
- 
+    // Treeview Manual Approach
+    //     interface Data {
+    //         lifeCyclePhases: LifeCyclePhase[];
+    //       }
+          
+    //       interface LifeCyclePhase {
+    //         name: string;
+    //         id: string;
+    //         qualityCharacteristicsContributesTo: QualityCharacteristic[];
+    //       }
+          
+    //       interface QualityCharacteristic {
+    //         name: string;
+    //         id: string;
+    //         description: string;
+    //         qualityFactorsContributesTo: QualityFactor[];
+    //       }
+          
+    //       interface QualityFactor {
+    //         name: string;
+    //         id: string;
+    //         description: string;
+    //       }
+
+    }
+    
+     private subscriptions: Subscription[] = [];
      ngOnInit() {
          
+        // TODO enbale when user connection is ready
          this.authService.autoLogin();
          ////
          this.authService.user.subscribe((user) => {
@@ -95,15 +128,17 @@
           } else {
             this.updateButton = false
           }
+        // // For now using the admin Mode
+        // this.updateButton = true
+        // /////
 
-        /////
 
-      
          this.route.queryParams.subscribe(params => {
             //  console.log(params);
           
              this.selected = JSON.parse(params.ids);
-            //  console.log(this.selected);
+             console.log("SELECTED IDS :",this.selected);
+             console.log("CNF :",sessionStorage.getItem('currentNewFilters'));
              
  
              // Display Logic to show selected filters from Step - 1
@@ -123,6 +158,10 @@
                   })
                 })
               })
+
+              console.log("SF DETAILS :", this.selectedFilterDetails);
+              
+              ///mongodb///
             //   let factorsObs: Observable<any>;
             //   factorsObs = this.service.getFactors()
             //   factorsObs.subscribe((data: any) => {
@@ -131,47 +170,236 @@
             //     this.items = this.parseTree([new TreeviewItem(data1.data.factors[0])])
             //     this.countHighlightedFactors(this.items)
             //   })
-              //////////////////
-              this.apiService.getFactorsData().subscribe((res) => {                
-                    this.item = res[0];
-                    // console.log(this.item);
+              ////////////json server//////
+            //   this.apiService.getFactorsData().subscribe((res) => {                
+            //         this.item = res[0];
+            //         // console.log(this.item);
                     
-                    this.items = this.parseTree([new TreeviewItem(this.item)]);
-                    this.countHighlightedFactors(this.items);
-               });
+            //         this.items = this.parseTree([new TreeviewItem(this.item)]);
+            //         this.countHighlightedFactors(this.items);
 
-              //  this.service.getFactors()
+            //    });
+
+            //  this.service.getFactors()
               //  .then((items: any) => {
               //      console.log(items);
                 
               //      this.items = this.parseTree([new TreeviewItem(items)]);
               //      this.countHighlightedFactors(this.items);
               //  });
+
+            ////graphql-neo4j///
+            this.getAllData()
+
+            
+
+        //     this.subscriptions.push(this.graphqlApi.getLifeCyclePhases().subscribe((res:any) => {      
+        //         console.log(res);
+                
+        //         let data = res.data;
+        //         // converting response as ngx-treeview json format
+        //         const convertToNewFormat = (obj: any): any => {
+        //             const result: any = {};
+                  
+        //             if (obj.name) result.text = obj.name;
+        //             if (obj.id) result.id = obj.id;
+
+        //             // console.log(obj.name, obj.id);
+                  
+        //             if (obj.qualityCharacteristicsContributesTo) {
+        //               result.children = [];
+        //               obj.qualityCharacteristicsContributesTo.forEach((item: any) => {
+        //                 result.children.push(convertToNewFormat(item));
+        //               });
+        //             }
+
+                 
+
+        //             if (obj.qualityFactorsContributesTo) {
+        //               result.children = [];
+        //               obj.qualityFactorsContributesTo.forEach((item: any) => {
+        //                 result.children.push(convertToNewFormat(item));
+        //               });
+        //             }
+
+
+        //             result.value = {};
+
+        //             if (obj.description) result.value = { description: obj.description, source: []};
+        //             if (obj.sources) result.value.source = [obj.sources];        
+        //             if (obj.id) result.value.id = obj.id;
+        //             return result;
+        //           };
+
+        //           const result: any = {"text": "Platform information quality",  "children": []};
+
+        //           data.lifeCyclePhases.forEach((item: any) => {
+        //             const converted = convertToNewFormat(item);
+        //             // console.log("Converted :", converted);
+        //             result.children.push(converted)
+        //           });
+               
+        //         let item = result
+        //         console.log("Check The converted Json:", item);
+        //         this.items = this.parseTree([new TreeviewItem(item)])
+        //         this.countHighlightedFactors(this.items);
+                
+               
+        //         /// expanding all childs for manual treeview
+        //         // for (const phase of this.item) {
+        //         //     phase.expanded = true;
+        //         //     for (const characteristic of phase.qualityCharacteristicsContributesTo) {
+        //         //       characteristic.expanded = true;
+        //         //     }
+        //         // }
+                          
+        //         // this.item = lifeCycleData;
+        //         // console.log("this.item",this.item);
+                
+        //         // this.items = this.parseTree([new TreeviewItem(res.data.lifeCyclePhases)]);
+        //         // console.log(this.items);
+                
+        //         // this.countHighlightedFactors(this.items);
+
+        //    }));
+
+
+          
          });
 
         //get all the filters from json-server
 
-        this.apiService.getData().subscribe(res => {
-            this.allData = res;
+        // this.apiService.getData().subscribe(res => {
+        //     this.allData = res;
             
-            for(let elem of this.allData){
-                for(let item of elem.tasks){
-                    // console.log(item);
+        //     for(let elem of this.allData){
+        //         for(let item of elem.tasks){
+        //             // console.log(item);
                     
-                    this.allTasks.push(item); //item.name
-                }  
-            }
+        //             this.allTasks.push(item); //item.name
+        //         }  
+        //     }
               
             
-         })
+        //  })
+
+        //get all filter statements from graphql
+
+        this.subscriptions.push(this.graphqlApi.getAllFilterStatementswithID().subscribe((res:any) =>{
+            this.allFS = res.data.filterStatements
+        }))
+
+       
+    
+         
+      
      }
 
-     ///
+     /// graphql test
+
+     ngOnDestroy(){
+        this.subscriptions.forEach(sub => sub.unsubscribe());
+      }
+
+    // get all tree data 
+
+    getAllData(){
+        this.subscriptions.push(this.graphqlApi.getLifeCyclePhases().subscribe((res:any) => {      
+            console.log(res);
+            
+            let data = res.data;
+            // converting response as ngx-treeview json format
+            const convertToNewFormat = (obj: any): any => {
+                const result: any = {};
+              
+                if (obj.name) result.text = obj.name;
+                if (obj.id) {
+                    result.id = obj.id;
+                    result.checked = false;
+                }
+
+                // console.log(obj.name, obj.id);
+              
+                if (obj.qualityCharacteristicsContributesTo) {
+                    result.children = [];
+                    obj.qualityCharacteristicsContributesTo.forEach((item: any) => {
+                        result.children.push(convertToNewFormat(item));
+                    });
+                }
+
+             
+
+                if (obj.qualityFactorsContributesTo) {
+                    result.children = [];
+                    obj.qualityFactorsContributesTo.forEach((item: any) => {
+                        result.children.push(convertToNewFormat(item));
+                    });
+                }
+
+
+                result.value = {};
+
+                if (obj.description) result.value.description = obj.description;
+                if (obj.label_ids) {
+                    result.value.label_ids = obj.label_ids;
+                }
+
+
+                if (obj.sources) {
+                    result.value.source = [obj.sources]
+                }
+                else {
+                    result.value.source = []
+                };        
+
+                if (obj.id) result.value.id = obj.id;
+                return result;
+              };
+
+              const result: any = {"text": "Platform information quality",  "children": []};
+
+              data.lifeCyclePhases.forEach((item: any) => {
+                const converted = convertToNewFormat(item);
+                // console.log("Converted :", converted);
+                result.children.push(converted)
+              });
+           
+            this.item = result
+
+            // console.log("Check The converted Json:", this.item);
+            this.items = this.parseTree([new TreeviewItem(this.item)])
+            // console.log("After Parsing :",this.items);
+            this.countHighlightedFactors(this.items);
+            
+           
+            /// expanding all childs for manual treeview
+            // for (const phase of this.item) {
+            //     phase.expanded = true;
+            //     for (const characteristic of phase.qualityCharacteristicsContributesTo) {
+            //       characteristic.expanded = true;
+            //     }
+            // }
+                      
+            // this.item = lifeCycleData;
+            // console.log("this.item",this.item);
+            
+            // this.items = this.parseTree([new TreeviewItem(res.data.lifeCyclePhases)]);
+            // console.log(this.items);
+            
+            // this.countHighlightedFactors(this.items);
+
+       }));
+    }
+
+     selection(item){
+        console.log(item.name, item.id);
+        
+     }
 
      changeCheck(id: number, event: any) {
         //array to int conversion of selectedFactor
         // let num = +this.selectedFactor.value.label_ids.join("");
-        console.log(this.selectedFactor.value.label_ids);
+        console.log("Label Ids ",this.selectedFactor.value.label_ids);
         // console.log(num);
         if(this.selectedFactor.value.label_ids.length != 0){
             for(let i in this.selectedFactor.value.label_ids){
@@ -209,11 +437,11 @@
       * Selected Factor information
       * @param item selected factor from the ngx-treeview
       */
-     select(item: TreeItem) {
+    //  select(item: TreeItem) {
+     select(item) {
          // console.log(item);
-
+         console.log("Item : ",item);
          this.selectedFactor = item
-
          console.log('Selected Factor:',this.selectedFactor);
          if(this.selectedFactor.value.highlighted == undefined){
             this.proceedButtonDisabled = true
@@ -302,31 +530,22 @@
       //   return factors
       // }
       parseTree(factors: TreeviewItem[]): TreeviewItem[] {
+        
         factors.forEach((factor: TreeviewItem) => {
-            // if(factor.value === undefined){
-                
-            //     return factor;
-                
-            // }
-            // //////
+            
             if(factor.value === undefined){
 
-                
-                var d = new Date().getTime();
-                let emp = []
-                let i = 1;
-                while(i<=6){
-                    emp.push(d + i);
-                    i++;
-                }
-                // console.log("emp arr:", emp);
-                Object.assign(factor, {checked : false}, {value : {label_ids : emp , source:["Please update the source"], description:" Please update the description"}});
+                Object.assign(factor, {checked : false}, {value : {label_ids : [] , source:["Please update the source"], description:" Please update the description"}});
                 console.log(factor)
-                // return factor;
+               
             }
              ////
             if (factor.value !== null && factor.value.label_ids !== undefined) {
                 const labels: number[] = factor.value.label_ids;
+                console.log("label_ids :", labels);
+                console.log("Selected Ids:", this.selected);
+                
+                
                 labels.forEach(label => {
                     if (this.selected.findIndex(l => l === label) > -1) {
                         factor.value.highlighted = true;
@@ -368,11 +587,16 @@
         this.modalService.open(content, {ariaLabelledBy: 'popUp', size:'lg', centered: true})
         let description = '';
         let source = '';
+        let id = ''
         let list = [];
+        console.log("Form Open :",this.selectedFactor);
+        
         if(this.selectedFactor !== undefined){
-             description = this.selectedFactor.value.description;
+            description = this.selectedFactor.value.description;
+            id = this.selectedFactor.value.id;
             for(let elem of this.selectedFactor.value.source){
-                source = elem;   
+                source = elem;
+                
             }
         }
         // if(this.selectedFactor === undefined){
@@ -382,7 +606,8 @@
 
         this.editForm = new FormGroup({
             'description' : new FormControl(description),
-            'source': new FormControl(source)
+            'source': new FormControl(source),
+            'id' : new FormControl(id),
         });  
           
      }
@@ -392,8 +617,10 @@
     parseFactors(factors) {
         factors.forEach((factor) => {
             
+            console.log(factor);
+            console.log(this.selectedFactor);
             
-
+        
             if(factor.text == this.selectedFactor.text){
 
         
@@ -409,28 +636,99 @@
         });
         return factors;
     }
+    // qcids
+    getQcIds() {
+        return new Promise((resolve, reject) => {
+          let qcIds = [];
+      
+          this.subscriptions.push(this.graphqlApi.getAllQCids().subscribe((res: any) => {
+            let arr = res.data.qualityCharacteristics;
+            arr.map(elem => qcIds.push(elem.id));
+            resolve(qcIds);
+          }));
+        });
+    }
+
+    getQfIds() {
+        return new Promise((resolve, reject) => {
+          let qfIds = [];
+      
+          this.subscriptions.push(this.graphqlApi.getAllQFids().subscribe((res: any) => {
+            let arr = res.data.qualityFactors;
+            arr.map(elem => qfIds.push(elem.id));
+            resolve(qfIds);
+          }));
+        });
+    }
 
      //update form Data
-     updateData(data){
-        console.log("form data :", data);
-        // console.log(this.selectedFactor);
-        this.factorsData = this.parseFactors([this.item]);
-        // let updatedData = this.factorsData[0]
-        // // this.selectedFactor.value.label_ids = this.selections;
-        // // console.log(this.selectedFactor.text);
-
-        this.apiService.updateFactorsData(this.factorsData[0], this.factorsData[0].id).subscribe((res) => {
-            console.log(res);            
-        })
-        window.location.reload();
-        // console.log(this.selectedFactor.value.label_ids);
-        // console.log(this.selections);
+    async updateData(data){
+      
+        // console.log("form data :", data);
+        // console.log(this.item);
         
+        let selectionsArray = []
+        console.log("Selections Working :",typeof(this.selections));
+        selectionsArray = Object.values(this.selections)
+        
+        // clear esisting values of label_ids
+
+        // this.subscriptions.push(this.graphqlApi.clearLabelIds(data.id).subscribe((res: any) => {
+        //     console.log(res);
+        // }))
+
+        // update the label Ids using selection Ids
+        this.subscriptions.push(this.graphqlApi.updateQFlabelIds(selectionsArray, data.id).subscribe((res:any)=> {
+            // console.log(this.item);
+            console.log(res);
+        }))
+
+        
+
+        let qcIds:any = await this.getQcIds();
+        // console.log("qcIds:", qcIds);
+        let qfIds:any = await this.getQfIds();
+        // console.log("qfIds:", qfIds);
+        if(qcIds.includes(data.id)){
+            
+            this.subscriptions.push(this.graphqlApi.updateQCdescription(data.id, data.description).subscribe((res:any) => {
+                let description = res.data.updateQualityCharacteristics.qualityCharacteristics[0].description;
+                // console.log(description);
+                this.selectedFactor.value.description = description;
+            }))
+            // window.location.reload()
+            
+        }
+   
+        if(qfIds.includes(data.id)){
+            this.subscriptions.push(this.graphqlApi.updateQFsourceDescription(data.id, data.description, data.source).subscribe((res:any) => {
+                let description = res.data.updateQualityFactors.qualityFactors[0].description;
+                let source = res.data.updateQualityFactors.qualityFactors[0].sources;
+                // console.log(description);
+                this.selectedFactor.value.description = description;
+                if(source == null){
+                    this.selectedFactor.value.source = []
+                }
+                this.selectedFactor.value.source =[source];  
+                
+            }))
+        }
+        
+        window.location.reload()
         ///update logic goes here
         alert('Data Updated Successfully');
+
         let ref = document.getElementById('cancel');
         ref.click();
      }
-     
+    
+    // For Manual TreeVieew 
+    //  togglePhase(phase) {
+    //     phase.expanded = !phase.expanded;
+    //   }
+      
+    //   toggleCharacteristic(characteristic) {
+    //     characteristic.expanded = !characteristic.expanded;
+    //   }
  }
  

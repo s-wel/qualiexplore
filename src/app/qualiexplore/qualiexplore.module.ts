@@ -15,7 +15,6 @@
 
 
 import { NgModule} from '@angular/core';
-// import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -40,6 +39,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 
 @NgModule({
+
   declarations: [FiltersComponent, FactorsComponent, PageNotFoundComponent, EditTreeComponent, AuthComponent, HeaderComponent, LoadingSpinnerComponent],
   imports: [
     CommonModule,
@@ -56,6 +56,6 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 })
 export class QualiexploreModule {
    constructor(){
-      library.add( faEdit,faMinus,faPlus,faTimes, fas, far);
+      library.add(faEdit, faMinus, faPlus, faTimes, fas, far);
    }
  }
