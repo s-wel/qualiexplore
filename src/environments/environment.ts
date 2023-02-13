@@ -2,9 +2,11 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+
 export const environment = {
   production: false,
-  socketUrlApi : "http://rasaDevHost:rasaPort"
+  socketUrlApi : "http://i4q-dev.ikap.biba.uni-bremen.de:5005",
+  botName: "QualiExplore assistant"
 };
 /*
  * For easier debugging in development mode, you can import the following file

@@ -111,7 +111,7 @@ export class AuthService {
     this.user.next(null)
     this.router.navigate(['./qualiexplore/auth']).then(() => {
       window.location.reload();
-    });
+    }); 
     localStorage.removeItem('userData')
     localStorage.removeItem('token')
     sessionStorage.clear()  ///added for another session
