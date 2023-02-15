@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  socketUrlApi : "http://rasaDevHost:rasaPort"
+  // socketUrlApi : "http://rasaDevHost:rasaPort"
+  socketUrlApi : "http://localhost:5005/"
 };
 /*
  * For easier debugging in development mode, you can import the following file
