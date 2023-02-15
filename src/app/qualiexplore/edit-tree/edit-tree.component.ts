@@ -10,6 +10,7 @@ import { TYPED_NULL_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Key } from 'protractor';
 import { environment } from '../../../environments/environment'
 
+
 @Component({
   selector: 'app-edit-tree',
   templateUrl: './edit-tree.component.html',
@@ -82,6 +83,7 @@ export class EditTreeComponent implements OnInit, OnDestroy {
   ngOnInit() {
       // TODO enbale when user connection is ready
       this.authService.autoLogin();
+
       // Qualiexplore bot widget
       this.chatWidget()
 
@@ -105,7 +107,11 @@ export class EditTreeComponent implements OnInit, OnDestroy {
     
   }
 
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 6dd1a00c98a76e0430f445a9691f553ae4c676e2
   chatWidget(){
 
     this.rasaChatScript = document.createElement('script');
@@ -115,39 +121,40 @@ export class EditTreeComponent implements OnInit, OnDestroy {
     
   }
 
-  // rasaBot(){
-    
-  //   let e = document.createElement("script"),
-  //   t = document.head || document.getElementsByTagName("head")[0];
-  //   (e.src =
-  //   "https://cdn.jsdelivr.net/npm/rasa-webchat@1.0.1/lib/index.js"),
-  //   // Replace 1.x.x with the version that you want
-  //   (e.async = !0),
-  //   (e.onload = () => {
-  //     window.WebChat.default(
-  //       {
-  //         initPayload : "/edit_tree",
-  //         customData: { language: "en" },
-  //         socketPath: "/socket.io/",
-  //         socketUrl: "http://localhost:5005",
-  //         title:"EditTree Bot",
-  //         onSocketEvent : {
-  //           'bot_uttered': () => console.log('the bot said something'),
-  //           'connect': () => console.log('connection established'),
-  //           'disconnect': () => console.log('Disconnect'),
-  //         },
-  //         // add other props here
-  //       },
-  //       null
-  //     );
-  //   }),
-    
-  //   t.insertBefore(e, t.firstChild);
-  //   // localStorage.clear();
 
-  //   // localStorage.clear();
+  rasaBot(){
     
-  // }
+    let e = document.createElement("script"),
+    t = document.head || document.getElementsByTagName("head")[0];
+    (e.src =
+    "https://cdn.jsdelivr.net/npm/rasa-webchat@1.0.1/lib/index.js"),
+    // Replace 1.x.x with the version that you want
+    (e.async = !0),
+    (e.onload = () => {
+      window.WebChat.default(
+        {
+          initPayload : "/request_gdpr_introduction",
+          customData: { language: "en" },
+          socketPath: "/socket.io/",
+          socketUrl: environment.socketUrlApi,
+          title: environment.botName,
+          mainColor: "#138496",
+          userBackgroundColor: "#138496",
+          userTextColor: "#cde9ce",
+          inputTextFieldHint: "Type your message here..",
+          onSocketEvent : {
+            'bot_uttered': () => console.log('The bot said something'),
+            'connect': () => console.log('Connection established'),
+            'disconnect': () => console.log('Disconnect'),
+          },
+          // add other props here
+        },
+        null
+      );
+    }),
+    
+    t.insertBefore(e, t.firstChild);
+  }
 
 
 
@@ -223,6 +230,13 @@ export class EditTreeComponent implements OnInit, OnDestroy {
       // this.location.back();
       let selections = sessionStorage.getItem('currentSelectionsSet');
       let arrayOfSelections = JSON.parse(selections);
+<<<<<<< HEAD
+=======
+      // for rasa
+      this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(arrayOfSelections) } }).then(() => {
+        window.location.reload();
+      });
+>>>>>>> 6dd1a00c98a76e0430f445a9691f553ae4c676e2
       this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(arrayOfSelections) } });
     }
 

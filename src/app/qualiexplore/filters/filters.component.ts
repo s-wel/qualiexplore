@@ -24,6 +24,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service'
 import { stringify } from 'querystring';
+
 import {graphqlApiService} from '../graphqlApi.service'
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Subscription } from 'rxjs';
@@ -144,6 +145,7 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
         this.authService.autoLogin(); 
 
         // QualiExplore bot widget.
+<<<<<<< HEAD
        
         this.chatWidget();
 
@@ -152,6 +154,9 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
 
 
        
+=======
+        this.chatWidget();
+>>>>>>> 6dd1a00c98a76e0430f445a9691f553ae4c676e2
 
         // Graphql API call
         
@@ -234,8 +239,10 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
       this.subscriptions.forEach(sub => sub.unsubscribe());
       sessionStorage.removeItem('chat_session')
     }
+
     
     chatWidget(){
+<<<<<<< HEAD
 
       this.rasaChatScript = document.createElement('script');
       this.rasaChatScript.src = 'https://unpkg.com/@rasahq/rasa-chat';
@@ -263,14 +270,45 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
     //         title:"Welcome",
     //         params: {"storage": "session"},
     //         inputTextFieldHint: "Type your message here.."
+=======
+      let script = document.createElement("script");
+      const head = document.getElementsByTagName("head")[0];
+      script.src = "https://unpkg.com/@rasahq/rasa-chat";
+      script.type = "application/javascript";
+      head.insertBefore(script, head.firstChild)
+
+  
+
+    rasaBot(){
+      let e = document.createElement("script"),
+      t = document.head || document.getElementsByTagName("head")[0];
+      (e.src =
+      "https://cdn.jsdelivr.net/npm/rasa-webchat@1.0.1/lib/index.js"),
+      // Replace 1.x.x with the version that you want
+
+      (e.async = !0),
+      (e.onload = () => {
+        window.WebChat.default(
+          {
+            initPayload : "/request_gdpr_introduction",
+            customData: { language: "en" },
+            socketPath: "/socket.io/",
+            socketUrl: environment.socketUrlApi,
+            title: environment.botName,
+            params: {"storage": "session"},
+            mainColor: "#138496",
+            userBackgroundColor: "#138496",
+            userTextColor: "#cde9ce",
+            inputTextFieldHint: "Type your message here.."
+>>>>>>> 6dd1a00c98a76e0430f445a9691f553ae4c676e2
            
-    //         // add other props here
-    //       },
-    //       null
-    //     );
-    //   }),
-    //   t.insertBefore(e, t.firstChild);
-    // }
+            // add other props here
+          },
+          null
+        );
+      }),
+      t.insertBefore(e, t.firstChild);
+    }
 
     isEditFormValid(): boolean {
       if (this.pageLoaded) {
@@ -344,11 +382,10 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
         sessionStorage.setItem('currentNewFilters', JSON.stringify(this.newFilters));
 
         sessionStorage.setItem('currentSelectionsSet', JSON.stringify(this.selections));
-        //for rasa
-        // this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(this.selections) } }).then(() => {
-        //   window.location.reload();
-        // });
-        this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(this.selections) } })
+        // for chatbot
+        this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(this.selections) } }).then(() => {
+          window.location.reload();
+        });
 
     }
 
