@@ -9,12 +9,13 @@ import { v4 as uuid } from 'uuid';
   providedIn: 'root'
 })
 export class graphqlApiService {
+  // Handles graphql queries for the Neo4j knowledge graph. 
 
-  // This api services is for neo4j and graphql connection
-
-    constructor(private http: HttpClient, private apollo: Apollo,) {
-     }
-    private url = "http://localhost:4000/graphql" // neo4j and graphql connection url will be here
+    constructor(private http: HttpClient, private apollo: Apollo,) {}
+    
+    // TODO Move url to a config file
+    // URL of the Apollo server that interacts with Neo4j.
+    private url = 'http://localhost:4000/graphql'
 
     getFilterStatements(){
       const query =`
@@ -49,6 +50,7 @@ export class graphqlApiService {
       return this.http.post(this.url, {query: mutation});
     }
 
+    // TODO Remove or keep after debugging
     // updateFilterStatements(editableObj) {
     //   editableObj.tasks.forEach(task => {
     //     const mutation = `
@@ -171,6 +173,7 @@ export class graphqlApiService {
 
 
     updateOrCreateFilterStatements(editableObj, dataObj) {
+      // TODO add a description
       console.log("UC EditableObj :", editableObj);
       console.log("UC DataObj :", dataObj);
       

@@ -9,7 +9,12 @@ import { HttpLink } from 'apollo-angular/http'
 import { HttpHeaders } from '@angular/common/http'
 import { setContext } from '@apollo/client/link/context'
 
-const uri = 'http://localhost:1000/graphql' // <-- add the URL of the GraphQL server here
+// Handles graphql queries for user validation. 
+// TODO use same structure as the graphqlAPI.services.ts (use a class)
+
+// TODO Move url to a config file
+// URL of the Apollo server that interacts with the MongoDB (has an integrated GraphQL server).
+const uri = 'http://localhost:5000/graphql' 
 
 export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
   const basic = setContext((operation, context) => ({
