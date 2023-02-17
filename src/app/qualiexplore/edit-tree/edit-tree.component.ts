@@ -77,6 +77,9 @@ export class EditTreeComponent implements OnInit, OnDestroy {
     setFontSize: 16,
     setIconSize: 13
   };
+
+  private rasaChatScript: HTMLScriptElement;
+
   ngOnInit() {
       // TODO enbale when user connection is ready
       this.authService.autoLogin();
@@ -93,55 +96,61 @@ export class EditTreeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    
-    // console.log('destroy', this.rasaBot);
-    
+
+      console.log("Ondestroy Called :");
+      setTimeout(() => {
+        const chatWidgetContainer = document.querySelector('#rasa-chat-widget-container');
+        if (chatWidgetContainer) {
+          chatWidgetContainer.remove();
+        }
+      }, 100);
     
   }
 
-
+    
   chatWidget(){
-    let script = document.createElement("script");
-    const head = document.getElementsByTagName("head")[0];
-    script.src = "https://unpkg.com/@rasahq/rasa-chat";
-    script.type = "application/javascript";
-    head.insertBefore(script, head.firstChild)
+
+    this.rasaChatScript = document.createElement('script');
+    this.rasaChatScript.src = 'https://unpkg.com/@rasahq/rasa-chat';
+    this.rasaChatScript.type = 'application/javascript';
+    document.head.appendChild(this.rasaChatScript);
+    
   }
 
 
-  rasaBot(){
+  // rasaBot(){
     
-    let e = document.createElement("script"),
-    t = document.head || document.getElementsByTagName("head")[0];
-    (e.src =
-    "https://cdn.jsdelivr.net/npm/rasa-webchat@1.0.1/lib/index.js"),
-    // Replace 1.x.x with the version that you want
-    (e.async = !0),
-    (e.onload = () => {
-      window.WebChat.default(
-        {
-          initPayload : "/request_gdpr_introduction",
-          customData: { language: "en" },
-          socketPath: "/socket.io/",
-          socketUrl: environment.socketUrlApi,
-          title: environment.botName,
-          mainColor: "#138496",
-          userBackgroundColor: "#138496",
-          userTextColor: "#cde9ce",
-          inputTextFieldHint: "Type your message here..",
-          onSocketEvent : {
-            'bot_uttered': () => console.log('The bot said something'),
-            'connect': () => console.log('Connection established'),
-            'disconnect': () => console.log('Disconnect'),
-          },
-          // add other props here
-        },
-        null
-      );
-    }),
+  //   let e = document.createElement("script"),
+  //   t = document.head || document.getElementsByTagName("head")[0];
+  //   (e.src =
+  //   "https://cdn.jsdelivr.net/npm/rasa-webchat@1.0.1/lib/index.js"),
+  //   // Replace 1.x.x with the version that you want
+  //   (e.async = !0),
+  //   (e.onload = () => {
+  //     window.WebChat.default(
+  //       {
+  //         initPayload : "/request_gdpr_introduction",
+  //         customData: { language: "en" },
+  //         socketPath: "/socket.io/",
+  //         socketUrl: environment.socketUrlApi,
+  //         title: environment.botName,
+  //         mainColor: "#138496",
+  //         userBackgroundColor: "#138496",
+  //         userTextColor: "#cde9ce",
+  //         inputTextFieldHint: "Type your message here..",
+  //         onSocketEvent : {
+  //           'bot_uttered': () => console.log('The bot said something'),
+  //           'connect': () => console.log('Connection established'),
+  //           'disconnect': () => console.log('Disconnect'),
+  //         },
+  //         // add other props here
+  //       },
+  //       null
+  //     );
+  //   }),
     
-    t.insertBefore(e, t.firstChild);
-  }
+  //   t.insertBefore(e, t.firstChild);
+  // }
 
 
 
@@ -217,13 +226,9 @@ export class EditTreeComponent implements OnInit, OnDestroy {
       // this.location.back();
       let selections = sessionStorage.getItem('currentSelectionsSet');
       let arrayOfSelections = JSON.parse(selections);
-      // for rasa
-      this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(arrayOfSelections) } }).then(() => {
-        window.location.reload();
-      });
       this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(arrayOfSelections) } });
-  
     }
+
     onSave(){
       
       // this.apiService.deleteEditData(1).subscribe(res =>{

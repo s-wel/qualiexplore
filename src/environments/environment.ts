@@ -5,8 +5,8 @@
 
 export const environment = {
   production: false,
-  socketUrlApi : "http://i4q-dev.ikap.biba.uni-bremen.de:5005",
-  botName: "QualiExplore assistant"
+  // socketUrlApi : "http://rasaDevHost:rasaPort"
+  socketUrlApi : "http://localhost:5005/"
 };
 /*
  * For easier debugging in development mode, you can import the following file

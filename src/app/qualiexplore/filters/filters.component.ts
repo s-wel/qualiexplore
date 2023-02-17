@@ -29,7 +29,8 @@ import {graphqlApiService} from '../graphqlApi.service'
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Subscription } from 'rxjs';
 import { v4 as uuid } from 'uuid';
-import { environment } from '../../../environments/environment'
+import { environment } from 'src/environments/environment'
+import { ActivatedRoute } from '@angular/router';
 // import { apiService } from '../api.service';
 // import { formDataModel } from './data.model';
 
@@ -97,7 +98,7 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
 
    
     private selectionsSet: Set<number> = new Set();
-      constructor(private service: FiltersService, private apiService:ApiService, private modalService: NgbModal, private fb: FormBuilder,private router: Router, private ref: ChangeDetectorRef, private authService: AuthService, private graphqlApi: graphqlApiService) {
+      constructor(private service: FiltersService, private apiService:ApiService, private modalService: NgbModal, private fb: FormBuilder,private router: Router, private ref: ChangeDetectorRef, private authService: AuthService, private graphqlApi: graphqlApiService, private eref : ElementRef, private route: ActivatedRoute) {
         // this.editableObj = {
         //   id: null,
         //   category: null,
@@ -135,16 +136,21 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
    updateButton = false
   
    private subscriptions: Subscription[] = [];
+
+   private rasaChatScript: HTMLScriptElement;
+
+
     ngOnInit() {
         // Get previously selected Filters and Selection Array
         this.authService.autoLogin(); 
 
         // QualiExplore bot widget.
+       
         this.chatWidget();
 
         // Graphql API call
-        this.get_all_filters()
-        this.newFilters = this.allFiltersInfo
+        
+        // this.newFilters = this.allFiltersInfo
         // console.log(this.newFilters);
         
         
@@ -177,7 +183,7 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
         } else {
             // call the API
             // this.showFilters(); // this one from mongodb
-            // this.showNewFilters();
+            this.showNewFilters();
             console.log("check");
             
         }
@@ -190,7 +196,11 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
             'tasks': this.fb.array([this.fb.control('')])
           })
 
-       // this.getAll(); //get all filters data from json-server
+        // get all filtergroups and statements from neo4j graph
+
+        this.get_all_filters()
+
+   
      
     }
 
@@ -201,57 +211,62 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
   
     }
     ngAfterViewInit(){
-      // this.pageLoaded = true;
-      //  this.rasaBot();
+
     }
     ngAfterViewChecked(){ 
         // this.ref.detectChanges();
         
     }
     ngOnDestroy(){
+      console.log("Ondestroy Called :");
+      setTimeout(() => {
+        const chatWidgetContainer = document.querySelector('#rasa-chat-widget-container');
+        if (chatWidgetContainer) {
+          chatWidgetContainer.remove();
+        }
+      }, 100);
+      
       this.subscriptions.forEach(sub => sub.unsubscribe());
       sessionStorage.removeItem('chat_session')
     }
 
     
     chatWidget(){
-      let script = document.createElement("script");
-      const head = document.getElementsByTagName("head")[0];
-      script.src = "https://unpkg.com/@rasahq/rasa-chat";
-      script.type = "application/javascript";
-      head.insertBefore(script, head.firstChild)
 
-  
-
-    rasaBot(){
-      let e = document.createElement("script"),
-      t = document.head || document.getElementsByTagName("head")[0];
-      (e.src =
-      "https://cdn.jsdelivr.net/npm/rasa-webchat@1.0.1/lib/index.js"),
-      // Replace 1.x.x with the version that you want
-
-      (e.async = !0),
-      (e.onload = () => {
-        window.WebChat.default(
-          {
-            initPayload : "/request_gdpr_introduction",
-            customData: { language: "en" },
-            socketPath: "/socket.io/",
-            socketUrl: environment.socketUrlApi,
-            title: environment.botName,
-            params: {"storage": "session"},
-            mainColor: "#138496",
-            userBackgroundColor: "#138496",
-            userTextColor: "#cde9ce",
-            inputTextFieldHint: "Type your message here.."
-           
-            // add other props here
-          },
-          null
-        );
-      }),
-      t.insertBefore(e, t.firstChild);
+      this.rasaChatScript = document.createElement('script');
+      this.rasaChatScript.src = 'https://unpkg.com/@rasahq/rasa-chat';
+      this.rasaChatScript.type = 'application/javascript';
+      document.head.appendChild(this.rasaChatScript);
+      
     }
+
+    // this rasaBot is replaced by chatwidget
+    // rasaBot(){
+    //   let e = document.createElement("script"),
+    //   t = document.head || document.getElementsByTagName("head")[0];
+    //   (e.src =
+    //   "https://cdn.jsdelivr.net/npm/rasa-webchat@1.0.1/lib/index.js"),
+    //   // Replace 1.x.x with the version that you want
+
+    //   (e.async = !0),
+    //   (e.onload = () => {
+    //     window.WebChat.default(
+    //       {
+    //         initPayload : "/filters",
+    //         customData: { language: "en" },
+    //         socketPath: "/socket.io/",
+    //         socketUrl: "http://localhost:5005",
+    //         title:"Welcome",
+    //         params: {"storage": "session"},
+    //         inputTextFieldHint: "Type your message here.."
+           
+    //         // add other props here
+    //       },
+    //       null
+    //     );
+    //   }),
+    //   t.insertBefore(e, t.firstChild);
+    // }
 
     isEditFormValid(): boolean {
       if (this.pageLoaded) {
@@ -291,10 +306,18 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
     // }
 
     showNewFilters(){
-      this.apiService.getData().subscribe((res: any) => {
-        this.newFilters = res;
-        console.log("newFilters",this.newFilters);
-      })
+      // this.apiService.getData().subscribe((res: any) => {
+      //   this.newFilters = res;
+      //   console.log("newFilters",this.newFilters);
+      // })
+      //this.newFilters = this.allFiltersInfo
+      this.newFilters = this.allFiltersInfo
+      console.log("SNF FUNCTION",this.newFilters);
+
+
+      ///
+      
+      
     }
 
     /**
@@ -306,10 +329,6 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
         (event.target.checked) ? this.selectionsSet.add(id) : this.selectionsSet.delete(id);
         this.selections = Array.from(this.selectionsSet);
     }
-    // changeCheckNew(id: number, event: any) {
-    //     (event.target.checked) ? this.selectionsSet.add(id) : this.selectionsSet.delete(id);
-    //     this.selections = Array.from(this.selectionsSet);
-    // }
 
     /**
      * Proceed to Step-2 : Factors
@@ -322,9 +341,10 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
 
         sessionStorage.setItem('currentSelectionsSet', JSON.stringify(this.selections));
         // for chatbot
-        this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(this.selections) } }).then(() => {
-          window.location.reload();
-        });
+        // this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(this.selections) } }).then(() => {
+        //   window.location.reload();
+        // });
+        this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(this.selections) } })
 
     }
 
@@ -502,7 +522,7 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
                 this.allFiltersInfo.push({ id:filterGroup.id, category: groupName, tasks: tasks });
             }
            }
-          );  
+          );
           
           this.newFilters = this.allFiltersInfo
         }));
@@ -542,24 +562,6 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
          
           this.editableObj = Object.assign({},data)
           console.log("After assigning data:",this.editableObj);
-          // this.editableObj.id = data.id
-          // this.editableObj.category = data.category
-          // this.editableObj.tasks.forEach()
-          // this.editableObj.id = data.id.toString()
-          
-          // if (data.tasks.length != 0){
-            
-          //   data.tasks.forEach(item => {
-              
-          //      this.editableObj.tasks.push({ id : item.id, name: null, checked: false})
-
-          //   })
-          // }
-          // else{
-          //   console.log("No tasks assigned");
-          // }
-          
-          // console.log("After assigning id:",this.editableObj);
           
           this.modalService.open(this.editcontent, {ariaLabelledBy: 'popUp', size:'lg', centered: true});
         
@@ -597,7 +599,7 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
   //     }))
   // }
 
-  // new version of update data
+  // new version of updating data
 
   async updateData(dataObj){
     try {
