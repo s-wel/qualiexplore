@@ -1,8 +1,13 @@
-.btn-custom {
-    background-color: #8064A2;
-    color: white;
-    text-align: right;
-  }
+.btn-color {
+  background-color: #8064A2;
+  color: white;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-color:hover {
+  background-color: #715b8d;
+  color: white;
+}
 
 .custom{
   color: #8064A2;  
@@ -10,8 +15,9 @@
 
 .font{
   font-size: 25px;
+  font-weight: medium;
 }
 
 .navbar-color{
-  background-color: #A2A2A2;
+  background-color: #b7b6b6;
 }

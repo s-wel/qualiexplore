@@ -1,14 +1,13 @@
-import { Component, OnInit, OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, ElementRef} from '@angular/core';
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EditTreeService } from './edit-tree.service';
 import { Location } from '@angular/common';
-import { ApiService } from '../api.service';
-import { editableTree } from './model/edit-tree.model';
-import { AuthService } from '../auth/auth.service'
-import { Observable } from 'rxjs'
-import { TYPED_NULL_EXPR } from '@angular/compiler/src/output/output_ast';
-import { Key } from 'protractor';
-import { environment } from '../../../environments/environment'
+import { AuthService } from '../auth/auth.service';
+import { Subscription } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { graphqlApiService } from '../graphqlApi.service';
+import { FormControl, FormGroup } from '@angular/forms';
+import { v4 as uuid } from 'uuid';
 
 
 @Component({
@@ -16,83 +15,46 @@ import { environment } from '../../../environments/environment'
   templateUrl: './edit-tree.component.html',
   styleUrls: ['./edit-tree.component.css']
 })
-export class EditTreeComponent implements OnInit, OnDestroy {
-  
-  websocketUrl = environment.socketUrlApi
 
-  constructor(private route: ActivatedRoute,
-    private router: Router, private service : EditTreeService, private apiService : ApiService, private location: Location,  private authService: AuthService, ) { 
-      this.editableTree = {
-        id: null,
-        name: null,
-        checked: false,
-        childrens: []
-      }
-  }
-  myTree = [
-    {
-      name: 'Platform Information Quality',
-      id: 1,
-      childrens: [
-        {
-          name: 'Errors',
-          id: 2,
-          childrens: []
-        },
-        {
-          name: 'trios',
-          id: 3,
-          childrens: [
-            {
-              name: 'Brios',
-              id: 4,
-              childrens:[]
-            }
-         ]
-        },
-      ]
-    }
-  ];
-  factorsData: any; //treeData
-  selected: number[] = []
-  editableTree : {
-    id: string;
-    name: string,
-    checked: boolean,
-    childrens: []
-  };
-  currentEvent: string = 'start do something';
-  dndconfig = {
-    showActionButtons: true,
-    showAddButtons: true,
-    showRenameButtons: true,
-    showDeleteButtons: true,
-    showRootActionButtons: false, // set false to hide root action buttons.
-    enableExpandButtons: true,
-    enableDragging: true,
-    rootTitle: '',
-    validationText: 'Enter valid text',
-    // minCharacterLength: 6,
-    setItemsAsLinks: false,
-    setFontSize: 16,
-    setIconSize: 13
-  };
+export class EditTreeComponent implements OnInit, OnDestroy, AfterViewInit {
+
+ 
+  
+  websocketUrl = environment.socketUrlApi;
+  item : any;
+  editForm:FormGroup;
+  addForm:FormGroup;
+  cycleForm: FormGroup;
+
+  @ViewChild('newItemInput', { static: true }) newItemInput: ElementRef;
+
+
+  constructor(private route: ActivatedRoute,private router: Router, private graphqlApi: graphqlApiService, private location: Location,  private authService: AuthService,
+  private modalService : NgbModal) {}
+
 
   private rasaChatScript: HTMLScriptElement;
-
+  private subscriptions: Subscription[] = [];
   ngOnInit() {
-      // TODO enbale when user connection is ready
+
       this.authService.autoLogin();
-
-      // Qualiexplore bot widget
+      // Qualiexplore bot widget      
       this.chatWidget()
+      this.getAllData()
+  
+  }
 
-      //get editable Tree factors data from JSON-Server watch db.json file
+  getAllData(){
+    this.graphqlApi.getLifeCyclePhases().subscribe((res:any) => {
+      this.item = res.data.lifeCyclePhases;
+      // console.log("Item ::",this.item);
+    } )
+  }
 
-      // this.apiService.getEditData().subscribe(res => {
-      //   this.factorsData = res;
-      // })
-
+  ngAfterViewInit() {
+    console.log("Afterview", this.newItemInput.nativeElement);
+    
+    this.newItemInput.nativeElement.focus();
   }
 
   ngOnDestroy() {
@@ -104,8 +66,11 @@ export class EditTreeComponent implements OnInit, OnDestroy {
           chatWidgetContainer.remove();
         }
       }, 100);
+
+      this.subscriptions.forEach(sub => sub.unsubscribe());
     
   }
+
 
     
   chatWidget(){
@@ -117,108 +82,197 @@ export class EditTreeComponent implements OnInit, OnDestroy {
     
   }
 
+  // For Manual TreeVieew 
+  togglePhase(phase) {
+    phase.expanded = !phase.expanded;
+  }
+  
+  toggleCharacteristic(characteristic) {
+    characteristic.expanded = !characteristic.expanded;
+  }
 
-  // rasaBot(){
-    
-  //   let e = document.createElement("script"),
-  //   t = document.head || document.getElementsByTagName("head")[0];
-  //   (e.src =
-  //   "https://cdn.jsdelivr.net/npm/rasa-webchat@1.0.1/lib/index.js"),
-  //   // Replace 1.x.x with the version that you want
-  //   (e.async = !0),
-  //   (e.onload = () => {
-  //     window.WebChat.default(
-  //       {
-  //         initPayload : "/request_gdpr_introduction",
-  //         customData: { language: "en" },
-  //         socketPath: "/socket.io/",
-  //         socketUrl: environment.socketUrlApi,
-  //         title: environment.botName,
-  //         mainColor: "#138496",
-  //         userBackgroundColor: "#138496",
-  //         userTextColor: "#cde9ce",
-  //         inputTextFieldHint: "Type your message here..",
-  //         onSocketEvent : {
-  //           'bot_uttered': () => console.log('The bot said something'),
-  //           'connect': () => console.log('Connection established'),
-  //           'disconnect': () => console.log('Disconnect'),
-  //         },
-  //         // add other props here
-  //       },
-  //       null
-  //     );
-  //   }),
-    
-  //   t.insertBefore(e, t.firstChild);
-  // }
-
-
-
-
-   //////ngxTreeDnd functions
-
-      onClick(){
-          console.log("Clicked")
-      }
-      onSelectedChange(event){
-        console.log("onselected Change");
-        
-          console.log(event);
-      }
-      onFilterChange(event){
-        
-          console.log(event.value);
-      }
-
-      onDragStart(event) {
-              console.log(event);
-      }
-      onDrop(event) {
-          console.log(event);
-      }
-      onAllowDrop(event) {
-          this.currentEvent = 'on allow drop';
-      }
-      onDragEnter(event) {
-          this.currentEvent = 'on drag enter';
-      }
-      onDragLeave(event) {
-          this.currentEvent = 'on drag leave';
-      }
-      onAddItem(event) {
-              this.currentEvent = 'on add item';
-              // console.log(event);
-    
-              //   console.log(event.parent)
-              // console.log(event.element.id);
-
-      }
-      onStartRenameItem(event) {
-          this.currentEvent = 'on start edit item';
-      }
-      onFinishRenameItem(event) {
-        //////send updated data from here///////
-          // console.log('on finish edit item');
-          console.log(this.myTree);
-          // console.log("Event",event);
-          // console.log("new Tree:",this.factorsData);
-      
-      }
-      onStartDeleteItem(event) {
-          console.log('start delete');
-          
-      }
-      onFinishDeleteItem(event) {
-          console.log('finish delete');
-          
-      }
-      onCancelDeleteItem(event) {
-          console.log('cancel delete');
-          
-      }
-
-    ////ngxTreeDnd functions end
    
+  open(content,id, name) {
+    this.modalService.open(content, {ariaLabelledBy: 'popUp', size:'lg', centered: true})  
+    this.editForm = new FormGroup({
+      'name' : new FormControl(name),
+     
+      'id' : new FormControl(id),
+      
+    }); 
+
+  }
+
+  openAddModal(addContent,id, name) {
+    this.modalService.open(addContent, {ariaLabelledBy: 'popUp', size:'lg', centered: true})  
+    this.addForm = new FormGroup({
+      'name' : new FormControl(name),
+      'newItem': new FormControl(" "),
+      'id' : new FormControl(id),
+    }); 
+
+  }
+
+ openAddCycleModal(addCycle){
+  this.modalService.open(addCycle, {ariaLabelledBy: 'popUp', size:'lg', centered: true})
+  this.cycleForm = new FormGroup({
+    'name': new FormControl(" "),
+  }); 
+ }
+
+ getQcIds() {
+  return new Promise((resolve, reject) => {
+    let qcIds = [];
+
+    this.subscriptions.push(this.graphqlApi.getAllQCids().subscribe((res: any) => {
+      let arr = res.data.qualityCharacteristics;
+      arr.map(elem => qcIds.push(elem.id));
+      resolve(qcIds);
+    }));
+  });
+}
+
+getQfIds() {
+  return new Promise((resolve, reject) => {
+    let qfIds = [];
+
+    this.subscriptions.push(this.graphqlApi.getAllQFids().subscribe((res: any) => {
+      let arr = res.data.qualityFactors;
+      arr.map(elem => qfIds.push(elem.id));
+      resolve(qfIds);
+    }));
+  });
+}
+getLcIds() {
+  return new Promise((resolve, reject) => {
+    let lcIds = [];
+
+    this.subscriptions.push(this.graphqlApi.getAllLCids().subscribe((res: any) => {
+      let arr = res.data.lifeCyclePhases;
+      arr.map(elem => lcIds.push(elem.id));
+      resolve(lcIds);
+    }));
+  });
+}
+
+
+async updateName(data){
+    console.log(data.id, data.name);
+    let lcIds: any = await this.getLcIds()
+    let qcIds:any = await this.getQcIds();
+    let qfIds:any = await this.getQfIds();
+
+    if(lcIds.includes(data.id)){
+      console.log("This is a LC");
+      this.subscriptions.push(this.graphqlApi.updateLCname(data.id, data.name).subscribe((res:any) => {
+        console.log(res);
+        this.getAllData();
+          
+      }))
+    }
+
+    if(qcIds.includes(data.id)){
+      console.log("This is a QC");
+      this.subscriptions.push(this.graphqlApi.updateQCname(data.id, data.name).subscribe((res:any) => {
+        console.log(res);
+        this.getAllData();
+          
+      }))
+    }
+
+    if(qfIds.includes(data.id)){
+      console.log("This is a QF");
+      this.subscriptions.push(this.graphqlApi.updateQFname(data.id, data.name).subscribe((res:any) => {
+        console.log(res);
+        this.getAllData();
+          
+      }))
+    }
+
+    let ref = document.getElementById('cancel');
+    ref.click();
+ 
+  }
+
+  addNewLifeCycle(data){
+    let uuID = uuid();
+    this.subscriptions.push(this.graphqlApi.createLC(uuID, data.name).subscribe((res:any) => {
+      console.log(res);
+      this.getAllData();
+      
+    }))
+
+  }
+
+  async addItem(data){
+    console.log(data.id, data.name,  data.newItem);
+    
+    let lcIds: any = await this.getLcIds()
+    let qcIds:any = await this.getQcIds();
+    // let qfIds:any = await this.getQfIds();
+    const description ="Update the description";
+
+    const source = "Update the source";
+    if(lcIds.includes(data.id)){
+      console.log("This is a LC");
+      let uuID = uuid();
+      this.subscriptions.push(this.graphqlApi.createQC(description, uuID, data.newItem, data.id).subscribe((res:any) => {
+          console.log(res);
+          this.getAllData();
+      }))
+    }
+
+    if(qcIds.includes(data.id)){
+      console.log("This is a QC");
+      let uuID = uuid();
+      this.subscriptions.push(this.graphqlApi.createQF(description, uuID, data.newItem, source, data.id).subscribe((res:any) => {
+          console.log(res);
+          this.getAllData();
+      }))
+    }
+
+    let ref = document.getElementById('cancel');
+    ref.click();
+
+  }
+
+  async deleteItem(id){
+
+    let lcIds: any = await this.getLcIds()
+    let qcIds:any = await this.getQcIds();
+    let qfIds:any = await this.getQfIds();
+
+    if(confirm("Are you sure to delete it ?")){
+
+      if(lcIds.includes(id)){
+        console.log("This is a LC");
+        this.subscriptions.push(this.graphqlApi.deleteLC(id).subscribe((res:any) => {
+            console.log(res);
+            this.getAllData();
+        }))
+      }
+  
+      if(qcIds.includes(id)){
+        console.log("This is a QC");
+        this.subscriptions.push(this.graphqlApi.deleteQC(id).subscribe((res:any) => {
+            console.log(res);
+            this.getAllData();
+        }))
+      }
+  
+      if(qfIds.includes(id)){
+        console.log("This is a QF");
+        this.subscriptions.push(this.graphqlApi.deleteQF(id).subscribe((res:any) => {
+            console.log(res);
+            this.getAllData();
+        }))
+      }
+
+    }
+
+
+
+  }
 
     ///Save and Back 
 
@@ -228,36 +282,5 @@ export class EditTreeComponent implements OnInit, OnDestroy {
       let arrayOfSelections = JSON.parse(selections);
       this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(arrayOfSelections) } });
     }
-
-    onSave(){
-      
-      // this.apiService.deleteEditData(1).subscribe(res =>{
-      //   console.log(res);
-      // })
-      
-      console.log(this.factorsData[0]);
-      
-      this.apiService.updateEditData(this.factorsData[0], this.factorsData[0].id).subscribe((res) =>
-        console.log(res)   
-      )
-
-
-      const str = JSON.stringify(this.factorsData[0]);
-
-      const replaceName = str.replace(/name/g, "text" );
-      const replaceChildrens = replaceName.replace(/childrens/g, "children");
-      const factorsObj = JSON.parse(replaceChildrens);
-
-      this.apiService.updateFactorsData(factorsObj, factorsObj.id).subscribe((res) =>
-        console.log(res)   
-      )
-
-      // console.log(factorsObj);
-
-      alert("Data Saved Successfully!!");
-      
-   
-    }
-
 
 }

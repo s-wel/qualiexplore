@@ -1,5 +1,7 @@
 export const environment = {
   production: true,
-  socketUrlApi : "http://i4q-dev.ikap.biba.uni-bremen.de:5005",
-  botName: "QualiExplore assistant"
+  socketUrlApi : "http://localhost:5005/",
+  botName: "QualiExplore assistant",
+  authApi : "http://localhost:5000/graphql", // URL of the Apollo server that interacts with the MongoDB (has an integrated GraphQL server).
+  graphApi: "http://localhost:4000/graphql"  // URL of the Apollo server that interacts with Neo4j.
 };

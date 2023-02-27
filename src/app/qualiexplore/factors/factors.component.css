@@ -54,13 +54,58 @@
 }
 
 .bar-color{
-    background-color: #A2A2A2 ;
+    background-color: #b7b6b6 ;
 }
 
-.btn-color{
+/* .btn-color{
     background-color: #8064A2;
     color: white;
+} */
+
+
+.btn-color {
+    background-color: #8064A2;
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+.btn-color:hover {
+    background-color: #715b8d;
+    color: white;
+}
+.btn-ouline-color{
+    border-color: #8064A2;
+    border-width: 2px;
+    color: #6e568c;
+}
+
+
 .btn-outline-purple{
     border-color: #8064A2;
+}
+
+.btn-ouline-color {
+    color: #8064A2;
+    border-color: #8064A2;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .btn-ouline-color:hover {
+    background-color: #8064A2;
+    color: white;
+  }
+
+::ng-deep .progress-bar {
+    background-color: #8064A2 !important;
+    border-radius: 4px;
+    height: 30px;
+}
+
+.custom-link{
+    color: #534169
+}
+
+.btn-back:hover{
+    background-color: #8064A2;
+    color: white;
 }
