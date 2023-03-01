@@ -63,9 +63,12 @@ export class graphqlApiService {
     createFilterGroups(category,id) {
       const mutation = `
         mutation MyMutation {
-          createFilterGroups(input: {id: "${id}", name: "${category}"}) {
+          createFilterGroups(input: {name: "test"}) {
             info {
-              relationshipsCreated
+              nodesCreated
+            }
+            filterGroups {
+              id
             }
           }
         }
@@ -80,7 +83,7 @@ export class graphqlApiService {
       const mutation = `
         mutation MyMutation {
           createFilterStatements(
-            input: {id: "${taskId}", text: "${task}", belongsToFilterGroups: {connect: {where: {node: {id: "${groupId}"}}}}}
+            input: {text: "${task}", belongsToFilterGroups: {connect: {where: {node: {id: "${groupId}"}}}}}
           ) {
             info {
               nodesCreated
@@ -138,7 +141,7 @@ export class graphqlApiService {
       const mutation = `
         mutation MyMutation {
           createFilterStatements(
-            input: {id: "${task.id}", text: "${task.name}", belongsToFilterGroups: {connect: {where: {node: {id: "${groupId}"}}}}}
+            input: {text: "${task.name}", belongsToFilterGroups: {connect: {where: {node: {id: "${groupId}"}}}}}
           ) {
             info {
               relationshipsCreated
@@ -318,7 +321,7 @@ export class graphqlApiService {
       }))
   }
 
-  //get all filter statements with their id
+  // get all filter statements with their id
   getAllFilterStatementswithID(){
     const query = `
       query MyQuery {
@@ -355,11 +358,11 @@ export class graphqlApiService {
   }
 
 
-  // clear relationships between quality factos and filter statements
+  // clear relationships between quality factors and filter statements
   updateQFlabelIds(arr, id){
     const query = `
       mutation MyMutation(
-        $id_IN: [String!] = ${JSON.stringify(arr)}
+        $id_IN: [ID!] = ${JSON.stringify(arr)}
       ) {
         updateQualityFactors(
           where: { id: "${id}" }
@@ -439,7 +442,7 @@ export class graphqlApiService {
   createLC(id,name){
     const mutation = `
     mutation MyMutation {
-      createLifeCyclePhases(input: {id: "${id}", name: "${name}"}) {
+      createLifeCyclePhases(input: {name: "${name}"}) {
         lifeCyclePhases {
           id
           name
@@ -458,7 +461,7 @@ export class graphqlApiService {
     const mutation = `
     mutation MyMutation {
       createQualityCharacteristics(
-        input: {description: "${description}", id: "${uuID}", name: "${newItem}", contributesToLifeCyclePhases: {connect: {where: {node: {id: "${lcId}"}}}}}
+        input: {description: "${description}", name: "${newItem}", contributesToLifeCyclePhases: {connect: {where: {node: {id: "${lcId}"}}}}}
       ) {
         qualityCharacteristics {
           id
@@ -482,7 +485,7 @@ export class graphqlApiService {
     const mutation = `
       mutation MyMutation {
         createQualityFactors(
-          input: {description: "${description}", id: "${uuID}", name: "${newItem}", sources: "${source}", contributesToQualityCharacteristics: {connect: {where: {node: {id: "${qcId}"}}}}}
+          input: {description: "${description}", name: "${newItem}", sources: "${source}", contributesToQualityCharacteristics: {connect: {where: {node: {id: "${qcId}"}}}}}
         ) {
           qualityFactors {
             id
