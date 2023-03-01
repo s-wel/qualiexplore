@@ -1,46 +1,153 @@
 
 <app-header></app-header>
-<div class="container mt-lg-5 mb-lg-5">
+
+
+<ng-template #content let-item="item" let-close="close">
+    <div class="modal-header">
+        <h4 class="modal-title" id="popUp">Edit Tree</h4>
+        <span class="close" aria-label="Close" (click)="close('close buttton')">
+          <span aria-hidden="true">&times;</span>
+        </span>
+      </div>
+      <div class="modal-body">
+          
+            <form [formGroup] = "editForm">
+                <div class="form-group">
+                    <input type="text" name="name" class="form-control mb-3 mr-3" formControlName="name">
+                    <!-- HIDE THE ID FORM CONTROL -->
+                    <div class="d-none">
+                        <textarea class="form-control mb-3" formControlName="id" rows="1"></textarea>
+                    </div>
+                </div>
+            </form> 
+
+            <div class="modal-footer"> 
+                <button type="button btn-color" class="btn btn-color mr-2" [disabled]="editForm.pristine" (click)="updateName(editForm.value)">
+                Update </button>        
+                <button type="button btn-color" id="cancel" class="btn btn-color" (click)="close('close buttton')">Close</button>   
+            </div>
+
+      </div>
+</ng-template>
+
+<ng-template #addContent let-item="item" let-close="close">
+    <div class="modal-header">
+        <h4 class="modal-title" id="popUp">Add New Item</h4>
+        <span class="close" aria-label="Close" (click)="close('close buttton')">
+          <span aria-hidden="true">&times;</span>
+        </span>
+      </div>
+      <div class="modal-body">
+          
+            <form [formGroup] = "addForm">
+                <div class="form-group tree">
+                    <input type="text" name="name" class="form-control mb-3 mr-3 w-50 readOnly" formControlName="name" readonly>
+                    <input autofocus type="text" name="newItem" class="form-control mb-3  w-50 margin" formControlName="newItem" #newItemInput>
+                    <!-- HIDE THE ID FORM CONTROL -->
+                    <div class="d-none">
+                        <textarea class="form-control mb-3" formControlName="id" rows="1"></textarea>
+                    </div>
+                </div>
+            </form>
+
+            <div class="modal-footer"> 
+                <button type="button" class="btn btn-color mr-2" [disabled]="addForm.pristine" (click)="addItem(addForm.value)">
+                ADD</button>        
+                <button type="button" id="cancel" class="btn btn-color" (click)="close('close buttton')">Close</button>   
+            </div>
+      </div>
+</ng-template>
+<ng-template #addCycle let-item="item" let-close="close">
+    <div class="modal-header">
+        <h4 class="modal-title" id="popUp">Add Life Cycle Phase</h4>
+        <span class="close" aria-label="Close" (click)="close('close buttton')">
+          <span aria-hidden="true">&times;</span>
+        </span>
+      </div>
+      <div class="modal-body">
+          
+            <form [formGroup] = "cycleForm">
+                <div class="form-group">
+                    <input type="text" name="name" class="form-control mb-3 mr-3" formControlName="name">
+                </div>
+            </form> 
+
+            <div class="modal-footer"> 
+                <button type="button" class="btn btn-color mr-2" [disabled]="cycleForm.pristine" (click)="addNewLifeCycle(cycleForm.value)">
+                ADD </button>        
+                <button type="button" id="cancel" class="btn btn-color" (click)="close('close buttton')">Close</button>   
+            </div>
+      </div>
+</ng-template>
+
+<div class="container mt-lg-5 mb-lg-5 mt-5">
        
         <div class="jumbotron bar-color">
             <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12 col-sm-6">
                         <h2 class="text-center">
                             QualiExplore Editable Tree
                         </h2>
                     </div>
             </div>
             <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12 col-sm-6">
                         <div class="float-right">
                             <button class="btn btn-color" (click)="onBack()">Back</button>
-                            <button class="btn btn-color ml-3" (click)="onSave()">Save</button>
+                            <!-- <button class="btn btn-color ml-3" (click)="onSave()">Save</button> -->
                         </div>
                     </div>
              </div>  
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="shadow p-3 scroll">
-                    <lib-ngx-tree-component 
-                    [config]="dndconfig"
-                    [treeData]="factorsData"
-                    (ondragstart)="onDragStart($event)"
-                    (ondragenter)="onDragEnter($event)"
-                    (ondragleave)="onDragLeave($event)"
-                    (ondrop)="onDrop($event)"
-                    (onallowdrop)="onAllowDrop($event)"
-                    (onadditem)="onAddItem($event)"
-                    (onStartDeleteItem)="onStartDeleteItem($event)"
-                    (onFinishDeleteItem)="onFinishDeleteItem($event)"
-                    (onCancelDeleteItem)="onCancelDeleteItem($event)"
-                    (onStartRenameItem)="onStartRenameItem($event)"
-                    (onFinishRenameItem)="onFinishRenameItem($event)">
-                    </lib-ngx-tree-component>
+              <div class="shadow p-3 scroll">
+                <span class="mb-3 mt-3">Platform Information Quality</span>
+                <i class="fas fa-plus small-icon ml-3" type="button" (click)="openAddCycleModal(addCycle)"></i>
+            
+                <div *ngFor="let phase of item">
+                    <div style="margin-left: 20px; cursor: pointer; display: flex; align-items: center;">
+                    <i (click)="togglePhase(phase); $event.stopPropagation()" 
+                        class="fas" 
+                        [ngClass]="{'fa-caret-down': phase.expanded, 'fa-caret-right': !phase.expanded}">
+                    </i>
+                    <div style="margin-left: 10px; margin-bottom: 10px; cursor: pointer;">
+                        <span>{{phase.name}}</span> 
+                        <i class="fas fa-edit small-icon ml-3" (click)="open(content, phase.id, phase.name)"></i>
+                        <i class="fas fa-plus small-icon ml-3" (click)="openAddModal(addContent, phase.id, phase.name)"></i>
+                        <i class="fas fa-trash small-icon ml-3" (click)="deleteItem(phase.id)"></i>
+                    </div>
+                    </div>
+                    <div *ngIf="phase.expanded || (phase.qualityCharacteristicsContributesTo.length > 0 && phase.expanded === undefined)">
+                    <div *ngFor="let characteristic of phase.qualityCharacteristicsContributesTo">
+                        <div style="margin-left: 40px; cursor: pointer; display: flex; align-items: center;">
+                        <i (click)="toggleCharacteristic(characteristic); $event.stopPropagation()" 
+                            class="fas" 
+                            [ngClass]="{'fa-caret-down': characteristic.expanded, 'fa-caret-right': !characteristic.expanded}">
+                        </i>
+                        <div style="margin-left: 10px; margin-bottom: 10px; cursor: pointer;">
+                            <span>{{characteristic.name}}</span> 
+                            <i class="fas fa-edit small-icon ml-3" (click)="open(content, characteristic.id, characteristic.name)"></i>
+                            <i class="fas fa-plus small-icon ml-3" (click)="openAddModal(addContent, characteristic.id, characteristic.name)"></i>
+                            <i class="fas fa-trash small-icon ml-3" (click)="deleteItem(characteristic.id)"></i>
+                        </div>
+                        </div>
+                        <div *ngIf="characteristic.expanded || (characteristic.qualityFactorsContributesTo.length > 0 && characteristic.expanded === undefined)">
+                        <div *ngFor="let factor of characteristic.qualityFactorsContributesTo">
+                            <div style="margin-left: 60px; margin-bottom: 10px; cursor: pointer;">
+                            <span>{{factor.name}}</span>
+                            <i class="fas fa-edit small-icon ml-3" (click)="open(content, factor.id, factor.name)"></i>
+                            <i class="fas fa-trash small-icon ml-3" (click)="deleteItem(factor.id)"></i>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
                 </div>
+              </div>
             </div>
-        </div>
-   
+          </div>
+                
 </div>
 
 <div class="rasa-chat-widget-container"  

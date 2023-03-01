@@ -14,8 +14,6 @@
  */
 
 import { Component, ElementRef, OnInit, ViewChild, ChangeDetectorRef, NgZone, AfterContentChecked, AfterViewInit, ViewChildren, QueryList, OnDestroy} from '@angular/core';
-import { FiltersService } from './filters.service';
-import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
 import { Filter } from './model/filter.model';
 import { newFilter } from './model/filter.model';
@@ -24,35 +22,24 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service'
 import { stringify } from 'querystring';
-
+import { map } from 'rxjs/operators';
 import {graphqlApiService} from '../graphqlApi.service'
-import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Subscription } from 'rxjs';
 import { v4 as uuid } from 'uuid';
 import { environment } from 'src/environments/environment'
 import { ActivatedRoute } from '@angular/router';
-// import { apiService } from '../api.service';
-// import { formDataModel } from './data.model';
-
-declare global {
-  interface Window {
-      WebChat:any;
-  }
-}
-
 
 @Component({
     selector: 'app-filters',
     templateUrl: './filters.component.html',
     styleUrls: ['./filters.component.css'],
-    providers: [FiltersService]
+    providers: []
 })
 
-export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewInit, OnDestroy {
+export class FiltersComponent implements OnInit, OnDestroy {
     filters: Filter[] = [];
     newFilters : newFilter[] | any = [];
     selections: number[] = [];
-    //Modal variables
     closeResult: any = '';
     tasks:any = [];
     taskarr=[];
@@ -65,15 +52,6 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
 
     websocketUrl = environment.socketUrlApi;
    
-    // editableObj: {
-    //   id : string,
-    //   category: string,
-    //   tasks: [{
-    //     id:string,
-    //     name:string,
-    //     checked:false,
-    //   }]
-    // }
     editableObj: {
       id : string,
       category: string,
@@ -89,32 +67,19 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
       }]
     }
    
-    // Testing Graphql Data
-
     graphData : any;
     allFiltersInfo = [];
 
-
-
-   
     private selectionsSet: Set<number> = new Set();
-      constructor(private service: FiltersService, private apiService:ApiService, private modalService: NgbModal, private fb: FormBuilder,private router: Router, private ref: ChangeDetectorRef, private authService: AuthService, private graphqlApi: graphqlApiService, private eref : ElementRef, private route: ActivatedRoute) {
-        // this.editableObj = {
-        //   id: null,
-        //   category: null,
-        //   tasks: [{
-        //     id: null,
-        //     name: null,
-        //     checked: null
-        //   }]
-        // };
+    constructor(private modalService: NgbModal, private fb: FormBuilder,private router: Router, private ref: ChangeDetectorRef, private authService: AuthService, private graphqlApi: graphqlApiService, private eref : ElementRef, private route: ActivatedRoute) {
+
         this.editableObj = {
           id: "",
           category: "",
           tasks: []
         }
+
         this.postObj = {
-          
           category: null,
           tasks: [{
             id: null,
@@ -123,14 +88,14 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
           }]
         }
     }
-    @ViewChild('content', {static: true}) content: ElementRef;
-    @ViewChild('editcontent', {static: true}) editcontent: ElementRef;
-    @ViewChildren("checkboxes") checkboxes: QueryList<ElementRef>;
-    filtersForm:FormGroup;
-    editForm:FormGroup;
-    isEdit = false;
 
-   ///////
+   @ViewChild('content', {static: true}) content: ElementRef;
+   @ViewChild('editcontent', {static: true}) editcontent: ElementRef;
+   @ViewChildren("checkboxes") checkboxes: QueryList<ElementRef>;
+   filtersForm:FormGroup;
+   editForm:FormGroup;
+   isEdit = false;
+
    isAuthenticated = false
    user: string = null
    updateButton = false
@@ -140,23 +105,14 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
    private rasaChatScript: HTMLScriptElement;
 
 
-    ngOnInit() {
-        // Get previously selected Filters and Selection Array
+   async ngOnInit() {
+      
         this.authService.autoLogin(); 
 
         // QualiExplore bot widget.
        
         this.chatWidget();
-
-        // Graphql API call
-        
-        // this.newFilters = this.allFiltersInfo
-        // console.log(this.newFilters);
-        
-        
-        
-        // Important !!
-        // Authentication service should be enabled later
+    
         this.authService.user.subscribe((user) => {
           this.isAuthenticated = !!user
         })
@@ -169,54 +125,36 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
           this.updateButton = false
         }
 
-        // this.updateButton = true
-        const previousFilterSelections = sessionStorage.getItem('currentFilters');
         const previousFilterSelection = sessionStorage.getItem('currentNewFilters');
+        console.log("prev Filters :", previousFilterSelection);
+        
         const previousSelectionsSet = sessionStorage.getItem('currentSelectionsSet');
-        if (previousFilterSelection !== null && previousFilterSelections !== null && previousSelectionsSet !== null) {
-            // if Previously interacted then use those values
-            this.filters = JSON.parse(previousFilterSelections);
-            this.newFilters = JSON.parse(previousFilterSelection);
-            // this.allFiltersInfo = JSON.parse(previousFilterSelection)
+        console.log("prev sset :", previousSelectionsSet);
+        if (previousFilterSelection !== null && previousSelectionsSet !== null) {
+     
             this.selections = JSON.parse(previousSelectionsSet);
             this.selectionsSet = new Set<number>(this.selections);
-        } else {
-            // call the API
-            // this.showFilters(); // this one from mongodb
-            this.showNewFilters();
-            console.log("check");
-            
         }
         
         
-        //modal form
+        
+        //modal filters form
         this.filtersForm = new FormGroup({
             'category': new FormControl(null, Validators.required),
-            // 'tasks': new FormArray([])
             'tasks': this.fb.array([this.fb.control('')])
           })
 
-        // get all filtergroups and statements from neo4j graph
 
-        this.get_all_filters()
-
-   
-     
+        try {
+          await this.get_all_filters()
+          this.markPrevFilterStatements()
+        } catch (error) {
+          console.error(error);
+        }
+       
+      
     }
 
-    ngAfterContentChecked() {
-
-      // this.ref.detectChanges();
-    
-  
-    }
-    ngAfterViewInit(){
-
-    }
-    ngAfterViewChecked(){ 
-        // this.ref.detectChanges();
-        
-    }
     ngOnDestroy(){
       console.log("Ondestroy Called :");
       setTimeout(() => {
@@ -230,43 +168,31 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
       sessionStorage.removeItem('chat_session')
     }
 
-    
-    chatWidget(){
+    markPrevFilterStatements(){
+      this.route.queryParams.pipe(
+        map(params => params['ids'] ? JSON.parse(params['ids']) : [])
+        ).subscribe(ids => {
+          console.log("ids :", ids);
+          console.log("check :", this.allFiltersInfo);
+          this.allFiltersInfo.forEach(filter => {
+            filter.tasks.forEach(task => {
+              console.log("task :", task);
+              
+              if (ids.includes(task.id)) {
+                task.checked = true;
+              }
+            });
+          });
+        })
+    }
 
+    chatWidget(){
       this.rasaChatScript = document.createElement('script');
       this.rasaChatScript.src = 'https://unpkg.com/@rasahq/rasa-chat';
       this.rasaChatScript.type = 'application/javascript';
       document.head.appendChild(this.rasaChatScript);
-      
     }
 
-    // this rasaBot is replaced by chatwidget
-    // rasaBot(){
-    //   let e = document.createElement("script"),
-    //   t = document.head || document.getElementsByTagName("head")[0];
-    //   (e.src =
-    //   "https://cdn.jsdelivr.net/npm/rasa-webchat@1.0.1/lib/index.js"),
-    //   // Replace 1.x.x with the version that you want
-
-    //   (e.async = !0),
-    //   (e.onload = () => {
-    //     window.WebChat.default(
-    //       {
-    //         initPayload : "/filters",
-    //         customData: { language: "en" },
-    //         socketPath: "/socket.io/",
-    //         socketUrl: "http://localhost:5005",
-    //         title:"Welcome",
-    //         params: {"storage": "session"},
-    //         inputTextFieldHint: "Type your message here.."
-           
-    //         // add other props here
-    //       },
-    //       null
-    //     );
-    //   }),
-    //   t.insertBefore(e, t.firstChild);
-    // }
 
     isEditFormValid(): boolean {
       if (this.pageLoaded) {
@@ -275,6 +201,7 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
         return false;
       }
     }
+
     isFiltersFormValid(): boolean {
       if (this.pageLoaded) {
         return this.filtersForm.valid;
@@ -283,41 +210,12 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
       }
     }
     
-    /**
-     * API call to Filter Static JSON
-     */
-    // showFilters() {
-    //     this.service.getQuestions().then((data: any) => {
-    //         this.filters = data.categories;
-    //     });
-    // }
-    // async showFilters() {
-    //   // this.service.getQuestions().then((data: any) => {
-    //   //     this.filters = data.categories;
-    //   // });
-  
-    //   let filtersObs: Observable<any>
-    //   filtersObs = this.service.getQuestions()
-    //   filtersObs.subscribe((data: any) => {
-    //     console.log(data);
-        
-    //     this.filters = data.data.filters[0].categories
-    //   })
-    // }
 
     showNewFilters(){
-      // this.apiService.getData().subscribe((res: any) => {
-      //   this.newFilters = res;
-      //   console.log("newFilters",this.newFilters);
-      // })
-      //this.newFilters = this.allFiltersInfo
+   
       this.newFilters = this.allFiltersInfo
       console.log("SNF FUNCTION",this.newFilters);
-
-
-      ///
-      
-      
+    
     }
 
     /**
@@ -335,15 +233,11 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
      * Store the present state of selected filters in sessionStorage
      */
     proceed() {
-        // store the current filters to localStorage
-        // sessionStorage.setItem('currentFilters', JSON.stringify(this.filters));
+
         sessionStorage.setItem('currentNewFilters', JSON.stringify(this.newFilters));
 
         sessionStorage.setItem('currentSelectionsSet', JSON.stringify(this.selections));
-        // for chatbot
-        // this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(this.selections) } }).then(() => {
-        //   window.location.reload();
-        // });
+     
         this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(this.selections) } })
 
     }
@@ -355,10 +249,7 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
         sessionStorage.clear();
         this.selections = [];
         this.selectionsSet.clear();
-        // this.showNewFilters();
-
-        // this.get_all_filters();
-
+        // this.showNewFilters()
         this.checkboxes.forEach((element) => {
           element.nativeElement.checked = false;
         });
@@ -369,7 +260,7 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
     
         this.modalService.open(content, {ariaLabelledBy: 'popUp', size:'lg', centered: true})
     }
-      saveData(){
+    saveData(){
         const values = this.filtersForm.value;
         console.log("Filtersform Value",values);
         const cats = values.category;
@@ -378,20 +269,18 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
           this.taskarr.push(element);
         });
         
-      }
-      onAddtask(){
-        // const control = new FormControl(null, Validators.required);
-        // const control = new FormControl(null,Validators.required);
+    }
+    onAddtask(){
         const control = this.fb.control('');
         this.formArr.push(control);
-      }
-      onEditAddtask(){
+    }
+    onEditAddtask(){
        
         this.editArr.push(this.fb.group({
           taskgroup: new FormControl("")
         }));
         
-      }
+    }
       get formArr() {
         return this.filtersForm.get('tasks') as FormArray;
       }
@@ -401,12 +290,11 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
       }
      
       deleteFields(index:number){
-  
-        
         this.formArr.removeAt(index);
       }
+
       deleteEditFields(index:number){
-        // // console.log(this.allFiltersInfo);
+        // console.log(this.allFiltersInfo);
         // console.log("All tasks :",this.editableObj.tasks);
         if(this.editableObj.tasks[index]){
        
@@ -419,43 +307,9 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
           
         }
         this.editArr.removeAt(index);
-
+        this.reset()
       }
       
-
-      
-      ////Post and Update form data Using JSON server - {Need To be updated by GraphQl server}
-      // nedded for new filter Group creation
-    //   postFormData(dataObj){
-    //     const { category, tasks } = dataObj;
-    //     const filterGroupId = uuid()
-    //     // console.log(filterGroupId);
-        
-    //     this.subscriptions.push(this.graphqlApi.createFilterGroups(category,filterGroupId).subscribe(res => {
-    //       console.log(res);
-    //       // this.get_all_filters();
-    //     }))
-
-    //     for (const statement of tasks) {
-    //       const filterStatementId = uuid()
-    //       console.log(filterStatementId);
-    //       console.log(filterGroupId);
-          
-    //       this.subscriptions.push(this.graphqlApi.createFilterStatementsForNewGroup(statement, filterStatementId, filterGroupId).subscribe(res => {
-    //         console.log("Statement Creation Res:",res);
-    //         this.get_all_filters();
-    //       }))
-          
-    //     }
-    //     this.filtersForm.reset();
-    //     while(this.formArr.length !== 1){
-    //         this.formArr.removeAt(1)
-    //     }
-    //     let ref = document.getElementById('cancel');
-    //     ref.click();      
-    // }
-
-    // new version of POST FORM
 
     async postFormData(dataObj) {
       const { category, tasks } = dataObj;
@@ -485,53 +339,46 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
       while(this.formArr.length !== 1){
               this.formArr.removeAt(1)
           }
+
+      
+      this.reset()
+
       let ref = document.getElementById('cancel');
       ref.click();
     }
 
-      //get All data from JSON SERVER
-      // getAll(){
-      //   this.apiService.getData().subscribe((res) => {
-          
-      //       this.allData = res;
-      //       // this.newFilters = this.allData;
-      //       // this.newFilters = res;
-            
-      //   })
-      // }
+
 
       /// get all filters data from graph
-       get_all_filters(){
-        
-        this.allFiltersInfo  = []
-        this.subscriptions.push(this.graphqlApi.getFilterStatements().subscribe((res:any) => {
-          // console.log(res);
-            res.data.filterGroups.forEach(filterGroup => {
-            // console.log(filterGroup);
+      async get_all_filters(){
+        try {
+          this.allFiltersInfo = [];
+          const res: any = await this.graphqlApi.getFilterStatements().toPromise();
+          res.data.filterGroups.forEach(filterGroup => {
             const groupName = filterGroup.name;
             const existingGroup = this.allFiltersInfo.find(f => f.name === groupName);
             if (existingGroup) {
-                filterGroup.filterStatementsBelongsTo.forEach(filterStatement => {
-                    existingGroup.tasks.push({id : filterStatement.id, name : filterStatement.text, checked:false });
-                });
+              filterGroup.filterStatementsBelongsTo.forEach(filterStatement => {
+                existingGroup.tasks.push({ id: filterStatement.id, name: filterStatement.text, checked: false });
+              });
             } else {
-                let tasks = [];
-                filterGroup.filterStatementsBelongsTo.forEach(filterStatement => {
-                    tasks.push({id : filterStatement.id, name : filterStatement.text, checked:false });
-                });
-                this.allFiltersInfo.push({ id:filterGroup.id, category: groupName, tasks: tasks });
+              let tasks = [];
+              filterGroup.filterStatementsBelongsTo.forEach(filterStatement => {
+                tasks.push({ id: filterStatement.id, name: filterStatement.text, checked: false });
+              });
+              this.allFiltersInfo.push({ id: filterGroup.id, category: groupName, tasks: tasks });
             }
-           }
-          );
-          
-          this.newFilters = this.allFiltersInfo
-        }));
+          });
+          this.newFilters = this.allFiltersInfo;
+        } catch (error) {
+          console.log(error);
+        }
+
       }
 
 
 
-    //Crud operations on Filters Editable Form using Graphql Api
-    
+    // crud operations on Filters Editable Form using graphql API
       editFormData(data){
    
           // console.log("To edit :",data);
@@ -575,31 +422,14 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
             console.log(res);
             this.get_all_filters()
           }))
-      }
+        }
+        this.reset()
     }
 
 
-  //   updateData(dataObj){
-  //     // console.log("DataObj Form value:",dataObj);
-  //     // console.log("EditableObj:",this.editableObj);
-  //     this.editableObj.category = dataObj.category
 
-  //     console.log("Editable Obj tasks value:",this.editableObj.tasks);
-  //     console.log("DataObj tasks value:",dataObj.tasks);
-      
-  //     this.subscriptions.push(this.graphqlApi.updateFilterGroup(this.editableObj).subscribe((res) => {
-  //       console.log(res);
-  //       // this.allFiltersInfo = []
-  //       // this.get_all_filters()
-  //     }))
-      
-  //     this.subscriptions.push(this.graphqlApi.updateOrCreateFilterStatements(this.editableObj, dataObj).subscribe( res => {
-  //       console.log(res)
-  //       this.get_all_filters()
-  //     }))
-  // }
 
-  // new version of updating data
+
 
   async updateData(dataObj){
     try {
@@ -611,9 +441,15 @@ export class FiltersComponent implements OnInit, AfterContentChecked, AfterViewI
       const updateOrCreateFilterStatementsResult = await this.graphqlApi.updateOrCreateFilterStatements(this.editableObj, dataObj).toPromise();
       console.log(updateOrCreateFilterStatementsResult);
       this.get_all_filters();
-    } catch (error) {
+    } 
+    catch (error) {
       console.error(error);
     }
+
+    this.reset()
+
+    let ref = document.getElementById('cancel');
+    ref.click();
   }
   
     

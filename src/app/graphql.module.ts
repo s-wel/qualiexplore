@@ -8,13 +8,11 @@ import {
 import { HttpLink } from 'apollo-angular/http'
 import { HttpHeaders } from '@angular/common/http'
 import { setContext } from '@apollo/client/link/context'
+import { environment } from 'src/environments/environment'
 
-// Handles graphql queries for user validation. 
-// TODO use same structure as the graphqlAPI.services.ts (use a class)
+// This graphql module is used for user authentication from mongodb
 
-// TODO Move url to a config file
-// URL of the Apollo server that interacts with the MongoDB (has an integrated GraphQL server).
-const uri = 'http://localhost:5000/graphql' 
+const uri = environment.authApi // URI of the Apollo server that interacts with the MongoDB (using for user authentication).
 
 export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
   const basic = setContext((operation, context) => ({

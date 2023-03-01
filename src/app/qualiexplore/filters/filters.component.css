@@ -31,11 +31,31 @@
 }
 
 .container-color{
-    background-color:#A2A2A2 ;
+    background-color:#b7b6b6 ;
 }
 
-.btn-color{
+.btn-color {
     background-color: #8064A2;
     color: white;
-    text-align: right;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+.btn-color:hover {
+    background-color: #715b8d;
+    color: white;
+}
+.lead{
+
+    color: #120606;
+}
+
+/* color change of input fields */
+
+/* input[type="text"]:focus, 
+input[type="email"]:focus, 
+input[type="password"]:focus, 
+textarea:focus {
+  border-color: #8064A2;
+  box-shadow: 0 0 0 0.2rem rgba(128, 100, 162, 0.25);
+  outline: none;
+} */

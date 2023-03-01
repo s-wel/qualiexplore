@@ -15,8 +15,6 @@
 
  import { Component, OnInit } from '@angular/core';
  import { ActivatedRoute, Router } from '@angular/router';
- import { FactorsService } from './factors.service';
-//  import { ApiService } from '../api.service';
  import { TreeviewConfig, TreeviewItem, TreeItem } from 'ngx-treeview';
  import { Location } from '@angular/common';
  import { Filter } from '../filters/model/filter.model';
@@ -26,12 +24,14 @@
  import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
  import { Observable, Subscription } from 'rxjs'
  import {graphqlApiService} from '../graphqlApi.service'
+ import { concatMap } from 'rxjs/operators';
+ 
  
  @Component({
      selector: 'app-factors',
      templateUrl: './factors.component.html',
      styleUrls: ['./factors.component.css'],
-     providers: [FactorsService]
+     providers: []
  })
  
  export class FactorsComponent implements OnInit {
@@ -57,35 +57,20 @@
      selections : number[] = [];
      private selectionsSet: Set<number> = new Set();
 
-     ///
-   
-
-     //form
      editForm:FormGroup;
      allData : any;
      allFS : any
      allTasks = [];
 
-     ///
      isAuthenticated = false
      user: string = null
      updateButton = false
 
-     // interfaces
+     isCheckboxChanged = false;
 
-    
      
-     constructor(
-       private service: FactorsService,
-       private route: ActivatedRoute,
-       private router: Router,
-       private modalService : NgbModal,
-    //    private apiService : ApiService,
-       private authService: AuthService,
-       private location : Location,
-       private graphqlApi: graphqlApiService
-       ) {
-    // Treeview Manual Approach
+     constructor(private route: ActivatedRoute, private router: Router, private modalService : NgbModal, private authService: AuthService, private location : Location, private graphqlApi: graphqlApiService) {
+    // Treeview Manual Approach -- maybe used later on ther page
     //     interface Data {
     //         lifeCyclePhases: LifeCyclePhase[];
     //       }
@@ -114,27 +99,25 @@
      private subscriptions: Subscription[] = [];
      ngOnInit() {
          
-        // TODO enbale when user connection is ready
+    
          this.authService.autoLogin();
-         ////
+
          this.authService.user.subscribe((user) => {
             this.isAuthenticated = !!user
          })
       
-          const userData = JSON.parse(localStorage.getItem('userData'))
+        const userData = JSON.parse(localStorage.getItem('userData'))
           this.user = userData?.username
           if (this.user == 'admin' && this.isAuthenticated) {
             this.updateButton = true
           } else {
             this.updateButton = false
           }
-        // // For now using the admin Mode
-        // this.updateButton = true
-        // /////
+   
 
 
          this.route.queryParams.subscribe(params => {
-            //  console.log(params);
+          
           
              this.selected = JSON.parse(params.ids);
              console.log("SELECTED IDS :",this.selected);
@@ -142,7 +125,6 @@
              
  
              // Display Logic to show selected filters from Step - 1
-             // as opposed to IDs
              this.selected.forEach((id) => {
                 const currentFiltersFromStep1: newFilter[] = JSON.parse(
                   sessionStorage.getItem('currentNewFilters'),
@@ -159,147 +141,24 @@
                 })
               })
 
-              console.log("SF DETAILS :", this.selectedFilterDetails);
-              
-              ///mongodb///
-            //   let factorsObs: Observable<any>;
-            //   factorsObs = this.service.getFactors()
-            //   factorsObs.subscribe((data: any) => {
-            //     console.log("FactorsData:", data.data.factors[0])
-            //     const data1 = JSON.parse(JSON.stringify(data))
-            //     this.items = this.parseTree([new TreeviewItem(data1.data.factors[0])])
-            //     this.countHighlightedFactors(this.items)
-            //   })
-              ////////////json server//////
-            //   this.apiService.getFactorsData().subscribe((res) => {                
-            //         this.item = res[0];
-            //         // console.log(this.item);
-                    
-            //         this.items = this.parseTree([new TreeviewItem(this.item)]);
-            //         this.countHighlightedFactors(this.items);
-
-            //    });
-
-            //  this.service.getFactors()
-              //  .then((items: any) => {
-              //      console.log(items);
-                
-              //      this.items = this.parseTree([new TreeviewItem(items)]);
-              //      this.countHighlightedFactors(this.items);
-              //  });
-
-            ////graphql-neo4j///
+            // console.log("SF DETAILS :", this.selectedFilterDetails);
+       
             this.getAllData()
-
-            
-
-        //     this.subscriptions.push(this.graphqlApi.getLifeCyclePhases().subscribe((res:any) => {      
-        //         console.log(res);
-                
-        //         let data = res.data;
-        //         // converting response as ngx-treeview json format
-        //         const convertToNewFormat = (obj: any): any => {
-        //             const result: any = {};
-                  
-        //             if (obj.name) result.text = obj.name;
-        //             if (obj.id) result.id = obj.id;
-
-        //             // console.log(obj.name, obj.id);
-                  
-        //             if (obj.qualityCharacteristicsContributesTo) {
-        //               result.children = [];
-        //               obj.qualityCharacteristicsContributesTo.forEach((item: any) => {
-        //                 result.children.push(convertToNewFormat(item));
-        //               });
-        //             }
-
-                 
-
-        //             if (obj.qualityFactorsContributesTo) {
-        //               result.children = [];
-        //               obj.qualityFactorsContributesTo.forEach((item: any) => {
-        //                 result.children.push(convertToNewFormat(item));
-        //               });
-        //             }
-
-
-        //             result.value = {};
-
-        //             if (obj.description) result.value = { description: obj.description, source: []};
-        //             if (obj.sources) result.value.source = [obj.sources];        
-        //             if (obj.id) result.value.id = obj.id;
-        //             return result;
-        //           };
-
-        //           const result: any = {"text": "Platform information quality",  "children": []};
-
-        //           data.lifeCyclePhases.forEach((item: any) => {
-        //             const converted = convertToNewFormat(item);
-        //             // console.log("Converted :", converted);
-        //             result.children.push(converted)
-        //           });
-               
-        //         let item = result
-        //         console.log("Check The converted Json:", item);
-        //         this.items = this.parseTree([new TreeviewItem(item)])
-        //         this.countHighlightedFactors(this.items);
-                
-               
-        //         /// expanding all childs for manual treeview
-        //         // for (const phase of this.item) {
-        //         //     phase.expanded = true;
-        //         //     for (const characteristic of phase.qualityCharacteristicsContributesTo) {
-        //         //       characteristic.expanded = true;
-        //         //     }
-        //         // }
-                          
-        //         // this.item = lifeCycleData;
-        //         // console.log("this.item",this.item);
-                
-        //         // this.items = this.parseTree([new TreeviewItem(res.data.lifeCyclePhases)]);
-        //         // console.log(this.items);
-                
-        //         // this.countHighlightedFactors(this.items);
-
-        //    }));
-
-
           
          });
-
-        //get all the filters from json-server
-
-        // this.apiService.getData().subscribe(res => {
-        //     this.allData = res;
-            
-        //     for(let elem of this.allData){
-        //         for(let item of elem.tasks){
-        //             // console.log(item);
-                    
-        //             this.allTasks.push(item); //item.name
-        //         }  
-        //     }
-              
-            
-        //  })
 
         //get all filter statements from graphql
 
         this.subscriptions.push(this.graphqlApi.getAllFilterStatementswithID().subscribe((res:any) =>{
             this.allFS = res.data.filterStatements
         }))
-
-       
-    
-         
       
-     }
+    }
 
-     /// graphql test
 
-     ngOnDestroy(){
+    ngOnDestroy(){
         this.subscriptions.forEach(sub => sub.unsubscribe());
-      }
+    }
 
     // get all tree data 
 
@@ -340,10 +199,19 @@
                 result.value = {};
 
                 if (obj.description) result.value.description = obj.description;
-                if (obj.label_ids) {
-                    result.value.label_ids = obj.label_ids;
+                if (obj.relevantForFilterStatements){
+                    let ids = []
+                    // console.log("RFS :",obj.relevantForFilterStatements);
+                    for (const elem of obj.relevantForFilterStatements) {
+                        console.log("Check :",elem.text);
+                        
+                        ids.push(elem.id)
+                    }
+                    // console.log("Label_IDS :", ids);
+                    result.value.label_ids = ids 
                 }
-
+            
+           
 
                 if (obj.sources) {
                     result.value.source = [obj.sources]
@@ -366,27 +234,10 @@
            
             this.item = result
 
-            // console.log("Check The converted Json:", this.item);
+            console.log("Check The converted Json:", this.item);
             this.items = this.parseTree([new TreeviewItem(this.item)])
-            // console.log("After Parsing :",this.items);
             this.countHighlightedFactors(this.items);
-            
-           
-            /// expanding all childs for manual treeview
-            // for (const phase of this.item) {
-            //     phase.expanded = true;
-            //     for (const characteristic of phase.qualityCharacteristicsContributesTo) {
-            //       characteristic.expanded = true;
-            //     }
-            // }
-                      
-            // this.item = lifeCycleData;
-            // console.log("this.item",this.item);
-            
-            // this.items = this.parseTree([new TreeviewItem(res.data.lifeCyclePhases)]);
-            // console.log(this.items);
-            
-            // this.countHighlightedFactors(this.items);
+
 
        }));
     }
@@ -396,39 +247,30 @@
         
      }
 
-     changeCheck(id: number, event: any) {
-        //array to int conversion of selectedFactor
-        // let num = +this.selectedFactor.value.label_ids.join("");
+    changeCheck(id: number, event: any) {
         console.log("Label Ids ",this.selectedFactor.value.label_ids);
-        // console.log(num);
-        if(this.selectedFactor.value.label_ids.length != 0){
-            for(let i in this.selectedFactor.value.label_ids){
-                let num = this.selectedFactor.value.label_ids[i]; 
-                this.selectionsSet.add(num);
-            } 
-        }
-       
-        // this.selectionsSet.add(num);
-        console.log('Event:',typeof(event.target.id));
-        
-        (event.target.checked) ? this.selectionsSet.add(id) : this.selectionsSet.delete(id);
-
-        if(event.target.checked != true){
-            for(let i in this.selectedFactor.value.label_ids){
-                let numb = this.selectedFactor.value.label_ids[i]; 
-                if(numb === +event.target.id){
-                    this.selectedFactor.value.label_ids.splice(i,1);
-                    this.selectionsSet.delete(numb);
-                }
-            }
-            
-        }
-
+        this.isCheckboxChanged = true;
+        this.selectionsSet.clear();
     
-        this.selections = Array.from(this.selectionsSet);
-        console.log("Selections:",this.selections);
-        console.log("SelectedFactor:",this.selectedFactor.value.label_ids);
+        // Add checked checkboxes to the selections set
+        for(let i in this.selectedFactor.value.label_ids){
+            let num = this.selectedFactor.value.label_ids[i]; 
+            this.selectionsSet.add(num);
+        }
+        if(event.target.checked) {
+            this.selectionsSet.add(id);
+        } else {
+            this.selectionsSet.delete(id);
+        }
+    
+        // Update label_ids array based on the selections set
+        this.selectedFactor.value.label_ids = [];
+        if (this.selectionsSet.size > 0) {
+            this.selectedFactor.value.label_ids = Array.from(this.selectionsSet);
+        }
         
+        // console.log("Selections:",this.selections);
+        // console.log("SelectedFactor:",this.selectedFactor.value.label_ids);
     }
 
      ///
@@ -448,8 +290,6 @@
          }else{
             this.proceedButtonDisabled = false
          }
-         
-        
          //console.log("select :",this.selectedFactor.value.highlighted);
      }
  
@@ -491,11 +331,6 @@
       */
      countHighlightedFactors(factors: TreeviewItem[]) {
          factors.forEach(factor => {
-            // if(factor.value === undefined){
-            //     Object.assign(factor, {checked : false}, {value : {label_ids : [1,2,3,4], source:["https://www.sltinfo.com/the-semantic-problem/"], description:"This problem is a problem of linguistic processing. It relates to the issue of how spoken utterances are understood and, in particular, how we derive meaning from combinations of speech sounds"}});
-            //     // console.log(factor)
-            //     // return factor;
-            //  }
              if (factor.value !== null) {
                  if (factor.value.highlighted) {
                      this.totalHighlightedFactors++;
@@ -512,23 +347,6 @@
       * Recursion Function to highlight relevant factors based on IDs from Step-1
       * @param factors Response from API. Recursive JSON
       */
-      // parseTree(factors: TreeviewItem[]): TreeviewItem[] {
-      //   factors.forEach((factor: TreeviewItem) => {
-      //     if (factor.value !== null && factor.value.labelIds !== undefined) {
-      //       const labels: number[] = factor.value.labelIds
-      //       labels.forEach((label) => {
-      //         if (this.selected.findIndex((l) => l === label) > -1) {
-      //           factor.value.highlighted = true
-      //           factor.value.class = 'fas fa-flag'
-      //         }
-      //       })
-      //     }
-      //     if (factor.children !== undefined) {
-      //       this.parseTree(factor.children)
-      //     }
-      //   })
-      //   return factors
-      // }
       parseTree(factors: TreeviewItem[]): TreeviewItem[] {
         
         factors.forEach((factor: TreeviewItem) => {
@@ -567,11 +385,9 @@
     //Navigate back to Step-1 if new filters needed
     
      backToStep1() {
-        if(this.updateButton){
-            sessionStorage.clear()
-        }
-         //sessionStorage.clear(); // for clear
-         this.router.navigate(['qualiexplore/filters']);
+        let selections = sessionStorage.getItem('currentSelectionsSet');
+        let arrayOfSelections = JSON.parse(selections);
+        this.router.navigate(['qualiexplore/filters'], { queryParams: { ids: JSON.stringify(arrayOfSelections) } });
      }
 
     
@@ -599,10 +415,7 @@
                 
             }
         }
-        // if(this.selectedFactor === undefined){
-        //      description = '';
-        //      source = '';
-        // }
+
 
         this.editForm = new FormGroup({
             'description' : new FormControl(description),
@@ -611,7 +424,7 @@
         });  
           
      }
-     ////
+
 
      //update factors
     parseFactors(factors) {
@@ -663,25 +476,19 @@
 
      //update form Data
     async updateData(data){
-      
-        // console.log("form data :", data);
-        // console.log(this.item);
-        
-        let selectionsArray = []
-        console.log("Selections Working :",typeof(this.selections));
-        selectionsArray = Object.values(this.selections)
-        
-        // clear esisting values of label_ids
+    
 
-        // this.subscriptions.push(this.graphqlApi.clearLabelIds(data.id).subscribe((res: any) => {
-        //     console.log(res);
-        // }))
+        let selectionsArray = this.selectedFactor.value.label_ids
+        
 
-        // update the label Ids using selection Ids
-        this.subscriptions.push(this.graphqlApi.updateQFlabelIds(selectionsArray, data.id).subscribe((res:any)=> {
-            // console.log(this.item);
-            console.log(res);
-        }))
+        this.subscriptions.push(this.graphqlApi.clearLabelIds(data.id)
+        .pipe(
+            concatMap(() => this.graphqlApi.updateQFlabelIds(selectionsArray, data.id))
+        )
+        .subscribe((res:any)=> {
+            console.log("Check 2 :",res);
+            // window.location.reload()
+        }));
 
         
 
@@ -714,8 +521,6 @@
             }))
         }
         
-        window.location.reload()
-        ///update logic goes here
         alert('Data Updated Successfully');
 
         let ref = document.getElementById('cancel');

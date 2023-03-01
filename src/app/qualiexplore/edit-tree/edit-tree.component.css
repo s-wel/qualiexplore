@@ -3,11 +3,90 @@
     overflow-y: scroll;
 }
 .bar-color{
-    background-color: #A2A2A2 ;
+    background-color: #b7b6b6 ;
 }
 
-.btn-color{
+.btn-color {
     background-color: #8064A2;
     color: white;
-    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-color:hover {
+    background-color: #715b8d;
+    color: white;
+}
+
+.small-icon {
+    font-size: 10px;
+    color: #A2A2A2;
+  }
+
+  .small-icon:hover {
+
+    color: #858484;
+  }
+
+.close{
+    cursor: pointer;
+}
+
+input[readonly].readOnly{
+    background-color:transparent;
+    /* border: 1px solid; */
+    font-size: 1em;
+}
+
+input[readonly]:focus {
+    border-color: rgb(205, 205, 205);
+    box-shadow: none
+  }
+
+  .margin {
+    margin-left: 5rem!important;
+}  
+  
+.tree {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+  
+  .tree::before {
+    content: "";
+    position: absolute;
+    top: 37px;
+    right: 95%;
+    width: 2px;
+    height: 35%;
+    background-color: rgb(216, 214, 214);
+  }
+  
+  .tree::after {
+    content: "";
+    position: absolute;
+    top: 67%;
+    left: 36px;
+    width: 45px;
+    height: 2px;
+    background-color: rgb(216, 214, 214);
+  }
+  
+  .tree .form-control {
+    margin-left: 15px;
+  }
+  
+@media (max-width: 900px) and (min-width: 480px) {
+    .tree::before,
+    .tree::after {
+      display: none;
+    }
+    .tree .form-control {
+      margin-left: 0;
+      margin-right: 15px;
+    }
+    .tree .col-xs-12 {
+      margin-bottom: 10px;
+    }
 }
