@@ -120,6 +120,9 @@ export class AuthService {
 
   autoLogout(expirationDuration: number) {
     this.tokenExpirationTimer = setTimeout(() => {
+      //closing any modal during autologout
+      let ref = document.getElementById('cancel');
+      ref.click();
       this.logout()
     }, expirationDuration)
   }

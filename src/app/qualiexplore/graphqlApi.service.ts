@@ -60,18 +60,16 @@ export class graphqlApiService {
     }
 
 
-    createFilterGroups(category,id) {
+
+    createFilterGroups(category) {
       const mutation = `
-        mutation MyMutation {
-          createFilterGroups(input: {name: "test"}) {
-            info {
-              nodesCreated
-            }
-            filterGroups {
-              id
+          mutation MyMutation {
+            createFilterGroups(input: {name: "${category}"}) {
+              filterGroups {
+                id
+              }
             }
           }
-        }
       `;
       return this.http.post(this.url, {query: mutation}).pipe(map(res => res), catchError((error: HttpErrorResponse) => {
         console.error('An error occurred:', error);
@@ -79,7 +77,7 @@ export class graphqlApiService {
       }))
     }
 
-    createFilterStatementsForNewGroup(task,taskId,groupId) {
+    createFilterStatementsForNewGroup(task,groupId) {
       const mutation = `
         mutation MyMutation {
           createFilterStatements(
@@ -175,8 +173,8 @@ export class graphqlApiService {
       // console.log("i from above :", i);
 
       while (i < dataObj.tasks.length) {
-        // const newTask = { id: uuid(), name: dataObj.tasks[i].taskgroup, checked: false };
-        const newTask = { id: uuid(), name: dataObj.tasks[i].taskgroup};
+        // const newTask = { id: uuid(), name: dataObj.tasks[i].taskgroup};
+        const newTask = {name: dataObj.tasks[i].taskgroup};
         console.log("create i", i);
         console.log("newtask", newTask);
         requests.push(this.createFilterStatements(newTask, editableObj.id));
@@ -439,7 +437,7 @@ export class graphqlApiService {
   }
 
   // create new life cycle phases
-  createLC(id,name){
+  createLC(name){
     const mutation = `
     mutation MyMutation {
       createLifeCyclePhases(input: {name: "${name}"}) {
@@ -457,7 +455,7 @@ export class graphqlApiService {
   }
 
   // create new children of quality characteristics and connect it to their respective parent
-  createQC(description, uuID, newItem, lcId){
+  createQC(description, newItem, lcId){
     const mutation = `
     mutation MyMutation {
       createQualityCharacteristics(
@@ -481,11 +479,11 @@ export class graphqlApiService {
   }
 
   // create new children of quality factors and connect it to their respective parent
-  createQF(description, uuID, newItem, source, qcId){
+  createQF(description, newItem, source, qcId){
     const mutation = `
       mutation MyMutation {
         createQualityFactors(
-          input: {description: "${description}", name: "${newItem}", sources: "${source}", contributesToQualityCharacteristics: {connect: {where: {node: {id: "${qcId}"}}}}}
+          input: {description: "${description}",name: "${newItem}", sources: "${source}", contributesToQualityCharacteristics: {connect: {where: {node: {id: "${qcId}"}}}}}
         ) {
           qualityFactors {
             id

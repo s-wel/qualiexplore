@@ -307,26 +307,29 @@ export class FiltersComponent implements OnInit, OnDestroy {
           
         }
         this.editArr.removeAt(index);
+        let ref = document.getElementById('cancel');
+        ref.click();
         this.reset()
       }
       
 
     async postFormData(dataObj) {
       const { category, tasks } = dataObj;
-      const filterGroupId = uuid();
+     
       
       try {
-          const res = await this.graphqlApi.createFilterGroups(category, filterGroupId).toPromise();
+          const res = await this.graphqlApi.createFilterGroups(category).toPromise() as any;
           console.log(res);
+          var filterGroupId = res.data.createFilterGroups.filterGroups[0].id;
       } 
       catch (err) {
           console.error(err);
       }
       
       for (const statement of tasks) {
-          const filterStatementId = uuid();
+          // const filterStatementId = uuid();
           try {
-            const res = await this.graphqlApi.createFilterStatementsForNewGroup(statement, filterStatementId, filterGroupId).toPromise();
+            const res = await this.graphqlApi.createFilterStatementsForNewGroup(statement, filterGroupId).toPromise();
             console.log("Statement Creation Res:", res);
             this.get_all_filters();
             } 
