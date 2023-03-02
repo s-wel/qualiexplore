@@ -52,9 +52,9 @@ export class EditTreeComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log("Afterview", this.newItemInput.nativeElement);
+    // console.log("Afterview", this.newItemInput.nativeElement);
     
-    this.newItemInput.nativeElement.focus();
+    // this.newItemInput.nativeElement.focus();
   }
 
   ngOnDestroy() {
@@ -107,7 +107,7 @@ export class EditTreeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.modalService.open(addContent, {ariaLabelledBy: 'popUp', size:'lg', centered: true})  
     this.addForm = new FormGroup({
       'name' : new FormControl(name),
-      'newItem': new FormControl(" "),
+      'newItem': new FormControl(""),
       'id' : new FormControl(id),
     }); 
 
@@ -116,7 +116,7 @@ export class EditTreeComponent implements OnInit, OnDestroy, AfterViewInit {
  openAddCycleModal(addCycle){
   this.modalService.open(addCycle, {ariaLabelledBy: 'popUp', size:'lg', centered: true})
   this.cycleForm = new FormGroup({
-    'name': new FormControl(" "),
+    'name': new FormControl(""),
   }); 
  }
 
@@ -195,12 +195,15 @@ async updateName(data){
   }
 
   addNewLifeCycle(data){
-    let uuID = uuid();
-    this.subscriptions.push(this.graphqlApi.createLC(uuID, data.name).subscribe((res:any) => {
+    // let uuID = uuid();
+    this.subscriptions.push(this.graphqlApi.createLC(data.name).subscribe((res:any) => {
       console.log(res);
       this.getAllData();
       
     }))
+
+    let ref = document.getElementById('cancel');
+    ref.click();
 
   }
 
@@ -215,8 +218,8 @@ async updateName(data){
     const source = "Update the source";
     if(lcIds.includes(data.id)){
       console.log("This is a LC");
-      let uuID = uuid();
-      this.subscriptions.push(this.graphqlApi.createQC(description, uuID, data.newItem, data.id).subscribe((res:any) => {
+      // let uuID = uuid();
+      this.subscriptions.push(this.graphqlApi.createQC(description, data.newItem, data.id).subscribe((res:any) => {
           console.log(res);
           this.getAllData();
       }))
@@ -224,8 +227,8 @@ async updateName(data){
 
     if(qcIds.includes(data.id)){
       console.log("This is a QC");
-      let uuID = uuid();
-      this.subscriptions.push(this.graphqlApi.createQF(description, uuID, data.newItem, source, data.id).subscribe((res:any) => {
+      // let uuID = uuid();
+      this.subscriptions.push(this.graphqlApi.createQF(description, data.newItem, source, data.id).subscribe((res:any) => {
           console.log(res);
           this.getAllData();
       }))
