@@ -7,33 +7,28 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Important Notes
 
-This App requires to backend server json-server and graphql server.
+This App requires to backend server mongodb-graphql and neo4j-graphql server.
 
-* Filters and Factors data fetch from json-server and data are stored in db.json file
-* Data for user authentication fetch from graphql server
+* Data for user authentication fetch from mongodb-graphql server
+* Rest of the things are hanledled by neo4j-graphql server
+* Backend URLs are stored in environment folder
+* For rasa widget Socket connection has been used and SocketUrl stored in environment folder
 
-For rasa widget Socket connection has been used and SocketUrl stored as environment variable
 
 ## Installation
 
 Run `ng serve` for a dev server
 The app will automatically reload if you change any of the source files.
 
-For local setup:
+qualiexplore-stack : https://github.com/s-wel/qualiexplore-stack/tree/i4q
 
-* Run `npm install -g json-server`  --to install json server on the system
-* Run `json-server --watch db.json` --to run json server
-
-For Docker use this image from dockerhub : robinkuri/quali-json-server 
-
-* Dockerhub Link : https://hub.docker.com/repository/docker/robinkuri/quali-json-server
 
 ## Docker
 
 QualiExplore is served through `nginx` HTTP Server. See `Dockerfile` for details.
 Qualiexplore is also available on [Docker Hub]
-* V1 https://hub.docker.com/repository/docker/shantanoodesai/qualiexplore
-* V2 https://hub.docker.com/repository/docker/robinkuri/qualiexpolire-with-editing-environment
+
+*  [Dockerhub Image link will be added]
 
 See Dockerfile and docker-compose.yml file for details
 
