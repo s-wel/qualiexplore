@@ -223,7 +223,7 @@
                 return result;
               };
 
-              const result: any = {"text": "Platform information quality",  "children": []};
+              const result: any = {"text": "Production information quality",  "children": []};
 
               data.lifeCyclePhases.forEach((item: any) => {
                 const converted = convertToNewFormat(item);

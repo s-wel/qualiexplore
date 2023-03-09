@@ -52,7 +52,7 @@
 
             <div class="modal-footer"> 
                 <button type="button" class="btn btn-color mr-2" [disabled]="addForm.pristine" (click)="addItem(addForm.value)">
-                ADD</button>        
+                Add</button>        
                 <button type="button" id="cancel" class="btn btn-color" (click)="close('close buttton')">Close</button>   
             </div>
       </div>
@@ -74,7 +74,7 @@
 
             <div class="modal-footer"> 
                 <button type="button" class="btn btn-color mr-2" [disabled]="cycleForm.pristine" (click)="addNewLifeCycle(cycleForm.value)">
-                ADD </button>        
+                Add </button>        
                 <button type="button" id="cancel" class="btn btn-color" (click)="close('close buttton')">Close</button>   
             </div>
       </div>
@@ -102,7 +102,7 @@
         <div class="row">
             <div class="col-md-12">
               <div class="shadow p-3 scroll">
-                <span class="mb-3 mt-3">Platform Information Quality</span>
+                <span class="mb-3 mt-3">Production Information Quality</span>
                 <i class="fas fa-plus small-icon ml-3" type="button" (click)="openAddCycleModal(addCycle)"></i>
             
                 <div *ngFor="let phase of item">
@@ -155,6 +155,7 @@
     data-primary="#8064a2"
     data-primary-highlight="#9882b5"
     data-root-element-id="storybook-preview-wrapper"
-    id="rasa-chat-widget" 
+    id="rasa-chat-widget"
+    data-initial-payload="/introduction"
     [attr.data-websocket-url]="websocketUrl">
 </div>
