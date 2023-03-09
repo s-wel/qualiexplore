@@ -176,7 +176,6 @@
                     result.id = obj.id;
                     result.checked = false;
                 }
-
                 // console.log(obj.name, obj.id);
               
                 if (obj.qualityCharacteristicsContributesTo) {
@@ -220,7 +219,7 @@
                     result.value.source = []
                 };        
 
-                if (obj.id) result.value.id = obj.id;
+                if (obj.id) result.value.id = obj.id
                 return result;
               };
 
@@ -449,7 +448,19 @@
         });
         return factors;
     }
-    // qcids
+
+    getLcIds() {
+        return new Promise((resolve, reject) => {
+          let lcIds = [];
+      
+          this.subscriptions.push(this.graphqlApi.getAllLCids().subscribe((res: any) => {
+            let arr = res.data.lifeCyclePhases;
+            arr.map(elem => lcIds.push(elem.id));
+            resolve(lcIds);
+          }));
+        });
+    }
+
     getQcIds() {
         return new Promise((resolve, reject) => {
           let qcIds = [];
@@ -491,11 +502,23 @@
         }));
 
         
-
+        let lcIds:any = await this.getLcIds();
         let qcIds:any = await this.getQcIds();
         // console.log("qcIds:", qcIds);
         let qfIds:any = await this.getQfIds();
         // console.log("qfIds:", qfIds);
+
+        if(lcIds.includes(data.id)){
+            
+            this.subscriptions.push(this.graphqlApi.updateLCdescription(data.id, data.description).subscribe((res:any) => {
+                let description = res.data.updateLifeCyclePhases.lifeCyclePhases[0].description;
+                // console.log(description);
+                this.selectedFactor.value.description = description;
+            }))
+            // window.location.reload()
+            
+        }
+
         if(qcIds.includes(data.id)){
             
             this.subscriptions.push(this.graphqlApi.updateQCdescription(data.id, data.description).subscribe((res:any) => {

@@ -207,6 +207,7 @@ export class graphqlApiService {
       lifeCyclePhases {
         name,
         id,
+        description,
         qualityCharacteristicsContributesTo {
           name,
           id,
@@ -274,6 +275,26 @@ export class graphqlApiService {
       console.error('An error occurred:', error);
       return throwError(error);
     }))
+  }
+
+  // update lifecycle phases description
+  updateLCdescription(id:string, description:string){
+    const mutation = `
+      mutation MyMutation {
+        updateLifeCyclePhases(
+          where: {id: "${id}"}
+          update: {description: "${description}"}
+        ) {
+          lifeCyclePhases {
+            description
+          }
+        }
+      }
+      `;
+      return this.http.post(this.url, {query:mutation}).pipe(map(res => res), catchError((error: HttpErrorResponse) => {
+        console.error('An error occurred:', error);
+        return throwError(error);
+      }))
   }
 
   // update quality characteristics description
