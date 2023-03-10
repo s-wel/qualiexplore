@@ -46,18 +46,25 @@
         <!--  -->
             <div class="card-header" *ngIf="selectedFactor.text.length">
                 <b>{{selectedFactor.text}}</b>
+               
             </div>
             <form [formGroup] = "editForm">
                 <div class="form-group">
-                    <textarea class="form-control mb-3"  *ngIf="selectedFactor.value.description != null" formControlName="description" rows="3"></textarea>
-                    <textarea class="form-control mb-3"  *ngIf="selectedFactor.value.source != null" formControlName="source" rows="1"></textarea>
+                    <!-- <div *ngIf="selectedFactor?.value?.description != null">
+                        <textarea class="form-control mb-3"  *ngIf="selectedFactor?.value?.description" formControlName="description" rows="3"></textarea>
+                    </div>
+                    <div *ngIf="selectedFactor?.value?.source.length != 0">
+                        <textarea class="form-control mb-3" formControlName="source" rows="3"></textarea>
+                    </div> -->
+                    <textarea class="form-control mb-3"  *ngIf="selectedFactor?.value?.description" formControlName="description" rows="3"></textarea>
+                    <textarea class="form-control mb-3"  *ngIf="selectedFactor?.value?.source" formControlName="source" rows="1"></textarea>
                     <!-- HIDE THE ID FORM CONTROL -->
                     <div class="d-none">
                         <textarea class="form-control mb-3" formControlName="id" rows="1"></textarea>
                     </div>
                 </div>
             </form>
-            <div class="scrollAble">
+            <div  *ngIf="selectedFactor.value.source" class="scrollAble">
           
                     <div class="form-check" *ngFor="let task of allFS">
                         
@@ -68,8 +75,6 @@
                        
                     </div>
                 
-               
-               
             </div>
 
             <div class="modal-footer">
@@ -182,8 +187,8 @@
                     <div class="factorDescription" *ngIf="selectedFactor.value.description !== null">
                         {{selectedFactor.value.description}}
                     </div>
-                    <div *ngIf="selectedFactor.value.source !== null">
-                        <div *ngIf="selectedFactor.value.source.length">
+                    <div class="selections">
+                        <div *ngIf="selectedFactor.value.source">
                             <b><span>Sources</span></b>
                             <ul id="sourceList" *ngFor="let source of selectedFactor.value.source">
                                 <li *ngIf="!isUrl(source)"><a href="https://doi.org/{{source}}" class="custom-link" target="_blank" id="sourceList">{{source}} </a>
