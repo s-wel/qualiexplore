@@ -356,7 +356,7 @@ export class graphqlApiService {
   }
 
 
-  // clear relationships between quality factors and filter statements
+  // update relationships between quality factors and filter statements
   updateQFlabelIds(arr, id){
     const query = `
       mutation MyMutation(
@@ -380,7 +380,7 @@ export class graphqlApiService {
     }))
   }
 
-  // Query and mutaions for third page (Edit Tree Page)
+  // Query and mutations for third page (Edit Tree Page)
 
   // update life cycle phase name
   updateLCname(id, name){
