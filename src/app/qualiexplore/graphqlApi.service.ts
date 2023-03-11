@@ -279,6 +279,7 @@ export class graphqlApiService {
     }))
   }
 
+  
   // update lifecycle phases description
   updateLCdescription(id:string, description:string){
     const mutation = `
@@ -458,10 +459,10 @@ export class graphqlApiService {
   }
 
   // create new life cycle phases
-  createLC(name){
+  createLC(name, description){
     const mutation = `
     mutation MyMutation {
-      createLifeCyclePhases(input: {name: "${name}"}) {
+      createLifeCyclePhases(input: {name: "${name}", description: "${description}"}) {
         lifeCyclePhases {
           id
           name

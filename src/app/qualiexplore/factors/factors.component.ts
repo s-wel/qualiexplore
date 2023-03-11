@@ -215,9 +215,9 @@
                 if (obj.sources) {
                     result.value.source = [obj.sources]
                 }
-                else {
-                    result.value.source = []
-                };        
+                // else {
+                //     result.value.source = []
+                // };        
 
                 if (obj.id) result.value.id = obj.id
                 return result;
@@ -402,19 +402,31 @@
         this.modalService.open(content, {ariaLabelledBy: 'popUp', size:'lg', centered: true})
         let description = '';
         let source = '';
-        let id = ''
+        let id:any;
         let list = [];
         console.log("Form Open :",this.selectedFactor);
         
-        if(this.selectedFactor !== undefined){
-            description = this.selectedFactor.value.description;
-            id = this.selectedFactor.value.id;
-            for(let elem of this.selectedFactor.value.source){
-                source = elem;
+        // if(this.selectedFactor !== undefined){
+        //     description = this.selectedFactor.value.description;
+        //     id = this.selectedFactor.value.id;
+        //     for(let elem of this.selectedFactor.value.source){
+        //         source = elem;
                 
-            }
+        //     }
+        // }
+        if(this.selectedFactor){
+            id = this.selectedFactor.value.id
         }
 
+        if(this.selectedFactor.value.description){
+            description = this.selectedFactor.value.description
+        }
+
+        if(this.selectedFactor.value.source){
+            for(let elem of this.selectedFactor.value.source){
+                source = elem;   
+            }
+        }
 
         this.editForm = new FormGroup({
             'description' : new FormControl(description),
@@ -491,16 +503,17 @@
 
         let selectionsArray = this.selectedFactor.value.label_ids
         
-
-        this.subscriptions.push(this.graphqlApi.clearLabelIds(data.id)
-        .pipe(
-            concatMap(() => this.graphqlApi.updateQFlabelIds(selectionsArray, data.id))
-        )
-        .subscribe((res:any)=> {
-            console.log("Check 2 :",res);
-            // window.location.reload()
-        }));
-
+        if(selectionsArray != null){
+            this.subscriptions.push(this.graphqlApi.clearLabelIds(data.id)
+            .pipe(
+                concatMap(() => this.graphqlApi.updateQFlabelIds(selectionsArray, data.id))
+            )
+            .subscribe((res:any)=> {
+                console.log("Check 2 :",res);
+                // window.location.reload()
+            }));
+        }
+       
         
         let lcIds:any = await this.getLcIds();
         let qcIds:any = await this.getQcIds();
@@ -509,7 +522,6 @@
         // console.log("qfIds:", qfIds);
 
         if(lcIds.includes(data.id)){
-            
             this.subscriptions.push(this.graphqlApi.updateLCdescription(data.id, data.description).subscribe((res:any) => {
                 let description = res.data.updateLifeCyclePhases.lifeCyclePhases[0].description;
                 // console.log(description);
@@ -539,8 +551,7 @@
                 if(source == null){
                     this.selectedFactor.value.source = []
                 }
-                this.selectedFactor.value.source =[source];  
-                
+                this.selectedFactor.value.source =[source];
             }))
         }
         
