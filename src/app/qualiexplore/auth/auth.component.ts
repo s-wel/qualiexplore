@@ -100,38 +100,6 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit, AfterCon
         
         }
         
-
-      
-        
-        
-      //   this.usernameServer.forEach((user) => {
-      //     if (user.username == username) {
-      //       if (user.password == password) {
-      //         authObs.subscribe(
-      //           (resData) => {
-      //             // console.log("res :",resData)
-      //             // this.errorMessage = "SuccessFul Login"
-      //             this.isLoading = false
-      //             this.router.navigate(['./qualiexplore/filters'])
-      //           },
-      //           (error) => {
-      //             this.isLoading = false
-      //             this.errorMessage = "Error";
-      //             console.log("error", error);
-      //           },
-      //         )
-      //   } 
-      //   else {
-      //     this.errorMessage ="Invalid Password"
-      //     this.isLoading = false
-      //   }
-      // }
-    //   else{
-    //      this.isLoading = false
-    //      this.errorMessage ="Invalid Username"
-    //   }
-   
-    // })
   },
   (error) => {
     console.log(error)

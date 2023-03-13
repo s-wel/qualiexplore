@@ -24,6 +24,9 @@ const routes: Routes = [
     path: '', redirectTo: '/qualiexplore/auth', pathMatch: 'full'
   },
   {
+    path: '', redirectTo: '/qualiexplore/filters', pathMatch: 'full'
+  },
+  {
     path: 'qualiexplore',
     loadChildren: () => import('./qualiexplore/qualiexplore.module').then(m => m.QualiexploreModule)
   }

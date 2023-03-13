@@ -24,6 +24,7 @@ import { AuthComponent } from './auth/auth.component';
 import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
+    // TODO enbale commented code when user connection is ready
     {
         path: 'auth', 
         component: AuthComponent

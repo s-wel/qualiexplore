@@ -17,14 +17,6 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     router: RouterStateSnapshot,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    // this.authService.user.subscribe(user => {
-    //     if(!!user){
-    //         return true;
-    //     }
-    //     else {
-    //         this.router.navigate(['./qualiexplore/auth'])
-    //     }
-    // })
 
     return this.authService.user.pipe(
       map((user) => {

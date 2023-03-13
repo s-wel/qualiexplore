@@ -109,9 +109,7 @@ export class AuthService {
 
   logout() {
     this.user.next(null)
-    this.router.navigate(['./qualiexplore/auth']).then(() => {
-      window.location.reload()
-    })
+    this.router.navigate(['./qualiexplore/auth'])
     localStorage.removeItem('userData')
     localStorage.removeItem('token')
     sessionStorage.clear()  ///added for another session
@@ -122,6 +120,9 @@ export class AuthService {
 
   autoLogout(expirationDuration: number) {
     this.tokenExpirationTimer = setTimeout(() => {
+      //closing any modal during autologout
+      // let ref = document.getElementById('cancel');
+      // ref.click();
       this.logout()
     }, expirationDuration)
   }

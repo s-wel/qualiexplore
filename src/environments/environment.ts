@@ -5,10 +5,11 @@
 
 export const environment = {
   production: false,
-  socketUrlApi : "http://i4q-dev.ikap.biba.uni-bremen.de:5005",
-  botName: "QualiExplore assistant"
+  socketUrlApi : "http://localhost:5005/", // URL of the Rasa chatbot endpoint.
+  botName: "QualiExplore assistant", // TODO check if this is still needed
+  authApi : "http://localhost:5000/graphql", // URL of the Apollo server that interacts with the MongoDB (has an integrated GraphQL server).
+  graphApi: "http://localhost:4000/graphql"  // URL of the Apollo server that interacts with Neo4j.
 };
-
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

@@ -1,12 +1,6 @@
-<!-- <app-header></app-header> -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">
-        <h3>QualiExplore</h3>
-    </a>
-</nav>
 
 <div class="row mt-5 d-flex justify-content-center">
-    <div class="col-xl-4 col-md-4 col-sm-6 col-6">
+    <div class="col-xl-4 col-md-4 col-sm-6 col-6 centering">
        
         <div *ngIf="isLoading" style="text-align: center;">
             <app-loading-spinner></app-loading-spinner>
@@ -22,7 +16,7 @@
             <label for="Password">Password:</label>
             <input type="password" id="password" class="form-control" name="password" ngModel required>
             <br>
-            <input type="submit" value="Login" class="btn btn-primary" [disabled]="!authForm.valid">
+            <input type="submit" value="Login" class="btn btn-color"  [disabled]="!authForm.valid">
         </form>
     </div>
 </div>

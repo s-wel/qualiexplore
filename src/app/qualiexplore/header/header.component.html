@@ -1,45 +1,11 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">
-        <h3>QualiExplore</h3>
+<nav class="navbar navbar-expand-lg navbar-color">
+
+    <a class="navbar-brand  d-flex align-items-center" href="#">
+        <img class="img-responsive" src="https://www.linkpicture.com/q/logo_561.png" width="35" height="35">
+        <div class="custom d-flex align-items-center">
+            <h1 class="font ml-3">i4Q<sup>QE</sup></h1>
+        </div>
     </a>
 
-    <!-- Button trigger modal -->
-    <!-- <button type="button" *ngIf="updateButton" class="btn btn-primary" data-toggle="modal"
-        data-target="#exampleModalCenter">
-        Add Filters
-    </button> -->
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-xl-4 col-md-4 col-sm-6 col-6">
-                            <form #addFilterForm="ngForm" class="form-group" (ngSubmit)="onSubmit(addFilterForm)">
-                                <label for="name">name:</label>
-                                <input type="text" id="name" class="form-control" name="name" ngModel required>
-                                <br>
-                                <input type="submit" value="Save" class="btn btn-primary"
-                                    [disabled]="!addFilterForm.valid">
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <button type="button" class="btn btn-primary ml-auto" style="text-align: right;"
-        (click)="onLogout()">Logout</button>
+    <button type="button" class="btn btn-color ml-auto" (click)="onLogout()">Logout</button>
 </nav>
