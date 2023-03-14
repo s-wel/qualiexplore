@@ -1,0 +1,37 @@
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
+  # DOCKER_HOST: tcp://docker:2375
+  MOUNT_POINT: /builds/$CI_PROJECT_PATH/mnt
+  IMAGE: $DOCKER_REGISTRY/$PROJECT/$QE_IMAGE_NAME-$CI_COMMIT_BRANCH
+
+services:
+    - docker:dind
+
+stages:
+    - build
+
+# This job uses the Docker-in-Docker image to build Docker images
+# inside a Docker container (and not on the Docker server directly).
+# Unique tags for images because we deploy these (instead of using them as base images).
+# This job replaces placeholders with corresponding CI/CD variable values.
+build-qualiexplore-image:
+  stage: build
+  image: docker:stable
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "i4q"'
+  before_script:
+    - docker info
+    - docker login --username $DOCKER_REGISTRY_USER --password $DOCKER_REGISTRY_PASSWORD $DOCKER_REGISTRY
+  script:
+    - sleep 5
+    # Add label information dynamically.
+    - sed -i "s/git.commit.hash=""/git.commit.hash=$CI_COMMIT_SHA/g" Dockerfile
+    - sed -i "s/git.commit.branch=""/git.commit.branch=$CI_COMMIT_BRANCH/g" Dockerfile
+    - docker build -t $IMAGE:$CI_COMMIT_SHA -t $IMAGE:latest -f Dockerfile .
+    - docker push $IMAGE:$CI_COMMIT_SHA
+    - docker push $IMAGE:latest
+  after_script:
+    - docker logout
+  tags:
+    - i4q_docker
