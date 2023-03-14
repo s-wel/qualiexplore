@@ -14,6 +14,9 @@ RUN npm install && npm run build
 FROM nginx:stable-alpine
 LABEL version="1.0"
 
+LABEL git.commit.hash=""
+LABEL git.commit.branch=""
+
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
 
 WORKDIR /usr/share/nginx/html
