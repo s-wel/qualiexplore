@@ -8,12 +8,6 @@ services:
     
     image: swel/qualiexplore:i4q
 
-  # TODO deprecated
-  # json-server:
-  #   ports:
-  #     - 3000:3000
-  #   image: robinkuri/quali-json-server:latest
-  
   gql-mongo:
     ports:
       - "5000:5000"
