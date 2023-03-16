@@ -1,36 +1,23 @@
 
 # QualiExplore Angular Module
 
-Standalone Frontend Angular application of QualiExplore Component in the [i4Q](www.i4q-project.eu)
+Standalone Frontend Angular application of the QualiExplore component in the [i4Q](www.i4q-project.eu)
+
+QualiExplore is served through `nginx` HTTP Server. See `Dockerfile` for details.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.15.
 
-## Important Notes
-
-This App requires to backend server mongodb-graphql and neo4j-graphql server.
-
-* Data for user authentication fetch from mongodb-graphql server
-* Rest of the things are hanledled by neo4j-graphql server
-* Backend URLs are stored in environment folder
-* For rasa widget Socket connection has been used and SocketUrl stored in environment folder
-
-
 ## Installation
 
-Run `ng serve` for a dev server
-The app will automatically reload if you change any of the source files.
+Run `ng serve` for a dev server. The app will automatically reload if you change any of the source files.
+Use the docker-compose.yml file to create a mini-stack.
 
-qualiexplore-stack : https://github.com/s-wel/qualiexplore-stack/tree/i4q
+More complex setups require a stack like the qualiexplore-stack: <https://github.com/s-wel/qualiexplore-stack/tree/i4q>
+It provides databases and graphql servers to serve data.
 
+## Other information
 
-## Docker
-
-QualiExplore is served through `nginx` HTTP Server. See `Dockerfile` for details.
-Qualiexplore is also available on [Docker Hub]
-
-*  [Dockerhub Image link will be added]
-
-See Dockerfile and docker-compose.yml file for details
+This repo contains a Gitlab CI file to build and push the QualiExplore image to an image repository.
 
 ## Contact
 
@@ -42,12 +29,12 @@ See Dockerfile and docker-compose.yml file for details
 * [Stefan Wellsandt](mailto:wel@biba.uni-bremen.de)
 * [Robin Kuri](mailto:kur@biba.uni-bremen.de)
 
-
 ## License
 
 __Apache2.0 License__
-```
-  Copyright 2022
+
+``` Text
+  Copyright 2023
   University of Bremen, Faculty of Production Engineering, Badgasteiner Straße 1, 28359 Bremen, Germany.
   In collaboration with BIBA - Bremer Institut für Produktion und Logistik GmbH, Bremen, Germany.
   Licensed under the Apache License, Version 2.0 (the "License");
