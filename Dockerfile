@@ -18,6 +18,7 @@ LABEL git.commit.hash=""
 LABEL git.commit.branch=""
 
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
+COPY nginx/ssl.conf.template /etc/nginx/ssl.conf.template
 
 WORKDIR /usr/share/nginx/html
 COPY --from=builder /usr/src/app/dist/qualiexplore/ .
