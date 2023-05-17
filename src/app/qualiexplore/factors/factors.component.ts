@@ -59,42 +59,17 @@
 
      editForm:FormGroup;
      allData : any;
-     allFS : any
+     allFS : any;
      allTasks = [];
 
-     isAuthenticated = false
-     user: string = null
-     updateButton = false
+     isAuthenticated = false;
+     user: string = null;
+     updateButton = false;
 
      isCheckboxChanged = false;
 
      
-     constructor(private route: ActivatedRoute, private router: Router, private modalService : NgbModal, private authService: AuthService, private location : Location, private graphqlApi: graphqlApiService) {
-    // Treeview Manual Approach -- maybe used later on ther page
-    //     interface Data {
-    //         lifeCyclePhases: LifeCyclePhase[];
-    //       }
-          
-    //       interface LifeCyclePhase {
-    //         name: string;
-    //         id: string;
-    //         qualityCharacteristicsContributesTo: QualityCharacteristic[];
-    //       }
-          
-    //       interface QualityCharacteristic {
-    //         name: string;
-    //         id: string;
-    //         description: string;
-    //         qualityFactorsContributesTo: QualityFactor[];
-    //       }
-          
-    //       interface QualityFactor {
-    //         name: string;
-    //         id: string;
-    //         description: string;
-    //       }
-
-    }
+     constructor(private route: ActivatedRoute, private router: Router, private modalService : NgbModal, private authService: AuthService, private location : Location, private graphqlApi: graphqlApiService) {}
     
      private subscriptions: Subscription[] = [];
      ngOnInit() {
@@ -120,11 +95,9 @@
           
           
              this.selected = JSON.parse(params.ids);
-             console.log("SELECTED IDS :",this.selected);
-             console.log("CNF :",sessionStorage.getItem('currentNewFilters'));
-             
- 
-             // Display Logic to show selected filters from Step - 1
+            //  console.log("SELECTED IDS :",this.selected);
+            //  console.log("CNF :",sessionStorage.getItem('currentNewFilters'));
+            // Display Logic to show selected filters from Step - 1
              this.selected.forEach((id) => {
                 const currentFiltersFromStep1: newFilter[] = JSON.parse(
                   sessionStorage.getItem('currentNewFilters'),
@@ -164,7 +137,7 @@
 
     getAllData(){
         this.subscriptions.push(this.graphqlApi.getLifeCyclePhases().subscribe((res:any) => {      
-            console.log(res);
+            // console.log(res);
             
             let data = res.data;
             // converting response as ngx-treeview json format
@@ -176,6 +149,7 @@
                     result.id = obj.id;
                     result.checked = false;
                 }
+
                 // console.log(obj.name, obj.id);
               
                 if (obj.qualityCharacteristicsContributesTo) {
@@ -202,7 +176,7 @@
                     let ids = []
                     // console.log("RFS :",obj.relevantForFilterStatements);
                     for (const elem of obj.relevantForFilterStatements) {
-                        console.log("Check :",elem.text);
+                        // console.log("Check :",elem.text);
                         
                         ids.push(elem.id)
                     }
@@ -214,16 +188,13 @@
 
                 if (obj.sources) {
                     result.value.source = [obj.sources]
-                }
-                // else {
-                //     result.value.source = []
-                // };        
+                }  
 
-                if (obj.id) result.value.id = obj.id
+                if (obj.id) result.value.id = obj.id;
                 return result;
               };
 
-              const result: any = {"text": "Production information quality",  "children": []};
+              const result: any = {"text": "Platform information quality",  "children": []};
 
               data.lifeCyclePhases.forEach((item: any) => {
                 const converted = convertToNewFormat(item);
@@ -233,7 +204,7 @@
            
             this.item = result
 
-            console.log("Check The converted Json:", this.item);
+            // console.log("Check The converted Json:", this.item);
             this.items = this.parseTree([new TreeviewItem(this.item)])
             this.countHighlightedFactors(this.items);
 
@@ -243,11 +214,10 @@
 
      selection(item){
         console.log(item.name, item.id);
-        
      }
 
     changeCheck(id: number, event: any) {
-        console.log("Label Ids ",this.selectedFactor.value.label_ids);
+        // console.log("Label Ids ",this.selectedFactor.value.label_ids);
         this.isCheckboxChanged = true;
         this.selectionsSet.clear();
     
@@ -280,10 +250,9 @@
       */
     //  select(item: TreeItem) {
      select(item) {
-         // console.log(item);
-         console.log("Item : ",item);
+        //  console.log("Item : ",item);
          this.selectedFactor = item
-         console.log('Selected Factor:',this.selectedFactor);
+        //  console.log('Selected Factor:',this.selectedFactor);
          if(this.selectedFactor.value.highlighted == undefined){
             this.proceedButtonDisabled = true
          }else{
@@ -353,14 +322,14 @@
             if(factor.value === undefined){
 
                 Object.assign(factor, {checked : false}, {value : {label_ids : [] , source:["Please update the source"], description:" Please update the description"}});
-                console.log(factor)
+                // console.log(factor)
                
             }
              ////
             if (factor.value !== null && factor.value.label_ids !== undefined) {
                 const labels: number[] = factor.value.label_ids;
-                console.log("label_ids :", labels);
-                console.log("Selected Ids:", this.selected);
+                // console.log("label_ids :", labels);
+                // console.log("Selected Ids:", this.selected);
                 
                 
                 labels.forEach(label => {
@@ -389,6 +358,9 @@
         this.router.navigate(['qualiexplore/filters'], { queryParams: { ids: JSON.stringify(arrayOfSelections) } });
      }
 
+     onAuditAdvisor(){
+        this.router.navigate(['qualiexplore/audit'])
+    }
     
     //Navigate to the editable tree to create new child
 
@@ -404,16 +376,8 @@
         let source = '';
         let id:any;
         let list = [];
-        console.log("Form Open :",this.selectedFactor);
+        // console.log("Form Open :",this.selectedFactor);
         
-        // if(this.selectedFactor !== undefined){
-        //     description = this.selectedFactor.value.description;
-        //     id = this.selectedFactor.value.id;
-        //     for(let elem of this.selectedFactor.value.source){
-        //         source = elem;
-                
-        //     }
-        // }
         if(this.selectedFactor){
             id = this.selectedFactor.value.id
         }
@@ -441,19 +405,17 @@
     parseFactors(factors) {
         factors.forEach((factor) => {
             
-            console.log(factor);
-            console.log(this.selectedFactor);
+            // console.log(factor);
+            // console.log(this.selectedFactor);
             
         
             if(factor.text == this.selectedFactor.text){
 
         
                 Object.assign(factor, {checked : false}, {value : {label_ids : this.selections , source:[this.editForm.value.source], description:this.editForm.value.description}});
-                // console.log(factor)
-                // return factor;
+                
             }
         
-           
             if (factor.children !== undefined) {
                 this.parseFactors(factor.children);
             }
@@ -509,7 +471,7 @@
                 concatMap(() => this.graphqlApi.updateQFlabelIds(selectionsArray, data.id))
             )
             .subscribe((res:any)=> {
-                console.log("Check 2 :",res);
+                console.log("Check :",res);
                 // window.location.reload()
             }));
         }
@@ -527,7 +489,6 @@
                 // console.log(description);
                 this.selectedFactor.value.description = description;
             }))
-            // window.location.reload()
             
         }
 
@@ -538,7 +499,6 @@
                 // console.log(description);
                 this.selectedFactor.value.description = description;
             }))
-            // window.location.reload()
             
         }
    
@@ -561,13 +521,5 @@
         ref.click();
      }
     
-    // For Manual TreeVieew 
-    //  togglePhase(phase) {
-    //     phase.expanded = !phase.expanded;
-    //   }
-      
-    //   toggleCharacteristic(characteristic) {
-    //     characteristic.expanded = !characteristic.expanded;
-    //   }
  }
  

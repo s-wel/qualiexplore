@@ -25,6 +25,7 @@ import { AppComponent } from './app.component';
 import { NgxTreeDndModule } from 'ngx-tree-dnd';
 import { GraphQLModule } from './graphql.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TimeoutService } from './timeout.service';
 
 
 
@@ -40,7 +41,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     HttpClientModule,
     FontAwesomeModule
   ],
-  providers: [],
+  providers: [TimeoutService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

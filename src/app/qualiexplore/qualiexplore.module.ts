@@ -37,10 +37,13 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEdit,faMinus,faPlus,faTimes } from '@fortawesome/free-solid-svg-icons';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
+import { AuditAdvisorComponent } from './audit-advisor/audit-advisor.component';
+import { StartPageComponent } from './start-page/start-page.component';
+// import { SessionService } from './auth/session.service';
 
 @NgModule({
 
-  declarations: [FiltersComponent, FactorsComponent, PageNotFoundComponent, EditTreeComponent, AuthComponent, HeaderComponent, LoadingSpinnerComponent],
+  declarations: [FiltersComponent, FactorsComponent, PageNotFoundComponent, EditTreeComponent, AuthComponent, HeaderComponent, LoadingSpinnerComponent, AuditAdvisorComponent, StartPageComponent],
   imports: [
     CommonModule,
     QualiexploreRoutingModule,

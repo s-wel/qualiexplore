@@ -2,6 +2,6 @@
 # Uncomment and adapt for your deployment as needed
 listen                  443 ssl;
 
-server_name             i4q.ikap.biba.uni-bremen.de;
+server_name             i4q.ikap.biba.uni-bremen.de; # i4q-dev.ikap.biba.uni-bremen.de;
 ssl_certificate         /etc/certs/fullchain.pem;
 ssl_certificate_key     /etc/certs/privkey.pem;

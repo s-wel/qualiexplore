@@ -7,7 +7,7 @@ services:
       - 80:80
     
     image: swel/qualiexplore:i4q
-
+  
   gql-mongo:
     ports:
       - "5000:5000"

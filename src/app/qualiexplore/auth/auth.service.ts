@@ -69,7 +69,7 @@ export class AuthService {
             accessTokenExpiration,
           )
           this.user.next(user)
-          this.autoLogout(600 * 1000)
+          // this.autoLogout(600 * 1000)
           localStorage.setItem('token', result.data.login.accessToken)
           localStorage.setItem('userData', JSON.stringify(user))
         }),
@@ -103,28 +103,34 @@ export class AuthService {
       const expirationDuration =
         new Date(userData._accessTokenExpiration).getTime() -
         new Date().getTime()
-      this.autoLogout(expirationDuration)
+      // this.autoLogout(expirationDuration)
     }
   }
 
   logout() {
     this.user.next(null)
+    setTimeout(() => {
+      const chatWidgetContainer = document.querySelector('#rasa-chat-widget-container');
+      if (chatWidgetContainer) {
+        chatWidgetContainer.remove();
+      }
+    }, 100);
     this.router.navigate(['./qualiexplore/auth'])
+    // this.router.navigate(['./qualiexplore/auth']).then(() => {
+    //   window.location.reload()
+    // })
     localStorage.removeItem('userData')
     localStorage.removeItem('token')
     sessionStorage.clear()  ///added for another session
-    if (this.tokenExpirationTimer) {
-      clearTimeout(this.tokenExpirationTimer)
-    }
+    // if (this.tokenExpirationTimer) {
+    //   clearTimeout(this.tokenExpirationTimer)
+    // }
   }
 
-  autoLogout(expirationDuration: number) {
-    this.tokenExpirationTimer = setTimeout(() => {
-      //closing any modal during autologout
-      // let ref = document.getElementById('cancel');
-      // ref.click();
-      this.logout()
-    }, expirationDuration)
-  }
+  // autoLogout(expirationDuration: number) {
+  //   this.tokenExpirationTimer = setTimeout(() => {
+  //     this.logout()
+  //   }, expirationDuration)
+  // }
 
 }

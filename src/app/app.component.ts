@@ -15,7 +15,8 @@
 
 
 import { Component } from '@angular/core';
-
+import { Router } from '@angular/router';
+import { TimeoutService } from './timeout.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -23,4 +24,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'qualiexplore';
+  constructor(private router: Router, private timeoutService: TimeoutService) {}
+
+  ngOnInit(): void {
+    this.timeoutService.startTimer();
+  }
+
+  onUserActivity(): void {
+    if (this.router.url !== '/qualiexplore/auth') {
+      // console.log("User activity detected, resetting timer.");
+      this.timeoutService.resetTimer();
+    }
+  }
 }

@@ -5,7 +5,7 @@
         <div *ngIf="isLoading" style="text-align: center;">
             <app-loading-spinner></app-loading-spinner>
         </div>
-        <div *ngIf="errorMessage" class="alert alert-danger">
+        <div *ngIf="errorMessage !== null" class="alert alert-danger">
             {{errorMessage}}
         </div>
         

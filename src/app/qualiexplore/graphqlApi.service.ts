@@ -3,14 +3,12 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { forkJoin, throwError } from 'rxjs';
 import { Apollo } from 'apollo-angular';
-import { v4 as uuid } from 'uuid';
 import { environment } from 'src/environments/environment'
 
 @Injectable({
   providedIn: 'root'
 })
 export class graphqlApiService {
-  // Handles graphql queries for the Neo4j knowledge graph. 
 
     // This api service has all query and mutation for neo4j database
 
@@ -155,7 +153,6 @@ export class graphqlApiService {
 
     // To update an existing filter group statements there will be two case one is updating the existing filters statements another is creating new filter statements. So here we need to handle both requests at a time. 
     updateOrCreateFilterStatements(editableObj, dataObj) {
-      // TODO add a description
       console.log("UC EditableObj :", editableObj);
       console.log("UC DataObj :", dataObj);
       
@@ -341,7 +338,7 @@ export class graphqlApiService {
       }))
   }
 
-  // get all filter statements with their id
+  //get all filter statements with their id
   getAllFilterStatementswithID(){
     const query = `
       query MyQuery {
@@ -378,7 +375,7 @@ export class graphqlApiService {
   }
 
 
-  // update relationships between quality factors and filter statements
+  // clear relationships between quality factos and filter statements
   updateQFlabelIds(arr, id){
     const query = `
       mutation MyMutation(
@@ -402,7 +399,7 @@ export class graphqlApiService {
     }))
   }
 
-  // Query and mutations for third page (Edit Tree Page)
+  // Query and mutaions for third page (Edit Tree Page)
 
   // update life cycle phase name
   updateLCname(id, name){

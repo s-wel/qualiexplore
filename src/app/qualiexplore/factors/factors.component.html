@@ -43,19 +43,12 @@
       </span>
     </div>
     <div class="modal-body">
-        <!--  -->
             <div class="card-header" *ngIf="selectedFactor.text.length">
                 <b>{{selectedFactor.text}}</b>
                
             </div>
             <form [formGroup] = "editForm">
                 <div class="form-group">
-                    <!-- <div *ngIf="selectedFactor?.value?.description != null">
-                        <textarea class="form-control mb-3"  *ngIf="selectedFactor?.value?.description" formControlName="description" rows="3"></textarea>
-                    </div>
-                    <div *ngIf="selectedFactor?.value?.source.length != 0">
-                        <textarea class="form-control mb-3" formControlName="source" rows="3"></textarea>
-                    </div> -->
                     <textarea class="form-control mb-3"  *ngIf="selectedFactor?.value?.description" formControlName="description" rows="3"></textarea>
                     <textarea class="form-control mb-3"  *ngIf="selectedFactor?.value?.source" formControlName="source" rows="1"></textarea>
                     <!-- HIDE THE ID FORM CONTROL -->
@@ -93,9 +86,11 @@
     <div class="jumbotron bar-color">
         <h3 class="display-5"><span>Step-2</span></h3>
         <p class="lead"><span>This step highlights the most relevant factors with a </span> <i class="fas fa-flag fa-1x"></i></p>
+       
         <button type="button" class="btn btn-outline btn-ouline-color mb-2" (click)="collapseSelectedFilters = !collapseSelectedFilters" [attr.aria-expanded]="!collapseSelectedFilters" aria-controls="collapseFilters">
             <span>Selected Filters</span> <i class="fas fa-angle-double-down ml-3" *ngIf="collapseSelectedFilters"></i>
         </button>
+        <button class="btn btn-color ml-3 mb-2" (click)="onAuditAdvisor()">Audit</button>
         <div id="collapseFilters" [ngbCollapse]="collapseSelectedFilters">
             <ul class="filter-details" *ngFor="let filter of selectedFilterDetails">
                 <li>
@@ -110,6 +105,8 @@
         <br>
         <button class="btn btn-sm btn-outline-secondary btn-back mt-lg-2" (click)="backToStep1()"><span> Return to Step-1 </span></button>
     </div>
+
+      
     <div class="row mt-5">
         <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-center justify-content-between">
                 <h3 class="d-inline">Discover all Quality Factors</h3>
@@ -125,39 +122,6 @@
     <div class="row mt-2">
       
         <div class="col-lg-6 col-md-6 col-sm-12">
-            <!-- manual version of treeview-->
-                <!-- <div *ngFor="let phase of item">
-                    <div style="margin-left: 20px; cursor: pointer; display: flex; align-items: center;">
-                      <i (click)="togglePhase(phase); $event.stopPropagation()" 
-                         class="fa" 
-                         [ngClass]="{'fa-caret-down': phase.expanded, 'fa-caret-right': !phase.expanded}">
-                      </i>
-                      <div (click)="selection(phase)" style="margin-left: 10px; cursor: pointer;">
-                        {{phase.name}} 
-                      </div>
-                    </div>
-                    <div *ngIf="phase.expanded || (phase.qualityCharacteristicsContributesTo.length > 0 && phase.expanded === undefined)">
-                      <div *ngFor="let characteristic of phase.qualityCharacteristicsContributesTo">
-                        <div style="margin-left: 40px; cursor: pointer; display: flex; align-items: center;">
-                          <i (click)="toggleCharacteristic(characteristic); $event.stopPropagation()" 
-                             class="fa" 
-                             [ngClass]="{'fa-caret-down': characteristic.expanded, 'fa-caret-right': !characteristic.expanded}">
-                          </i>
-                          <div (click)="selection(characteristic)" style="margin-left: 10px; cursor: pointer;">
-                            {{characteristic.name}} 
-                          </div>
-                        </div>
-                        <div *ngIf="characteristic.expanded || (characteristic.qualityFactorsContributesTo.length > 0 && characteristic.expanded === undefined)">
-                          <div *ngFor="let factor of characteristic.qualityFactorsContributesTo">
-                            <div (click)="selection(factor)" style="margin-left: 60px; cursor: pointer;">
-                              {{factor.name}}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div> -->
-
             <!-- treeview with npm package-->
             <div class="shadow p-3 mr-3">
                 <ngx-treeview [config]="config" [items]="items" [itemTemplate]="itemTemplate">

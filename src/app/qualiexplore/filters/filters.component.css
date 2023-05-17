@@ -48,14 +48,3 @@
 
     color: #120606;
 }
-
-/* color change of input fields */
-
-/* input[type="text"]:focus, 
-input[type="email"]:focus, 
-input[type="password"]:focus, 
-textarea:focus {
-  border-color: #8064A2;
-  box-shadow: 0 0 0 0.2rem rgba(128, 100, 162, 0.25);
-  outline: none;
-} */

@@ -4,6 +4,7 @@ import { Router } from '@angular/router'
 import { Observable, Subscription } from 'rxjs'
 import { AuthService } from './auth.service'
 import { User } from './user.model'
+import * as bcrypt from 'bcryptjs';
 
 
 
@@ -14,7 +15,7 @@ import { User } from './user.model'
 })
 
 
-export class AuthComponent implements OnInit, OnDestroy, AfterViewInit, AfterContentChecked{
+export class AuthComponent implements OnInit, OnDestroy, AfterViewInit{
   constructor(private authService: AuthService, private router: Router) {}
 
   @ViewChild('authForm', {static:true}) authForm:NgForm
@@ -39,17 +40,14 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit, AfterCon
     const loadedUser = this.authService.isAuth(userData)
 
     if (loadedUser?.token) {
-      this.router.navigate(['./qualiexplore/filters'])
+      this.router.navigate(['./qualiexplore/start'])
     }
   }
 
   ngOnDestroy(){
-      
-      // this.subscription.unsubscribe();
+      // console.log("OnDestroy Called")
   }
-  ngAfterContentChecked(){
-    // this.errorMessage = null
-  }
+
 
   ngAfterViewInit(){
     this.errorMessage=null;
@@ -67,47 +65,52 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit, AfterCon
 
     authObs = this.authService.login(username, password)
 
- validUserObs.subscribe(
+    validUserObs.subscribe(
       (result: any) => {
-        //console.log("valid user :",result)
-        this.usernameServer = result.data.users[0].users
-        // console.log("Users:",this.usernameServer);
-        for( let elem of this.usernameServer){
-          if(elem.username === username){
-            if(elem.password === password){
+        const users = result.data.users[0].users;
+        // console.log("Result", result);
+        // console.log("Users", users);
+
+        const user = users.find((u: any) => u.username === username);
+        if (user) {
+          bcrypt.compare(password, user.password, (err, res) => {
+            if (res) {
+              authObs = this.authService.login(username, password);
               authObs.subscribe(
                 (resData) => {
-                  this.isLoading = false
-                  this.router.navigate(['./qualiexplore/filters'])
+                  // console.log("response:",resData);
+                  
+                  this.isLoading = false;
+                  this.errorMessage = null;
+                  // const accessToken = resData.data.login.accessToken;
+                  // const refreshToken = resData.data.login.refreshToken;
+                  // localStorage.setItem('accessToken', accessToken);
+                  // localStorage.setItem('refreshToken', refreshToken);
+                  this.router.navigate(['./qualiexplore/start']);
+                  // this.sessionService.setUserFromToken(accessToken);
                 },
                 (error) => {
-                  this.isLoading = false
-                  // this.errorMessage = "Error";
-                  console.log("error", error);
-                },
-              )
+                  this.isLoading = false;
+                  console.log('error', error);
+                }
+              );
+            } else {
+              this.errorMessage = 'Invalid Credentials';
+              this.isLoading = false;
             }
-            else{
-              this.errorMessage = "Invalid Credentials"
-              this.isLoading = false
-            }
-          }
-           
-          else{
-            // this.errorMessage = "invalid"
-            this.isLoading = false
-          }  
-        
+          });
+        } else {
+          this.errorMessage = 'Invalid Credentials';
+          this.isLoading = false;
         }
-        
-  },
-  (error) => {
-    console.log(error)
-    this.isLoading = false;
-  },
-  )
-       
-    form.reset()
-  
+      },
+      (error) => {
+        this.errorMessage = 'DB Connection Error';
+        this.isLoading = false;
+        // console.log(error);
+      }
+    );
+    this.errorMessage = null;
+    form.reset();
   }
 }
