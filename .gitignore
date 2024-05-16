@@ -9,7 +9,6 @@
 
 # dependencies
 /node_modules
-*package-lock.json
 
 # profiling files
 chrome-profiler-events.json
@@ -33,6 +32,7 @@ speed-measure-plugin.json
 .history/*
 
 # misc
+/.angular/cache
 /.sass-cache
 /connect.lock
 /coverage
@@ -49,3 +49,4 @@ Thumbs.db
 
 # Security
 .env
+!.env.sample

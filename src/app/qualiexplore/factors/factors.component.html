@@ -1,5 +1,5 @@
 <!-- 
- * Copyright 2020
+ * Copyright 2024
  * University of Bremen, Faculty of Production Engineering, Badgasteiner Straße 1, 28359 Bremen, Germany.
  * In collaboration with BIBA - Bremer Institut für Produktion und Logistik GmbH, Bremen, Germany.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,7 +38,7 @@
           
     <div class="modal-header">
       <h4 class="modal-title" id="popUp">Edit Description and Sources</h4>
-      <span class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span class="close" aria-label="Close" (click)="modal.dismiss();  modalClosed = true">
         <span aria-hidden="true">&times;</span>
       </span>
     </div>
@@ -72,7 +72,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-color mr-2" [disabled]="editForm.pristine && !isCheckboxChanged" (click)="updateData(editForm.value)">Update</button>
-                <button type="button" id="cancel" class="btn btn-color" (click)="modal.close()">Close</button>  
+                <button type="button" id="cancel" class="btn btn-color" (click)="modal.close();  modalClosed = true">Close</button>  
             </div>
     </div>
 </ng-template>
@@ -85,12 +85,12 @@
     </h2>
     <div class="jumbotron bar-color">
         <h3 class="display-5"><span>Step-2</span></h3>
-        <p class="lead"><span>This step highlights the most relevant factors with a </span> <i class="fas fa-flag fa-1x"></i></p>
+        <p class="lead"><span>This step highlights the most relevant factors with a </span> <i class="fas fa-flag fa-1x"></i>. Not all selected filters have a factor associated.</p>
        
         <button type="button" class="btn btn-outline btn-ouline-color mb-2" (click)="collapseSelectedFilters = !collapseSelectedFilters" [attr.aria-expanded]="!collapseSelectedFilters" aria-controls="collapseFilters">
             <span>Selected Filters</span> <i class="fas fa-angle-double-down ml-3" *ngIf="collapseSelectedFilters"></i>
         </button>
-        <button class="btn btn-color ml-3 mb-2" (click)="onAuditAdvisor()">Audit</button>
+        <button class="btn btn-color ml-3 mb-2" (click)="onAuditAdvisor()">Audit Assistant</button>
         <div id="collapseFilters" [ngbCollapse]="collapseSelectedFilters">
             <ul class="filter-details" *ngFor="let filter of selectedFilterDetails">
                 <li>
@@ -164,7 +164,7 @@
                             </ul>
                         </div>
                         <hr>
-                        <button class="btn btn-color" *ngIf = "updateButton" (click)="open(content)">Edit</button>
+                        <button class="btn btn-color" [class.remove-focus]="modalClosed" *ngIf = "updateButton" (click)="open(content)">Edit</button>
                         <button class="btn btn-md btn-color float-right" (click)="markRead(selectedFactor); proceedButtonDisabled = !proceedButtonDisabled" [disabled]="proceedButtonDisabled || selectedFactor.checked"><span>Proceed</span></button>
                     </div>
                 </div>
@@ -174,7 +174,7 @@
                     <h3><span>Progress</span></h3>
                     <div class="shadow p-3 mb-5 bg-white rounded">
                         <b>{{totalResolvedFactors}} of {{totalHighlightedFactors}}</b>
-                        <ngb-progressbar class="progress-bar" [value]="(totalResolvedFactors/totalHighlightedFactors) * 100" height="30px">
+                        <ngb-progressbar class="bar" [value]="(totalResolvedFactors/totalHighlightedFactors) * 100" [animated]="true" height="30px" >
                         </ngb-progressbar>
                     </div>
                 </div>

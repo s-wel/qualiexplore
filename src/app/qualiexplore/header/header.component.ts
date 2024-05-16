@@ -22,14 +22,12 @@ export class HeaderComponent implements OnInit {
 
     const userData = JSON.parse(localStorage.getItem('userData'))
     this.user = userData?.username
-    if (this.user == 'admin' && this.isAuthenticated) {
+    if (this.user.toLowerCase().includes("admin") && this.isAuthenticated) {
       this.updateButton = true
     } else {
       this.updateButton = false
     }
   }
-
-  onSubmit(form: NgForm) {}
 
   onLogout() {
     this.authService.logout()

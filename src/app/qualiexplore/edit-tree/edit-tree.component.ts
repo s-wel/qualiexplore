@@ -1,12 +1,12 @@
-import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, ElementRef, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef} from '@angular/core';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common';
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { graphqlApiService } from '../graphqlApi.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+
 
 
 @Component({
@@ -15,20 +15,20 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./edit-tree.component.css']
 })
 
-export class EditTreeComponent implements OnInit, OnDestroy, AfterViewInit {
+export class EditTreeComponent implements OnInit, OnDestroy {
 
  
   
   websocketUrl = environment.socketUrlApi;
   item : any;
-  editForm:FormGroup;
-  addForm:FormGroup;
-  cycleForm: FormGroup;
+  editForm:UntypedFormGroup;
+  addForm:UntypedFormGroup;
+  cycleForm: UntypedFormGroup;
 
   @ViewChild('newItemInput', { static: true }) newItemInput: ElementRef;
 
 
-  constructor(private route: ActivatedRoute,private router: Router, private graphqlApi: graphqlApiService, private location: Location,  private authService: AuthService,
+  constructor(private route: ActivatedRoute,private router: Router, private graphqlApi: graphqlApiService, private authService: AuthService,
   private modalService : NgbModal, private cdr: ChangeDetectorRef) {}
 
 
@@ -59,19 +59,12 @@ export class EditTreeComponent implements OnInit, OnDestroy, AfterViewInit {
         });
       });
    
-      console.log("Item ::",this.item);
+      // console.log("Item ::",this.item);
     })
-  }
-
-  ngAfterViewInit() {
-    // console.log("Afterview", this.newItemInput.nativeElement);
-    
-    // this.newItemInput.nativeElement.focus();
   }
 
   ngOnDestroy() {
 
-      console.log("Ondestroy Called :");
       setTimeout(() => {
         const chatWidgetContainer = document.querySelector('#rasa-chat-widget-container');
         if (chatWidgetContainer) {
@@ -86,7 +79,18 @@ export class EditTreeComponent implements OnInit, OnDestroy, AfterViewInit {
 
     
   chatWidget(){
+    const userData = JSON.parse(localStorage.getItem('userData'))
+    const username = userData.username
+    // To implement conversation ID
+    // console.log(userData.username);
+    // const chatData = JSON.parse(localStorage.getItem('chat_session'))
+    // console.log(chatData)
+    // console.log(chatData.session_id);
+    // const conID = `${username}-${chatData.session_id}` 
 
+    // console.log("Passing ID :",conID)
+
+    //
     this.rasaChatScript = document.createElement('script');
     this.rasaChatScript.src = 'https://unpkg.com/@rasahq/rasa-chat';
     this.rasaChatScript.type = 'application/javascript';
@@ -98,7 +102,7 @@ export class EditTreeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   togglePhase(phase) {
 
-    console.log(phase);
+    // console.log(phase);
   
     phase.expanded = !phase.expanded;
     this.cdr.detectChanges();
@@ -112,10 +116,10 @@ export class EditTreeComponent implements OnInit, OnDestroy, AfterViewInit {
    
   open(content,id, name) {
     this.modalService.open(content, {ariaLabelledBy: 'popUp', size:'lg', centered: true})  
-    this.editForm = new FormGroup({
-      'name' : new FormControl(name),
+    this.editForm = new UntypedFormGroup({
+      'name' : new UntypedFormControl(name),
      
-      'id' : new FormControl(id),
+      'id' : new UntypedFormControl(id),
       
     }); 
 
@@ -123,18 +127,18 @@ export class EditTreeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   openAddModal(addContent,id, name) {
     this.modalService.open(addContent, {ariaLabelledBy: 'popUp', size:'lg', centered: true})  
-    this.addForm = new FormGroup({
-      'name' : new FormControl(name),
-      'newItem': new FormControl(""),
-      'id' : new FormControl(id),
+    this.addForm = new UntypedFormGroup({
+      'name' : new UntypedFormControl(name),
+      'newItem': new UntypedFormControl(""),
+      'id' : new UntypedFormControl(id),
     }); 
 
   }
 
  openAddCycleModal(addCycle){
   this.modalService.open(addCycle, {ariaLabelledBy: 'popUp', size:'lg', centered: true})
-  this.cycleForm = new FormGroup({
-    'name': new FormControl(""),
+  this.cycleForm = new UntypedFormGroup({
+    'name': new UntypedFormControl(""),
   }); 
  }
 
@@ -175,33 +179,33 @@ getLcIds() {
 
 
 async updateName(data){
-    console.log(data.id, data.name);
+    // console.log(data.id, data.name);
     let lcIds: any = await this.getLcIds()
     let qcIds:any = await this.getQcIds();
     let qfIds:any = await this.getQfIds();
 
     if(lcIds.includes(data.id)){
-      console.log("This is a LC");
+      // console.log("This is a LC");
       this.subscriptions.push(this.graphqlApi.updateLCname(data.id, data.name).subscribe((res:any) => {
-        console.log(res);
+        // console.log(res);
         this.getAllData();
           
       }))
     }
 
     if(qcIds.includes(data.id)){
-      console.log("This is a QC");
+      // console.log("This is a QC");
       this.subscriptions.push(this.graphqlApi.updateQCname(data.id, data.name).subscribe((res:any) => {
-        console.log(res);
+        // console.log(res);
         this.getAllData();
           
       }))
     }
 
     if(qfIds.includes(data.id)){
-      console.log("This is a QF");
+      // console.log("This is a QF");
       this.subscriptions.push(this.graphqlApi.updateQFname(data.id, data.name).subscribe((res:any) => {
-        console.log(res);
+        // console.log(res);
         this.getAllData();
           
       }))
@@ -215,7 +219,7 @@ async updateName(data){
   addNewLifeCycle(data){
     const description ="Update the description";
     this.subscriptions.push(this.graphqlApi.createLC(data.name, description).subscribe((res:any) => {
-      console.log(res);
+      // console.log(res);
       this.getAllData();
       
     }))
@@ -226,26 +230,25 @@ async updateName(data){
   }
 
   async addItem(data){
-    console.log(data.id, data.name,  data.newItem);
+    // console.log(data.id, data.name,  data.newItem);
     let lcIds: any = await this.getLcIds()
     let qcIds:any = await this.getQcIds();
     // let qfIds:any = await this.getQfIds();
     const description ="Update the description";
     const source = "Update the source";
     if(lcIds.includes(data.id)){
-      console.log("This is a LC");
       // let uuID = uuid();
       this.subscriptions.push(this.graphqlApi.createQC(description, data.newItem, data.id).subscribe((res:any) => {
-          console.log(res);
+          // console.log(res);
           this.getAllData();
       }))
     }
 
     if(qcIds.includes(data.id)){
-      console.log("This is a QC");
+      // console.log("This is a QC");
       // let uuID = uuid();
       this.subscriptions.push(this.graphqlApi.createQF(description, data.newItem, source, data.id).subscribe((res:any) => {
-          console.log(res);
+          // console.log(res);
           this.getAllData();
       }))
     }
@@ -264,25 +267,25 @@ async updateName(data){
     if(confirm("Are you sure to delete it ?")){
 
       if(lcIds.includes(id)){
-        console.log("This is a LC");
+        // console.log("This is a LC");
         this.subscriptions.push(this.graphqlApi.deleteLC(id).subscribe((res:any) => {
-            console.log(res);
+            // console.log(res);
             this.getAllData();
         }))
       }
   
       if(qcIds.includes(id)){
-        console.log("This is a QC");
+        // console.log("This is a QC");
         this.subscriptions.push(this.graphqlApi.deleteQC(id).subscribe((res:any) => {
-            console.log(res);
+            // console.log(res);
             this.getAllData();
         }))
       }
   
       if(qfIds.includes(id)){
-        console.log("This is a QF");
+        // console.log("This is a QF");
         this.subscriptions.push(this.graphqlApi.deleteQF(id).subscribe((res:any) => {
-            console.log(res);
+            // console.log(res);
             this.getAllData();
         }))
       }
@@ -296,7 +299,6 @@ async updateName(data){
     // Save and Back 
 
     onBack():void{
-      // this.location.back();
       let selections = sessionStorage.getItem('currentSelectionsSet');
       let arrayOfSelections = JSON.parse(selections);
       this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(arrayOfSelections) } });

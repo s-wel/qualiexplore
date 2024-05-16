@@ -47,6 +47,9 @@ export class AuditAdvisorComponent implements OnInit {
     let arrayOfSelections = JSON.parse(selections);
     if(arrayOfSelections){
       this.router.navigate(['qualiexplore/factors'], { queryParams: { ids: JSON.stringify(arrayOfSelections) } });
+      // To implement Conversation ID
+      // let chatID = sessionStorage.getItem('chatID');
+      // this.router.navigate(['qualiexplore/filters'], { queryParams: { chatID, ids: JSON.stringify(arrayOfSelections) } });
     }
     else{
       this.router.navigate(['qualiexplore/start']);

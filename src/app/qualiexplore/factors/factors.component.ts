@@ -1,5 +1,5 @@
 /**
- * Copyright 2020
+ * Copyright 2024
  * University of Bremen, Faculty of Production Engineering, Badgasteiner Straße 1, 28359 Bremen, Germany.
  * In collaboration with BIBA - Bremer Institut für Produktion und Logistik GmbH, Bremen, Germany.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,10 +16,9 @@
  import { Component, OnInit } from '@angular/core';
  import { ActivatedRoute, Router } from '@angular/router';
  import { TreeviewConfig, TreeviewItem, TreeItem } from 'ngx-treeview';
- import { Location } from '@angular/common';
  import { Filter } from '../filters/model/filter.model';
  import { newFilter } from '../filters/model/filter.model';
- import { FormArray, FormBuilder, FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
+ import { FormArray, FormBuilder, UntypedFormControl, FormControlName, UntypedFormGroup, Validators } from '@angular/forms';
  import { AuthService } from '../auth/auth.service'
  import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
  import { Observable, Subscription } from 'rxjs'
@@ -57,7 +56,7 @@
      selections : number[] = [];
      private selectionsSet: Set<number> = new Set();
 
-     editForm:FormGroup;
+     editForm:UntypedFormGroup;
      allData : any;
      allFS : any;
      allTasks = [];
@@ -67,9 +66,10 @@
      updateButton = false;
 
      isCheckboxChanged = false;
+     modalClosed = false;
 
      
-     constructor(private route: ActivatedRoute, private router: Router, private modalService : NgbModal, private authService: AuthService, private location : Location, private graphqlApi: graphqlApiService) {}
+     constructor(private route: ActivatedRoute, private router: Router, private modalService : NgbModal, private authService: AuthService, private graphqlApi: graphqlApiService) {}
     
      private subscriptions: Subscription[] = [];
      ngOnInit() {
@@ -83,7 +83,7 @@
       
         const userData = JSON.parse(localStorage.getItem('userData'))
           this.user = userData?.username
-          if (this.user == 'admin' && this.isAuthenticated) {
+          if (userData.isAdmin === true && this.isAuthenticated) {
             this.updateButton = true
           } else {
             this.updateButton = false
@@ -194,7 +194,7 @@
                 return result;
               };
 
-              const result: any = {"text": "Platform information quality",  "children": []};
+              const result: any = {"text": "Information quality",  "children": []};
 
               data.lifeCyclePhases.forEach((item: any) => {
                 const converted = convertToNewFormat(item);
@@ -211,10 +211,6 @@
 
        }));
     }
-
-     selection(item){
-        console.log(item.name, item.id);
-     }
 
     changeCheck(id: number, event: any) {
         // console.log("Label Ids ",this.selectedFactor.value.label_ids);
@@ -356,10 +352,19 @@
         let selections = sessionStorage.getItem('currentSelectionsSet');
         let arrayOfSelections = JSON.parse(selections);
         this.router.navigate(['qualiexplore/filters'], { queryParams: { ids: JSON.stringify(arrayOfSelections) } });
+        // To implement conversation ID
+        // let chatID = sessionStorage.getItem('chatID');
+        // this.router.navigate(['qualiexplore/filters'], { queryParams: { chatID, ids: JSON.stringify(arrayOfSelections) } });
+
+
      }
 
      onAuditAdvisor(){
         this.router.navigate(['qualiexplore/audit'])
+        // To implement conversation ID
+        // let chatID = sessionStorage.getItem('chatID');
+        // this.router.navigate(['qualiexplore/audit'], { queryParams: { chatID } });
+
     }
     
     //Navigate to the editable tree to create new child
@@ -392,10 +397,10 @@
             }
         }
 
-        this.editForm = new FormGroup({
-            'description' : new FormControl(description),
-            'source': new FormControl(source),
-            'id' : new FormControl(id),
+        this.editForm = new UntypedFormGroup({
+            'description' : new UntypedFormControl(description),
+            'source': new UntypedFormControl(source),
+            'id' : new UntypedFormControl(id),
         });  
           
      }
@@ -470,10 +475,7 @@
             .pipe(
                 concatMap(() => this.graphqlApi.updateQFlabelIds(selectionsArray, data.id))
             )
-            .subscribe((res:any)=> {
-                console.log("Check :",res);
-                // window.location.reload()
-            }));
+            .subscribe());
         }
        
         
@@ -516,7 +518,7 @@
         }
         
         alert('Data Updated Successfully');
-
+        this.modalClosed = true
         let ref = document.getElementById('cancel');
         ref.click();
      }

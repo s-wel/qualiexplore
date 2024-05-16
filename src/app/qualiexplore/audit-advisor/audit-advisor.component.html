@@ -17,9 +17,151 @@
     <div class="row">
       <div class="col-md-12 col-sm-12">
         <div class="text-section">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sollicitudin sapien a tortor fringilla, ut tristique dolor ullamcorper. Nulla sagittis turpis sed magna iaculis, a tempor nunc blandit. Vivamus euismod, nisi vel consectetur commodo, magna risus vulputate nisi, ac ullamcorper libero sapien sit amet dolor. Mauris ultricies sit amet risus et volutpat. Donec commodo mauris risus, eget interdum magna commodo at. Integer in felis quam.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sollicitudin sapien a tortor fringilla, ut tristique dolor ullamcorper. Nulla sagittis turpis sed magna iaculis, a tempor nunc blandit. Vivamus euismod, nisi vel consectetur commodo, magna risus vulputate nisi, ac ullamcorper libero sapien sit amet dolor. Mauris ultricies sit amet risus et volutpat. Donec commodo mauris risus, eget interdum magna commodo at. Integer in felis quam.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sollicitudin sapien a tortor fringilla, ut tristique dolor ullamcorper. Nulla sagittis turpis sed magna iaculis, a tempor nunc blandit. Vivamus euismod, nisi vel consectetur commodo, magna risus vulputate nisi, ac ullamcorper libero sapien sit amet dolor. Mauris ultricies sit amet risus et volutpat. Donec commodo mauris risus, eget interdum magna commodo at. Integer in felis quam.</p>
+          <p>Welcome to the Audit Advisor chatbot, brought to you by the i4Q project. You can access the chatbot by simply clicking the icon located on the lower right side of this page. Our chatbot is designed to assist you in preparing for quality audits with a specific focus on data quality.</p>
+          <p>Data quality refers to how well the specific characteristics of data align with stated requirements. Similar to product and process quality, data quality plays a crucial role in ensuring accurate and reliable information. Here are some key quality characteristics of data:</p>
+          <ul>
+            <li>Accuracy: The extent to which data attributes correctly represent the true value of the intended attributes within a given context.</li>
+            <li>Precision: The degree to which data attributes are exact or provide discrimination within a specific context of use.</li>
+            <li>Credibility: The level of trustworthiness and believability that users associate with the attributes of data within a specific context.</li>
+            <li>Currentness: The relevance of data attributes based on their timeliness within a specific context of use.</li>
+          </ul>
+          <p>To experience the capabilities of Audit Advisor, we encourage you to give it a try. Simply ask "What can you do?" to obtain an overview of the chatbot's functionalities.</p>
+          <p>Internally, the assistant uses an extensive multi-level questionnaire with more than 2000 specific questions developed by the Technical University of Berlin (TUB). BIBA translated this questionnaire into a knowledge graph that the chatbot can access. The chatbot uses Rasa Open Source, which significantly differs from recent generative models. It is more reliable and does not hallucinate but at the expense of being less flexible and human-like in its responses.</p>
+          <p>This is a prototypical implementation with some constraints:</p>
+          <ul>
+            <li>All users share the same projects</li>
+            <li>Higher probability that a conversation results in an out-of-scope response like "Sorry, I cannot help you."</li>
+            <li>Higher probability the bot respondes with irrational answers in longer conversations</li>
+            <li>Errors in the underlying questionnaire, such as missing descriptions and typos</li>
+          </ul>
+
+          <p>Glossary:</p>
+
+          <p>The assistant's knowledge base contains many terms used to scope the questions. The following tables contain these terms and definitions.</p>
+
+          <table>
+            <caption>Terms and Definitions of Target Entities</caption>
+            <tr>
+              <th>Target Entity</th>
+              <th>Description</th>
+              <th>Examples</th>
+            </tr>
+            <tr>
+              <td>Architecture</td>
+              <td>Fundamental concepts or properties of a system in its environment embodied in its elements, relationships, and in the principles of its design and evolution. (ISO/IEC 25024:2015(E))</td>
+              <td>Concept how e.g., sensors in machine are connected to data base, which is connected to hard- and software resources for analysis and how data is generated, handled, transformed and stored.</td>
+            </tr>
+            <tr>
+              <td>Contextual schema</td>
+              <td>Formal description of the boundary of the context of use where data models are applied. It includes a holistic vision of a (system) context of the architecture. (ISO/IEC 25024:2015(E))</td>
+              <td>It describes what information is needed to fulfil a specific use case in a generic way e.g., To ensure motor is not overheating temperature data is needed.</td>
+            </tr>
+            <tr>
+              <td>Data models</td>
+              <td>Graphical and textual representation of analysis that identifies the data needed by an organization to achieve its mission, functions, goals, objectives, and strategies and to manage and rate the organization. A data model identifies the entities, domains (attributes), and relationships (associations) with other data and provides the conceptual view of the data and the relationships among data. (ISO/IEC 25024:2015)</td>
+              <td>Data such as RPM of tool, force exerted and encountered by tool etc. during the facing operation simulation is used to find/predict tool life and tool wear.</td>
+            </tr>
+            <tr>
+              <td>Data dictionary</td>
+              <td>Collection of information about data such as name, description, creator, owner, provenance, translation in different languages, and usage. (ISO/IEC 25024:2015(E)).</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>Document</td>
+              <td>Records any aspect of project design, sampling, data collection, cleaning and analysis that provides information or evidence</td>
+              <td>Job sheet used by an operator in a CNC Machine to document key tasks performed and used also in quality audits.</td>
+            </tr>
+            <tr>
+              <td>Data file</td>
+              <td>Set of related data records treated as a unit. (ISO/IEC 25024:2015(E))</td>
+              <td>Number of job sheets for a particular type of product produced by a machine over a particular period.</td>
+            </tr>
+            <tr>
+              <td>Database Management System</td>
+              <td>It is a structured collection of data and software designed to store, retrieve, define, and manage data in a database. (ISO/IEC 25024:2015(E))</td>
+              <td>MySQL, PostgreSQL, Microsoft Access, SQL Server, FileMaker, Oracle</td>
+            </tr>
+            <tr>
+              <td>Relational Database Management System</td>
+              <td>Management system for relational database i.e.  system for storing, managing, querying, and retrieving data from a relational database. (ISO/IEC 25024:2015(E))</td>
+              <td>Microsoft SQL Server, Oracle Database, MySQL and IBM DB2</td>
+            </tr>
+            <tr>
+              <td>Form</td>
+              <td>A form is a user interface element that allows you to enter and submit data on a software application i.e. module or formulary to collect data (ISO/IEC 25024:2015(E))</td>
+              <td>In the drilling function present on the CNC control panel, the user has to fill various parameters such as drilling location, dept of drill, coolant activation etc in the blanks.</td>
+            </tr>
+            <tr>
+              <td>Presentation device</td>
+              <td>Device used to present data to the intended user of a system. module or formulary to collect data. (ISO/IEC 25024:2015(E))</td>
+              <td>CNC Control Panel, Dashboard, handheld device, etc.</td>
+            </tr>
+          </table>
+          
+          <table>
+            <caption>Terms and Definitions of Properties</caption>
+            <tr>
+              <th>Property</th>
+              <th>Description</th>
+              <th>Examples</th>
+            </tr>
+            <tr>
+              <td>Attribute</td>
+              <td>Inherent property or characteristic of a target entity that can be distinguished quantitatively or qualitatively by human or automated means. (ISO/IEC 25024:2015(E))</td>
+              <td>In above Product No., DIM 1, DIM 2 are examples of data attributes.</td>
+            </tr>
+            <tr>
+              <td>Element</td>
+              <td>Smaller part of an architecture. (ISO/IEC 25024:2015(E))</td>
+              <td>Data pipeline, Sensor, Data Source</td>
+            </tr>
+            <tr>
+              <td>Information</td>
+              <td>In information processing, knowledge concerning objects, such as facts, events, things, processes, or ideas, including concepts, that within a certain context have a particular meaning. (ISO/IEC 25024:2015(E))</td>
+              <td>Sets data into context</td>
+            </tr>
+            <tr>
+              <td>Metadata</td>
+              <td>Data that describe other data. (ISO/IEC 25024:2015(E))</td>
+              <td>File Name, Properties, Created by, Modified By, File Size, File Type etc of an MS Excel file.</td>
+            </tr>
+            <tr>
+              <td>Vocabulary</td>
+              <td>Collection of information related to a specific subset of terms related to a specific domain. (ISO/IEC 25024:2015(E))</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>Data format</td>
+              <td>Arrangement of data for storage or display</td>
+              <td>Quality data stored in tabular form.</td>
+            </tr>
+            <tr>
+              <td>Data item</td>
+              <td>Smallest identifiable unit of data within a certain context for which the definition, identification, permissible values, and other information is specified by means of a set of properties. (ISO/IEC 25024:2015(E))</td>
+              <td>In quality data, the cell with the value 5.98 of Product No. 1.</td>
+            </tr>
+            <tr>
+              <td>Data value</td>
+              <td>Content of data item. (ISO/IEC 25024:2015(E))</td>
+              <td>In quality data, the data value of Product No. 2's first dimension (DIM1) is 10.45.</td>
+            </tr>
+            <tr>
+              <td>Information item</td>
+              <td>Separately identifiable body of information that is produced, stored, and delivered for human use. (ISO/IEC 25024:2015(E))</td>
+              <td>Abstract classifier representing information, which is transferred within a system, e.g., digital Order is send by the customer over the system to the shop. It contains information about quantity, price, and delivery date.</td>
+            </tr>
+            <tr>
+              <td>Information item content</td>
+              <td>Information included in an information item, associated with a system, product, or service to satisfy a requirement, or need. (ISO/IEC 25024:2015)</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>Data record</td>
+              <td>Set of related data items treated as a unit. (ISO/IEC 25024:2015(E))</td>
+              <td>Quality Check data table including all data is Data record.</td>
+            </tr>
+          </table>
+
         </div>
       </div>
     </div>

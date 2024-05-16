@@ -1,5 +1,5 @@
 /**
- * Copyright 2020
+ * Copyright 2024
  * University of Bremen, Faculty of Production Engineering, Badgasteiner Straße 1, 28359 Bremen, Germany.
  * In collaboration with BIBA - Bremer Institut für Produktion und Logistik GmbH, Bremen, Germany.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,33 +23,43 @@ import { EditTreeComponent } from './edit-tree/edit-tree.component';
 import { AuditAdvisorComponent } from './audit-advisor/audit-advisor.component';
 import { AuthComponent } from './auth/auth.component';
 import { StartPageComponent } from './start-page/start-page.component';
+import { UserManagementComponent } from './user-management/user-management.component';
 import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
-    // TODO enbale commented code when user connection is ready
     {
         path: 'auth', 
         component: AuthComponent
     },
     {
         path: 'start', 
-        component: StartPageComponent
+        component: StartPageComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'filters',
-        component: FiltersComponent
+        component: FiltersComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'factors',
-        component: FactorsComponent
+        component: FactorsComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'edit',
-        component: EditTreeComponent
+        component: EditTreeComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'audit',
-        component: AuditAdvisorComponent
+        component: AuditAdvisorComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'user-management',
+        component: UserManagementComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: '',

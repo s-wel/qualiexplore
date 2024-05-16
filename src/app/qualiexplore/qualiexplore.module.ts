@@ -1,5 +1,5 @@
 /**
- * Copyright 2020
+ * Copyright 2024
  * University of Bremen, Faculty of Production Engineering, Badgasteiner Straße 1, 28359 Bremen, Germany.
  * In collaboration with BIBA - Bremer Institut für Produktion und Logistik GmbH, Bremen, Germany.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,35 +30,36 @@ import { HeaderComponent } from './header/header.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { NgxTreeDndModule } from 'ngx-tree-dnd';
 import { EditTreeComponent } from './edit-tree/edit-tree.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faEdit,faMinus,faPlus,faTimes } from '@fortawesome/free-solid-svg-icons';
-import { fas } from '@fortawesome/free-solid-svg-icons';
+// import { faEdit,faMinus,faPlus,faTimes } from '@fortawesome/free-solid-svg-icons';
+// import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { AuditAdvisorComponent } from './audit-advisor/audit-advisor.component';
 import { StartPageComponent } from './start-page/start-page.component';
+import { UserManagementComponent } from './user-management/user-management.component';
 // import { SessionService } from './auth/session.service';
 
 @NgModule({
-
-  declarations: [FiltersComponent, FactorsComponent, PageNotFoundComponent, EditTreeComponent, AuthComponent, HeaderComponent, LoadingSpinnerComponent, AuditAdvisorComponent, StartPageComponent],
+  declarations: [FiltersComponent, FactorsComponent, PageNotFoundComponent, EditTreeComponent, AuthComponent, HeaderComponent, LoadingSpinnerComponent, AuditAdvisorComponent, StartPageComponent, UserManagementComponent],
   imports: [
     CommonModule,
     QualiexploreRoutingModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxTreeDndModule,
     TreeviewModule.forRoot(),
     NgbModule, 
-    FontAwesomeModule
+    NgbProgressbarModule,
+    FontAwesomeModule,
   ],
   providers: [AuthService]
 })
 export class QualiexploreModule {
    constructor(){
-      library.add(faEdit, faMinus, faPlus, faTimes, fas, far);
+      // library.add(faEdit, faMinus, faPlus, faTimes, fas, far);
+      library.add(far);
    }
  }

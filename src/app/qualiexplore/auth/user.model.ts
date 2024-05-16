@@ -3,6 +3,7 @@ export class User {
     public username: string,
     private _accessToken: string,
     private _accessTokenExpiration: Date,
+    public isAdmin?: boolean
   ) {}
 
   get token() {

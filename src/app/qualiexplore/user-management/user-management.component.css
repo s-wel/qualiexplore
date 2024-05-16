@@ -1,0 +1,221 @@
+.icon-red{
+    color:red;
+    cursor: pointer;
+}
+/* input.ng-invalid.ng-touched{
+    border: 1px solid red;
+}  */
+.close{
+    cursor: pointer;
+}
+.ticon{
+    font-size: medium;
+    cursor: pointer;
+    
+}
+
+/* .rw-widget-container {
+    left: 0;
+} */
+
+
+::ng-deep #rasaWebchatPro .rw-widget-container{
+
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    margin: 0px 20px 20px 20px;
+    position: relative;
+    width: auto;
+    left:0;
+    z-index: 1;
+    align-items: flex-start;
+    justify-content: flex-start; 
+
+}
+
+
+.container-color{
+    background-color:#b7b6b6 ;
+}
+
+.btn-color {
+    background-color: #8064A2;
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+.btn-color:hover {
+    background-color: #715b8d;
+    color: white;
+}
+
+
+.btn-color-sm{
+    background-color: #8064A2;
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    width: 110px;
+}
+.btn-color-sm:hover {
+    background-color: #715b8d;
+    color: white;
+}
+
+
+.lead{
+
+    color: #120606;
+}
+/* .bar-color{
+    background-color: #b7b6b6 ;
+   
+} */
+
+.bar-color {
+    background-color: #b7b6b6;
+}
+
+
+.text-section {
+    background-color: #f2f2f2;
+    /* padding: 40px; */
+    padding-bottom: 60px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 30px;
+    border-radius: 10px;
+    text-align: justify;
+    margin-top: 30px;
+}
+  
+.jumbotron {
+    padding: 20px;
+    margin-bottom: 0;
+    border-radius: 1;
+}
+.text{
+    font-size: 16px;
+}
+.remove-focus {
+    outline: none;
+    box-shadow: none;
+}
+
+
+@media (max-width: 991px) {
+    
+    .btn {
+        white-space: nowrap; /* Prevent the button text from wrapping to the next line */
+        display: inline-block; /* Make sure the button is displayed as a block element */
+      }
+  
+      body{
+          font-size: 14px;
+          
+      }
+  
+      h1 {
+          font-size: 20px; /* Decrease h1 font size for mobile */
+      }
+    
+      h2 {
+          font-size: 18px; /* Decrease h2 font size for mobile */
+      }
+      h3, h4, h5,h6{
+        font-size: 17px;
+      }
+    
+      p {
+          font-size: 15px; /* Decrease p font size for mobile */
+      }
+      ul li{
+        font-size: 15px;
+        text-align: left;
+      }
+      div {
+        font-size:  15px;
+      }
+      .btn{
+        font-size: 15px;
+      }
+      .proceed{
+        text-align: right;
+        margin-right: 30px;
+      }
+
+    .mv-form{
+        width: 400px;
+    }
+    .icon-red{
+        margin-left: 10px;
+        margin-top: 12px;
+    }
+
+}
+  
+
+@media (max-width: 767px) {
+
+    .btn {
+      white-space: nowrap; /* Prevent the button text from wrapping to the next line */
+      display: inline-block; /* Make sure the button is displayed as a block element */
+    }
+
+    body{
+        font-size: 10px;
+        
+    }
+
+    h1 {
+        font-size: 16px; /* Decrease h1 font size for mobile */
+    }
+
+    h2 {
+        font-size: 15px; /* Decrease h2 font size for mobile */
+    }
+    h3, h4, h5,h6{
+      font-size: 13px;
+    }
+
+    p {
+        font-size: 10px; /* Decrease p font size for mobile */
+    }
+    /* ul li{
+      font-size: 11px;
+      text-align: left;
+    } */
+    div {
+      font-size:  12px;
+    }
+
+    .mb-5 {
+        margin-bottom: 0;
+    }
+    .btn{
+        font-size: 12px;
+    }
+    .title{
+        margin-top: 8px;
+        margin-left: 100px ;
+    }
+    .back {
+        margin-left: 30px;
+    }
+    .text{
+        font-size: 12px;
+    }
+
+    .proceed-btn{
+        width:90px
+    }
+    .mv-form{
+        width: 339px;
+    }
+    .icon-red{
+        margin-top: 12px;
+    }
+    
+
+}

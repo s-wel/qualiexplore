@@ -1,6 +1,6 @@
 /**
 
- * Copyright 2020
+ * Copyright 2024
  * University of Bremen, Faculty of Production Engineering, Badgasteiner Straße 1, 28359 Bremen, Germany.
  * In collaboration with BIBA - Bremer Institut für Produktion und Logistik GmbH, Bremen, Germany.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,6 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgxTreeDndModule } from 'ngx-tree-dnd';
 import { GraphQLModule } from './graphql.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TimeoutService } from './timeout.service';
@@ -35,7 +34,6 @@ import { TimeoutService } from './timeout.service';
   ],
   imports: [
     BrowserModule,
-    NgxTreeDndModule,
     GraphQLModule,
     AppRoutingModule,
     HttpClientModule,

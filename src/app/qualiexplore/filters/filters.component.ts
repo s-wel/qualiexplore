@@ -1,5 +1,5 @@
 /**
- * Copyright 2020
+ * Copyright 2024
  * University of Bremen, Faculty of Production Engineering, Badgasteiner Straße 1, 28359 Bremen, Germany.
  * In collaboration with BIBA - Bremer Institut für Produktion und Logistik GmbH, Bremen, Germany.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,19 +13,17 @@
  * limitations under the License.
  */
 
-import { Component, ElementRef, OnInit, ViewChild, ChangeDetectorRef, NgZone, AfterContentChecked, AfterViewInit, ViewChildren, QueryList, OnDestroy} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectorRef, AfterViewInit, ViewChildren, QueryList, OnDestroy} from '@angular/core';
 import { Router } from '@angular/router';
 import { Filter } from './model/filter.model';
 import { newFilter } from './model/filter.model';
-import { FormArray, FormBuilder, FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormControl, FormControlName, UntypedFormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service'
-import { stringify } from 'querystring';
 import { map } from 'rxjs/operators';
 import {graphqlApiService} from '../graphqlApi.service'
 import { Subscription } from 'rxjs';
-import { v4 as uuid } from 'uuid';
 import { environment } from 'src/environments/environment'
 import { ActivatedRoute } from '@angular/router';
 
@@ -33,7 +31,7 @@ import { ActivatedRoute } from '@angular/router';
     selector: 'app-filters',
     templateUrl: './filters.component.html',
     styleUrls: ['./filters.component.css'],
-    providers: []
+    providers: [],
 })
 
 export class FiltersComponent implements OnInit, OnDestroy {
@@ -45,12 +43,14 @@ export class FiltersComponent implements OnInit, OnDestroy {
     taskarr=[];
     valid = false;
     pageLoaded : boolean;
+    modalClosed = false;
     
     allData : Object;
 
     subscription : Subscription;
 
     websocketUrl = environment.socketUrlApi;
+    chatID : string;
    
     editableObj: {
       id : string,
@@ -71,7 +71,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
     allFiltersInfo = [];
 
     private selectionsSet: Set<number> = new Set();
-    constructor(private modalService: NgbModal, private fb: FormBuilder,private router: Router, private ref: ChangeDetectorRef, private authService: AuthService, private graphqlApi: graphqlApiService, private eref : ElementRef, private route: ActivatedRoute) {
+    constructor(private modalService: NgbModal, private fb: UntypedFormBuilder,private router: Router, private ref: ChangeDetectorRef, private authService: AuthService, private graphqlApi: graphqlApiService, private eref : ElementRef, private route: ActivatedRoute) {
 
         this.editableObj = {
           id: "",
@@ -92,8 +92,8 @@ export class FiltersComponent implements OnInit, OnDestroy {
    @ViewChild('content', {static: true}) content: ElementRef;
    @ViewChild('editcontent', {static: true}) editcontent: ElementRef;
    @ViewChildren("checkboxes") checkboxes: QueryList<ElementRef>;
-   filtersForm:FormGroup;
-   editForm:FormGroup;
+   filtersForm:UntypedFormGroup;
+   editForm:UntypedFormGroup;
    isEdit = false;
 
    isAuthenticated = false
@@ -118,10 +118,17 @@ export class FiltersComponent implements OnInit, OnDestroy {
         })
     
         const userData = JSON.parse(localStorage.getItem('userData'))
+        const chatData = JSON.parse(localStorage.getItem('chat_session'))
         this.user = userData?.username
+        // To implement conversation ID
+        // const sessionID = chatData.session_id
+        // this.chatID = `${this.user}-${sessionID}`
+        
+        // console.log(this.chatID);
+        
         // console.log("check",this.user);
         
-        if (this.user == 'admin' && this.isAuthenticated) {
+        if (userData.isAdmin === true && this.isAuthenticated) {
           // console.log("Admin mode on");
           this.updateButton = true
         } else {
@@ -143,8 +150,8 @@ export class FiltersComponent implements OnInit, OnDestroy {
         
         
         //modal filters form
-        this.filtersForm = new FormGroup({
-            'category': new FormControl(null, Validators.required),
+        this.filtersForm = new UntypedFormGroup({
+            'category': new UntypedFormControl(null, Validators.required),
             'tasks': this.fb.array([this.fb.control('')])
           })
 
@@ -175,7 +182,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
     markPrevFilterStatements(){
       this.route.queryParams.pipe(
         map(params => params['ids'] ? JSON.parse(params['ids']) : [])
-        ).subscribe(ids => {
+        ).subscribe((ids: any[]) => {
           // console.log("ids :", ids);
           // console.log("check :", this.allFiltersInfo);
           this.allFiltersInfo.forEach(filter => {
@@ -263,10 +270,11 @@ export class FiltersComponent implements OnInit, OnDestroy {
     open(content) {
     
         this.modalService.open(content, {ariaLabelledBy: 'popUp', size:'lg', centered: true})
+        this.modalClosed = false;
     }
     saveData(){
         const values = this.filtersForm.value;
-        console.log("Filtersform Value",values);
+        // console.log("Filtersform Value",values);
         const cats = values.category;
         const taskArr = values.tasks.name;
         taskArr.forEach(element => {
@@ -277,54 +285,58 @@ export class FiltersComponent implements OnInit, OnDestroy {
     onAddtask(){
         const control = this.fb.control('');
         this.formArr.push(control);
+        // this.ref.detectChanges();
     }
     onEditAddtask(){
        
         this.editArr.push(this.fb.group({
-          taskgroup: new FormControl("")
+          taskgroup: new UntypedFormControl("")
         }));
+        // this.ref.detectChanges();
         
     }
-      get formArr() {
-        return this.filtersForm.get('tasks') as FormArray;
-      }
+    get formArr() {
+      return this.filtersForm.get('tasks') as UntypedFormArray;
+    }
 
-      get editArr(){
-        return this.editForm.get('tasks') as FormArray;
-      }
-     
-      deleteFields(index:number){
-        this.formArr.removeAt(index);
-      }
+    get editArr(){
+      return this.editForm.get('tasks') as UntypedFormArray;
+    }
+    
+    deleteFields(index:number){
+      this.formArr.removeAt(index);
+    }
 
-      deleteEditFields(index:number){
-        // console.log(this.allFiltersInfo);
-        // console.log("All tasks :",this.editableObj.tasks);
-        if(this.editableObj.tasks[index]){
-       
-          let dltId = this.editableObj.tasks[index].id;
-          this.subscriptions.push(this.graphqlApi.deleteFilterStatement(dltId).subscribe((res)=>{
-            // console.log(res);
-            this.get_all_filters()
-          }))
-          // console.log("Deleted ID :", dlt_id)
-          
-        }
-        this.editArr.removeAt(index);
-        let ref = document.getElementById('cancel');
-        ref.click();
-        this.reset()
+    deleteEditFields(index:number){
+      // console.log(this.allFiltersInfo);
+      // console.log("All tasks :",this.editableObj.tasks);
+      if(this.editableObj.tasks[index]){
+      
+        let dltId = this.editableObj.tasks[index].id;
+        this.subscriptions.push(this.graphqlApi.deleteFilterStatement(dltId).subscribe((res)=>{
+          // console.log(res);
+          this.get_all_filters()
+        }))
+        // console.log("Deleted ID :", dlt_id)
+        
       }
+      this.editArr.removeAt(index);
+      let ref = document.getElementById('cancel');
+      ref.click();
+      this.reset();
+        
+    }
       
 
     async postFormData(dataObj) {
       const { category, tasks } = dataObj;
-     
+      
       
       try {
           const res = await this.graphqlApi.createFilterGroups(category).toPromise() as any;
           // console.log(res);
           var filterGroupId = res.data.createFilterGroups.filterGroups[0].id;
+
       } 
       catch (err) {
           console.error(err);
@@ -340,6 +352,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
           catch (err) {
                 console.error(err);
             }
+        
       }
       
       this.filtersForm.reset();
@@ -349,90 +362,92 @@ export class FiltersComponent implements OnInit, OnDestroy {
 
       
       this.reset()
-
       let ref = document.getElementById('cancel');
-      ref.click();
-    }
-
-
-
-      /// get all filters data from graph
-      async get_all_filters(){
-        try {
-          this.allFiltersInfo = [];
-          const res: any = await this.graphqlApi.getFilterStatements().toPromise();
-          res.data.filterGroups.forEach(filterGroup => {
-            const groupName = filterGroup.name;
-            const existingGroup = this.allFiltersInfo.find(f => f.name === groupName);
-            if (existingGroup) {
-              filterGroup.filterStatementsBelongsTo.forEach(filterStatement => {
-                existingGroup.tasks.push({ id: filterStatement.id, name: filterStatement.text, checked: false });
-              });
-            } else {
-              let tasks = [];
-              filterGroup.filterStatementsBelongsTo.forEach(filterStatement => {
-                tasks.push({ id: filterStatement.id, name: filterStatement.text, checked: false });
-              });
-              this.allFiltersInfo.push({ id: filterGroup.id, category: groupName, tasks: tasks });
-            }
-          });
-          this.newFilters = this.allFiltersInfo;
-        } catch (error) {
-          console.log(error);
-        }
-
+      if(ref){
+        ref.click();
+        this.modalClosed = true
       }
+      else{
+        this.modalClosed = false
+      }
+      
+  }
 
 
 
-    // crud operations on Filters Editable Form using graphql API
-      editFormData(data){
-   
-          // console.log("To edit :",data);
-          // console.log("To edit id :", data.id);
-        
-          this.isEdit = true;
-          let category = '';
-          let tasks = new FormArray([]);
-          category = data.category;
-          // console.log("tasks:", data.tasks);
-          for(let task of data.tasks){
-                tasks.push(
-                  new FormGroup({
-                    'taskgroup' : new FormControl(task.name)
-                  })
-                );
-              }
-          this.editForm = new FormGroup({
-              'category' : new FormControl(category),
-              'tasks': tasks
+  // To  get all filters data from graphqlAPI
+  async get_all_filters(){
+    try {
+      this.allFiltersInfo = [];
+      const res: any = await this.graphqlApi.getFilterStatements().toPromise();
+      res.data.filterGroups.forEach(filterGroup => {
+        const groupName = filterGroup.name;
+        const existingGroup = this.allFiltersInfo.find(f => f.name === groupName);
+        if (existingGroup) {
+          filterGroup.filterStatementsBelongsTo.forEach(filterStatement => {
+            existingGroup.tasks.push({ id: filterStatement.id, name: filterStatement.text, checked: false });
           });
-          
-          // console.log(data);
-         
-         
-          this.editableObj = Object.assign({},data)
-          // console.log("After assigning data:",this.editableObj);
-          
-          this.modalService.open(this.editcontent, {ariaLabelledBy: 'popUp', size:'lg', centered: true});
-        
+        } else {
+          let tasks = [];
+          filterGroup.filterStatementsBelongsTo.forEach(filterStatement => {
+            tasks.push({ id: filterStatement.id, name: filterStatement.text, checked: false });
+          });
+          this.allFiltersInfo.push({ id: filterGroup.id, category: groupName, tasks: tasks });
+        }
+      });
+      this.newFilters = this.allFiltersInfo;
+    } catch (error) {
+      console.log(error);
     }
+
+  }
+
+
+
+  // CRUD operations on Filters Editable Form using graphql API
+  editFormData(data){
+  
+        // console.log("To edit :",data);
+        // console.log("To edit id :", data.id);
+      
+        this.isEdit = true;
+        let category = '';
+        let tasks = new UntypedFormArray([]);
+        category = data.category;
+        // console.log("tasks:", data.tasks);
+        for(let task of data.tasks){
+              tasks.push(
+                new UntypedFormGroup({
+                  'taskgroup' : new UntypedFormControl(task.name)
+                })
+              );
+            }
+        this.editForm = new UntypedFormGroup({
+            'category' : new UntypedFormControl(category),
+            'tasks': tasks
+        });
+        
+        // console.log(data);
+        
+        
+        this.editableObj = Object.assign({},data)
+        // console.log("After assigning data:",this.editableObj);
+        
+        this.modalService.open(this.editcontent, {ariaLabelledBy: 'popUp', size:'lg', centered: true});
+      
+  }
       
 
-    deleteData(data){
-      // console.log(data);
-        if(confirm("Are you sure to delete it ?")){
-          this.subscriptions.push(this.graphqlApi.deleteFilterGroups(data.id).subscribe(res => {
-            console.log(res);
-            this.get_all_filters()
-          }))
-        }
-        this.reset()
-    }
-
-
-
-
+  deleteData(data){
+    // console.log(data);
+      if(confirm("Are you sure to delete it ?")){
+        this.subscriptions.push(this.graphqlApi.deleteFilterGroups(data.id).subscribe(res => {
+          // console.log(res);
+          this.get_all_filters()
+        }))
+      }
+      this.reset()
+  }
 
 
   async updateData(dataObj){
@@ -454,6 +469,12 @@ export class FiltersComponent implements OnInit, OnDestroy {
 
     let ref = document.getElementById('cancel');
     ref.click();
+  }
+
+
+  onBack(){
+    sessionStorage.removeItem('currentSelectionsSet')
+    this.router.navigate(['qualiexplore/start']);
   }
   
     

@@ -4,23 +4,26 @@
     <div class="row">
       <div class="col-md-12 col-sm-12">
         <div class="text-section">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sollicitudin sapien a tortor fringilla, ut tristique dolor ullamcorper. Nulla sagittis turpis sed magna iaculis, a tempor nunc blandit. Vivamus euismod, nisi vel consectetur commodo, magna risus vulputate nisi, ac ullamcorper libero sapien sit amet dolor. Mauris ultricies sit amet risus et volutpat. Donec commodo mauris risus, eget interdum magna commodo at. Integer in felis quam.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sollicitudin sapien a tortor fringilla, ut tristique dolor ullamcorper. Nulla sagittis turpis sed magna iaculis, a tempor nunc blandit. Vivamus euismod, nisi vel consectetur commodo, magna risus vulputate nisi, ac ullamcorper libero sapien sit amet dolor. Mauris ultricies sit amet risus et volutpat. Donec commodo mauris risus, eget interdum magna commodo at. Integer in felis quam.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sollicitudin sapien a tortor fringilla, ut tristique dolor ullamcorper. Nulla sagittis turpis sed magna iaculis, a tempor nunc blandit. Vivamus euismod, nisi vel consectetur commodo, magna risus vulputate nisi, ac ullamcorper libero sapien sit amet dolor. Mauris ultricies sit amet risus et volutpat. Donec commodo mauris risus, eget interdum magna commodo at. Integer in felis quam.</p>
+          <p>Welcome to our website, where we showcase the power of conversational artificial intelligence (AI) in assisting companies with data quality management. This innovative approach is exemplified through two solutions developed as part of the EU-funded i4Q project (<a href="https://www.i4q-project.eu/">website</a>).</p>
+          <p>The first solution is Audit Advisor, a chatbot specifically designed to support data quality audits. It provides guidance by leading users through a comprehensive questionnaire, enabling them to assess the effectiveness of their organization's data quality management, whether it pertains to the entire production process or a specific segment of it. For detailed information on the audit procedure, you can access the documentation on the i4Q project <a href="https://www.i4q-project.eu/_files/ugd/0eaac6_f977bb7f4d544ce2ac36b9b7661c0957.pdf">website</a>.</p>
+          <p>The second solution is i4Q QualiExplore, a web-based knowledge base aimed at identifying relevant factors that influence data quality within production. It offers a user-friendly interface that allows users to explore and navigate through factor descriptions. Additionally, a complementary chatbot is available to enhance the user experience. For detailed information on QualiExplore, you can access the documentation on the i4Q project's <a href="https://www.i4q-project.eu/_files/ugd/0eaac6_d12914161cad44a3af57eebb25b4449e.pdf">website</a>.</p>
+          <p>Explore the potential of conversational AI in data quality management through the Audit Advisor and QualiExplore solutions developed as part of the i4Q project.</p>
         </div>
       </div>
     </div>
 
-    <div class="row mt-5 mb-3">
-        <div class="col-md-6">
-            <button class="btn btn-color" (click) = "onAuditBot()">Audit Bot</button>
-        </div>
-        <div class="col-md-6">
-            <div class="float-right">
-                <button class="btn btn-color" (click) = "onFilterPage()">Filter Page</button>
-            </div>
-        </div>
-    </div>
+    <div class="d-flex justify-content-between mt-5 mb-3">
+      <div>
+          <button class="btn btn-color" (click)="onAuditBot()">Audit Assistant</button>
+      </div>
+      <div class="d-flex justify-content-center" *ngIf="updateButton">
+          <button class="btn btn-color" (click)="onUserManagement()">User Management</button>
+      </div>
+      <div class="d-flex justify-content-end">
+          <button class="btn btn-color" (click)="onFilterPage()">Qualiexplore</button>
+      </div>
+  </div>
+
 </div>
 
 

@@ -4,10 +4,10 @@
 
 .btn-color {
     background-color: hsl(267, 25%, 51%);
-    padding: 12px 29px;
+    padding: 10px;
     color: white;
-    font-size: 18px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 16px;
+    /* transition: background-color 0.3s ease, color 0.3s ease; */
 }
 
 .btn-color:hover {

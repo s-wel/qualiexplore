@@ -1,5 +1,5 @@
 <!--
- * Copyright 2020
+ * Copyright 2024
  * University of Bremen, Faculty of Production Engineering, Badgasteiner Straße 1, 28359 Bremen, Germany.
  * In collaboration with BIBA - Bremer Institut für Produktion und Logistik GmbH, Bremen, Germany.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,18 +17,37 @@
  <app-header></app-header>
 
  <div class="container mt-5">
-  <h2><span>QualiExplore</span></h2>
-  <div class="mt-lg-auto jumbotron container-color">
-      <h3 class="display-5"><span>Step - 1</span></h3>
-      <p class="lead">
-          <span>
-              Select one or more items that fit to the task that you would like to do.
-              QualiExplore will show you factors that influence the quality of the information that you can use in your task.
-          </span>
-      </p>
+  <div class="jumbotron bar-color text-center">
+    <div class="row align-items-center">
+      <div class="col-md-4 col-sm-4 col-xs-4 text-left">
+          <!-- Placeholder for left content if needed -->
+      </div>
+      <div class="col-md-4 col-sm-4 col-xs-4 text-center">
+          <h3 class="title mb-0">QualiExplore</h3>
+      </div>
+      <div class="col-md-4 col-sm-4 col-xs-4 text-right">
+        <button class="btn btn-color back" (click)="onBack()">Back</button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <div class="text-section">
+        <h4 class="display-5"><span>Step - 1</span></h4>
+        <p>
+            <span class="text">
+                    Select the items that fit to the task that you would like to do.
+                    QualiExplore will show you factors that influence the quality of the information that you can use in your task.
+                    You can also use the chatbot in the lower right corner to express your interest. It will try to match your description with the available items.
+            </span>
+        </p>
+        <button class="btn btn-md float-right btn-color mt-2" [class.remove-focus]="modalClosed" *ngIf="updateButton" (click)="open(content)">Add More</button>
+      </div>
+      
+    </div>
   </div>
 
-  <button class="btn btn-md float-right btn-color"  *ngIf="updateButton" (click)="open(content)">Add More</button>
+  <!-- <button class="btn btn-md float-right btn-color mt-3 mb-3"  *ngIf="updateButton" (click)="open(content)">Add More</button> -->
 
 
   <!-- Modal Form To Add New Filters -->
@@ -37,7 +56,7 @@
         
         <div class="modal-header">
           <h4 class="modal-title" id="popUp">Add Filter Category</h4>
-          <span class="close" aria-label="Close" (click)="modal.dismiss()">
+          <span class="close" aria-label="Close" (click)="modal.dismiss();  modalClosed = true">
             <span aria-hidden="true">&times;</span>
           </span>
         </div>
@@ -64,7 +83,7 @@
             
                 <div class="modal-footer">
                   <button type="button" class="btn btn-color" [disabled]="filtersForm.pristine || !filtersForm.valid" (click)="postFormData(filtersForm.value)">Add</button>
-                  <button type="button" id="cancel" class="btn btn-color" (click)="modal.close()">Close</button> 
+                  <button type="button" id="cancel" class="btn btn-color" (click)="modal.close();  modalClosed = true">Close</button> 
                 </div>
                 
             </form>

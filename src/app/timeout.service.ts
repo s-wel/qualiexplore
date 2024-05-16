@@ -5,8 +5,8 @@ import { AuthService } from './qualiexplore/auth/auth.service';
 
 @Injectable()
 export class TimeoutService {
-  //intactivity timer 10 mins
-  private timeoutDuration = 10 * 60000; // 10 * 60000 ms = 10 min
+  //intactivity timer 20 mins
+  private timeoutDuration = 20 * 60000; // 20 * 60000 ms = 20 min
   private timeoutTimer: Observable<number>;
   private timeoutSubject = new Subject();
 
